@@ -3,7 +3,7 @@
     <div class="header">
       <span>玩家主页</span>
     </div>
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh()">
+    <!-- <van-pull-refresh v-model="isLoading" @refresh="onRefresh()"> -->
       <div class="container-scroll">
         <div class="container-info" style="width: 100%">
           <div class="cell">
@@ -37,18 +37,14 @@
             <van-tabs v-model="active">
               <van-tab title="拥有的房地产">
                 <div class="tiner">
-                  <van-grid :border="false" :column-num="2">
-                    <van-grid-item v-for="value in 12" :key="value">
-                      <compont-property />
-                    </van-grid-item>
-                  </van-grid>
+                  <compontProperty/>
                 </div>
               </van-tab>
             </van-tabs>
           </div>
         </div>
       </div>
-    </van-pull-refresh>
+    <!-- </van-pull-refresh> -->
     <div class="container-function">
       <van-tabbar route fixed>
         <van-tabbar-item replace to="/home" icon="home-o"> </van-tabbar-item>
@@ -155,15 +151,16 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  height: 740px;
+  justify-content: flex-start;
+  height: 800px;
   .container-property {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
+    margin:10px 0;
   }
 
   .cell {
