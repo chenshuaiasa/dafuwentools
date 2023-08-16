@@ -4,46 +4,54 @@
       <span>玩家主页</span>
     </div>
     <!-- <van-pull-refresh v-model="isLoading" @refresh="onRefresh()"> -->
-      <div class="container-scroll">
-        <div class="container-info" style="width: 100%">
-          <div class="cell">
-            <div class="cell-item playername">
-              <div class="name1">
-                <span>{{ playerinfo.playername }}</span>
-              </div>
-              <div class="name2">
-                <span>player{{ playerinfo.id }}</span>
-              </div>
+    <div class="container-scroll">
+      <div class="container-info" style="width: 100%">
+        <div class="cell">
+          <div class="cell-item playername">
+            <div class="name1">
+              <span>{{ playerinfo.playername }}</span>
             </div>
-            <div class="cell-item info" style="width: 100%">
-              <van-row type="flex" gutter="20" justify="space-between">
-                <van-col span="12">
-                  <div class="info1" style="float: left; margin: 10px">
-                    <span>账户余额：{{ playerinfo.balance }}</span>
-                  </div>
-                </van-col>
-                <van-col span="12">
-                  <div class="info2" style="float: right; margin: 10px">
-                    <span>拥有土地数：{{ playerinfo.property }}</span>
-                  </div>
-                </van-col>
-              </van-row>
+            <div class="name2">
+              <span>player{{ playerinfo.id }}</span>
             </div>
           </div>
-        </div>
-
-        <div class="container-property">
-          <div class="cell">
-            <van-tabs v-model="active">
-              <van-tab title="拥有的房地产">
-                <div class="tiner">
-                  <compontProperty/>
+          <div class="cell-item info" style="width: 100%">
+            <van-row type="flex" gutter="20" justify="space-between">
+              <van-col span="12">
+                <div class="info1" style="float: left; margin: 10px">
+                  <span>账户余额：{{ playerinfo.balance }}</span>
                 </div>
-              </van-tab>
-            </van-tabs>
+              </van-col>
+              <van-col span="12">
+                <div class="info2" style="float: right; margin: 10px">
+                  <span>拥有土地数：{{ playerinfo.property }}</span>
+                </div>
+              </van-col>
+            </van-row>
           </div>
         </div>
       </div>
+
+      <div class="container-property">
+        <div class="cell">
+          <van-tabs v-model="active">
+            <van-tab title="拥有的房地产">
+              <div class="tiner">
+                <van-grid :border="false" :column-num="3">
+                  <van-grid-item v-for="value in propertyInfo" :key="value.id">
+                    <compontProperty
+                      :property_name="value.property_name"
+                      :mortgage_amount="value.mortgage_amount"
+                      :redemption_amount="value.redemption_amount"
+                    ></compontProperty>
+                  </van-grid-item>
+                </van-grid>
+              </div>
+            </van-tab>
+          </van-tabs>
+        </div>
+      </div>
+    </div>
     <!-- </van-pull-refresh> -->
     <div class="container-function">
       <van-tabbar route fixed>
@@ -71,6 +79,21 @@ export default {
       count: 0,
       isLoading: false,
       active: 0,
+      propertyInfo: [
+        {
+          id: 1,
+          property_name: "深圳",
+          price: "",
+          color: "",
+          classification: {},
+          build_house_price: 0,
+          build_hotel_price: 0,
+          rent: {},
+          mortgage_amount: 500,
+          redemption_amount: 550,
+          state: 0,
+        },
+      ],
     };
   },
   components: {
@@ -160,7 +183,7 @@ body {
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    margin:10px 0;
+    margin: 10px 0;
   }
 
   .cell {

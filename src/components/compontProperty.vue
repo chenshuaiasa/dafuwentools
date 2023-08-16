@@ -1,39 +1,38 @@
 <template>
-  <van-grid :border="false" :column-num="2">
-    <van-grid-item v-for="value in prpertyInfo" :key="value">
-      <div class="container-property2">
-        <div class="property-name">
-          <div class="pname">{{ value.property_name }}</div>
-          <div class="prentmsg">
-            抵押金额：{{ value.redemption_amount }} /
-            {{ value.redemption_amount }}
-          </div>
-        </div>
+  <div class="container-property2">
+    <div class="property-name">
+      <div class="pname">{{property_name}}</div>
+      <div class="prentmsg">
+        抵押金额：{{mortgage_amount}} /
+        {{ redemption_amount }}
       </div>
-      <div class="property-rent"></div>
-    </van-grid-item>
-  </van-grid>
+    </div>
+    <div class="property-rent"></div>
+  </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      prpertyInfo: [
-        {
-          id: 1,
-          property_name: "深圳",
-          price: "",
-          color: "",
-          classification: {},
-          rent_nothing: {},
-          rent_same: {},
-          rent_house: {},
-          mortgage_amount: 500,
-          redemption_amount: 550,
-        },
-      ],
+      
     };
   },
+  props: [
+        "property_name",
+        "price",
+        "color",
+        "classification",
+        "rent_nothing",
+        "rent_same",
+        "rent_one_house",
+        "rent_two_house",
+        "rent_three_house",
+        "rent_four_house",
+        "rent_hotel",
+        "mortgage_amount",
+        "redemption_amount",
+        "state",
+      ],
 };
 </script>
 
