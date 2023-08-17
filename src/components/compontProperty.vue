@@ -22,6 +22,7 @@
           house_level == value.level ? 'rent-price-checked' : 'rent-price',
         ]" v-for="value in rent" :key="value.name">
           {{ getRentUnit(value.price) }}
+          
         </div>
       </div>
       <div class="houses">
