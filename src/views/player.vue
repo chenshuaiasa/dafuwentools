@@ -41,7 +41,7 @@
                   <van-grid-item v-for="value in propertyinfo2" :key="value.id">
                     <compontProperty :property_name="value.property_name" :mortgage_amount="value.mortgage_amount"
                       :redemption_amount="value.redemption_amount" :bg_color="value.color" :rent="value.rent"
-                      :house_level="value.house_level" :build_house_price="value.build_house_price"
+                      :houselevel="value.house_level" :build_house_price="value.build_house_price"
                       :build_hotel_price="value.build_hotel_price"></compontProperty>
                   </van-grid-item>
                 </van-grid>
@@ -147,19 +147,19 @@ export default {
           build_house_price: 0,
           build_hotel_price: 0,
           rent: [],
+          house_level:"",
           mortgage_amount: 500,
           redemption_amount: 550,
           state: 0,
         }
       ],
       temp: [],
-      house_level2: "P0",
     };
   },
   mounted: async function () {
     await this.InitPlayerinfo();
     await this.InitPropertyinfo_from_player();
-    await this.getHouseLevel();
+    this.getHouseLevel();
   },
   components: {
     compontProperty,
@@ -196,9 +196,9 @@ export default {
       this.propertyinfo2 = this.propertyInfo;
       // console.log(this.propertyinfo2);
     },
-    getHouseLevel: async function () {
-      // console.log("houseid"+typeof(houseid));
-      this.playerinfo[0].property.forEach((val) => {
+    getHouseLevel: function () {
+      this.$nextTick(function(){
+        this.playerinfo[0].property.forEach((val) => {
         this.propertyinfo2.forEach((v, index) => {
           if (val.property_id == v.id) {
             // console.log(val.house_level);
@@ -207,6 +207,9 @@ export default {
         })
 
       });
+      })
+      // console.log("houseid"+typeof(houseid));
+      
       console.log(this.propertyinfo2);
     },
   },

@@ -19,7 +19,7 @@
             ">租金：</span>
         </div>
         <div :class="[
-          house_level == value.level ? 'rent-price-checked' : 'rent-price',
+          houselevel == value.level ? 'rent-price-checked' : 'rent-price',
         ]" v-for="value in rent" :key="value.name">
           {{ getRentUnit(value.price) }}
           
@@ -35,7 +35,7 @@
               color: rgb(51, 51, 51);
             ">房屋：</span>
         </div>
-        <div v-for="value in getHousNum(house_level)" :key="value.name">
+        <div v-for="value in getHousNum(houselevel)" :key="value.name">
           <img src="../assets/房屋.svg" style="width: 17px" />
         </div>
         <div class="house_price">
@@ -58,7 +58,8 @@ export default {
         "H3": 3,
         "H4": 4,
         "H5": 5,
-      }
+      },
+      house_level2:''
     };
   },
   props: {
@@ -71,7 +72,7 @@ export default {
     redemption_amount: {},
     state: {},
     bg_color: {},
-    house_level: {},
+    houselevel: '',
     build_house_price: {},
     build_hotel_price: {}
   },
@@ -87,6 +88,11 @@ export default {
       return this.housenum[hl]
     }
   },
+  watch:{
+    houselevel: function(newValue,oldValue){
+    console.log(181,newValue) 
+   },
+  }
 };
 </script>
 
