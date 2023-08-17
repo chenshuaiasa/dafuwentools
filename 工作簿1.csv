@@ -1,0 +1,1063 @@
+﻿id,property_name,price,color,classification,build_house_price,rent,mortgage_amount,redemption_amount,state,build_hotel_price
+1,温州,600,#5D5439,11,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+2,南京,600,#5D5439,12,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+3,重庆站,2000,#FFFFFF,11,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""four"",
+    ""level"": ""P4"",
+    ""price"": 0
+  },
+  
+]",200,220,1,500
+4,沈阳,1000,#54B0EE,21,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+5,西安,1000,#54B0EE,22,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+6,无锡,1200,#54B0EE,23,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+7,青岛,1400,#D519CC,31,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+8,电力公司,1500,#FFFFFF,41,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""four"",
+    ""level"": ""P4"",
+    ""price"": 0
+  },
+  
+]",200,220,1,500
+9,珠海,1400,#D519CC,32,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+10,南昌,1600,#D519CC,33,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+11,上海站,2000,#FFFFFF,12,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""four"",
+    ""level"": ""P4"",
+    ""price"": 0
+  },
+  
+]",200,220,1,500
+12,成都,2400,#EDB63B,41,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+13,扬州,2400,#EDB63B,42,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+14,深圳,2400,#EDB63B,43,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+15,重庆,2200,#EB2525,51,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+16,宁波,2200,#EB2525,52,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+17,杭州,2400,#EB2525,53,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+18,北京西站,2000,#FFFFFF,13,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""four"",
+    ""level"": ""P4"",
+    ""price"": 0
+  },
+  
+]",200,220,1,500
+19,苏州,2000,#F9FF05,61,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+20,大连,2600,#F9FF05,62,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+21,自来水公司,2600,#FFFFFF,42,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""four"",
+    ""level"": ""P4"",
+    ""price"": 0
+  },
+  
+]",200,220,1,500
+22,三亚,1500,#F9FF05,63,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+23,天津,2800,#3BA123,71,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+24,北京,3000,#3BA123,72,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+25,厦门,3000,#3BA123,73,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+26,广州站,3200,#FFFFFF,14,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""four"",
+    ""level"": ""P4"",
+    ""price"": 0
+  },
+  
+]",200,220,1,500
+27,广州,3500,#0005C4,81,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500
+28,上海,4000,#0005C4,82,500,"[
+  {
+    ""name"": ""single"",
+    ""level"": ""P1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""double"",
+    ""level"": ""P2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""three"",
+    ""level"": ""P3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""onehouse"",
+    ""level"": ""H1"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""twohouse"",
+    ""level"": ""H2"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""threehouse"",
+    ""level"": ""H3"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""fourhouse"",
+    ""level"": ""H4"",
+    ""price"": 0
+  },
+  {
+    ""name"": ""hotel"",
+    ""level"": ""H5"",
+    ""price"": 0
+  }
+]",200,220,1,500

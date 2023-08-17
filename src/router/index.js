@@ -37,7 +37,7 @@ const routes = [
 
 // 3. 创建 router 实例，然后传 `routes` 配置
 const router = new VueRouter({
-    routes // (缩写) 相当于 routes: routes
+    routes // (缩写) 相当于 router: routes
 })
 
 export default router;

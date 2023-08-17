@@ -4,8 +4,10 @@ import router from './router/index'
 import Vant from 'vant';
 import 'vant/lib/index.css';
 import Vuex from 'vuex'
+import * as datas from './data/index'
 Vue.config.productionTip = false
 
+Vue.prototype.$datas = datas;
 Vue.use(Vant);
 Vue.use(Vuex);
 
