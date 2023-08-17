@@ -39,14 +39,10 @@
               <div class="tiner">
                 <van-grid :border="false" :column-num="3">
                   <van-grid-item v-for="value in propertyinfo2" :key="value.id">
-                    <compontProperty
-                      :property_name="value.property_name"
-                      :mortgage_amount="value.mortgage_amount"
-                      :redemption_amount="value.redemption_amount"
-                      :bg_color="value.color"
-                      :rent="value.rent"
-                      :house_level="value.house_level"
-                    ></compontProperty>
+                    <compontProperty :property_name="value.property_name" :mortgage_amount="value.mortgage_amount"
+                      :redemption_amount="value.redemption_amount" :bg_color="value.color" :rent="value.rent"
+                      :house_level="value.house_level" :build_house_price="value.build_house_price"
+                      :build_hotel_price="value.build_hotel_price"></compontProperty>
                   </van-grid-item>
                 </van-grid>
               </div>
@@ -141,7 +137,7 @@ export default {
           state: 0,
         }
       ],
-      propertyinfo2:[
+      propertyinfo2: [
         {
           id: 1,
           property_name: "深圳",
@@ -163,7 +159,7 @@ export default {
   mounted: async function () {
     await this.InitPlayerinfo();
     await this.InitPropertyinfo_from_player();
-    this.getHouseLevel();
+    await this.getHouseLevel();
   },
   components: {
     compontProperty,
@@ -200,16 +196,16 @@ export default {
       this.propertyinfo2 = this.propertyInfo;
       // console.log(this.propertyinfo2);
     },
-    getHouseLevel: function () {
+    getHouseLevel: async function () {
       // console.log("houseid"+typeof(houseid));
       this.playerinfo[0].property.forEach((val) => {
-        this.propertyinfo2.forEach((v,index)=>{
+        this.propertyinfo2.forEach((v, index) => {
           if (val.property_id == v.id) {
-          // console.log(val.house_level);
-          this.propertyinfo2[index].house_level = val.house_level;
-        }
+            // console.log(val.house_level);
+            this.propertyinfo2[index].house_level = val.house_level;
+          }
         })
-        
+
       });
       console.log(this.propertyinfo2);
     },

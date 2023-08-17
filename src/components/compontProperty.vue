@@ -11,41 +11,34 @@
       <div class="rent-money">
         <div style="display: flex; align-items: center; flex-direction: row">
           <!-- <img src="../assets/房屋租金.svg" style="width: 17px" /> -->
-          <span
-            style="
+          <span style="
               font-size: 13px;
               font-weight: 700;
               text-align: left;
               color: rgb(51, 51, 51);
-            "
-            >租金：</span
-          >
+            ">租金：</span>
         </div>
-        <div
-          :class="[
-            house_level == value.level ? 'rent-price-checked' : 'rent-price',
-          ]"
-          v-for="value in rent"
-          :key="value.name"
-        >
+        <div :class="[
+          house_level == value.level ? 'rent-price-checked' : 'rent-price',
+        ]" v-for="value in rent" :key="value.name">
           {{ getRentUnit(value.price) }}
         </div>
       </div>
       <div class="houses">
         <div style="display: flex; align-items: center; flex-direction: row">
           <!-- <img src="../assets/房屋租金.svg" style="width: 17px" /> -->
-          <span
-            style="
+          <span style="
               font-size: 13px;
               font-weight: 700;
               text-align: left;
               color: rgb(51, 51, 51);
-            "
-            >房屋：</span
-          >
+            ">房屋：</span>
         </div>
         <div v-for="value in getHousNum(house_level)" :key="value.name">
           <img src="../assets/房屋.svg" style="width: 17px" />
+        </div>
+        <div class="house_price">
+          <span>房屋：{{ build_house_price }}；旅馆：{{ build_hotel_price }}</span>
         </div>
       </div>
     </div>
@@ -55,15 +48,15 @@
 export default {
   data() {
     return {
-      housenum:{
-        "P1":0,
-        "P2":0,
-        "P3":0,
-        "H1":1,
-        "H2":2,
-        "H3":3,
-        "H4":4,
-        "H5":5,
+      housenum: {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "H1": 1,
+        "H2": 2,
+        "H3": 3,
+        "H4": 4,
+        "H5": 5,
       }
     };
   },
@@ -78,15 +71,18 @@ export default {
     state: {},
     bg_color: {},
     house_level: {},
+    build_house_price: {},
+    build_hotel_price: {}
   },
 
-  mounted: function () {},
+  mounted: function () { },
   methods: {
     getRentUnit: function (data) {
       // console.log(data);
       return data > 1000 ? data / 1000.0 + "M" : data + "K";
     },
-    getHousNum:function(hl){
+    getHousNum: function (hl) {
+      console.log(hl);
       return this.housenum[hl]
     }
   },
@@ -96,7 +92,7 @@ export default {
 <style scoped>
 .container-property2 {
   width: 162px;
-  height: 150px;
+  height: 170px;
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
   box-shadow: rgba(137, 137, 137, 0.35) 0px 0px 5px;
@@ -107,48 +103,68 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 40px;
+
     .pname {
       height: 18px;
-      font-size: 13px;
-      font-weight: 400;
+      font-size: 18x;
+      font-weight: 600;
       text-align: center;
-      color: rgb(51, 51, 51);
+      color: #FFFFFF;
       margin-top: 5px;
     }
+
     .prentmsg {
-      width: 106px;
-      height: 13px;
+      width: auto;
+      height: auto;
       font-size: 10px;
       font-weight: 400;
       text-align: center;
       color: rgb(245, 245, 245);
       margin-top: 3px;
+      margin-bottom: 3px;
+      padding: 3px;
     }
   }
+
   .property-rent {
     margin-top: 5px;
-    .rent-money,.houses {
+    display: flex;
+    height:60%;
+    flex-direction: column;
+    justify-content: space-between;
+    .rent-money,
+    .houses {
       display: flex;
       flex-direction: row;
       align-items: center;
       flex-wrap: wrap;
       justify-content: space-between;
       justify-content: flex-start;
+      margin-left: 5px;
+
       .rent-price,
       .rent-price-checked {
-        width: 24px;
+        width: auto;
         font-size: 10px;
         font-weight: 400;
         text-align: center;
         color: rgb(51, 51, 51);
         margin: 2px;
-        padding: 2px;
+        padding: 3px 4px;
         border: 1px dashed #828282;
       }
+
       .rent-price-checked {
         background-color: #0088ff;
         color: #ffffff;
+        border: 0px dashed #828282;
+      }
+
+      .house_price {
+        font-size: 10px;
+        font-weight: 400;
+        text-align: center;
+        color: rgb(153, 153, 153);
       }
     }
   }
