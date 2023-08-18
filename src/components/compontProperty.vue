@@ -62,20 +62,19 @@ export default {
       house_level2:''
     };
   },
-  props: {
-    property_name: {},
-    price: {},
-    color: {},
-    classification: {},
-    rent: {},
-    mortgage_amount: {},
-    redemption_amount: {},
-    state: {},
-    bg_color: {},
-    houselevel: '',
-    build_house_price: {},
-    build_hotel_price: {}
-  },
+  props: ["property_name",
+    "price",
+    "color",
+    "classification",
+    "rent",
+    "mortgage_amount",
+    "redemption_amount",
+    "state",
+    "bg_color",
+    "houselevel",
+    "build_house_price",
+    "build_hotel_price"]
+ ,
 
   mounted: function () { },
   methods: {

@@ -3,43 +3,18 @@
     <van-cell-group inset>
       <h3>登录游戏</h3>
       <van-form @submit="onSubmit">
-        <van-field
-          readonly
-          clickable
-          label="玩家"
-          name="playid"
-          :value="value"
-          placeholder="选择玩家"
-          @click="showPicker = true"
-        />
+        <van-field readonly clickable label="玩家" name="playid" :value="value" placeholder="选择玩家"
+          @click="showPicker = true" />
         <van-popup v-model="showPicker" round position="bottom">
-          <van-picker
-            show-toolbar
-            :columns="saveColumns"
-            @cancel="showPicker = false"
-            @confirm="onConfirm"
-            :value-key="SaveValuekey"
-          />
+          <van-picker show-toolbar :columns="saveColumns" @cancel="showPicker = false" @confirm="onConfirm"
+            :value-key="SaveValuekey" />
         </van-popup>
-        <van-field
-          v-model="username"
-          name="用户名"
-          label="用户名"
-          placeholder="用户名"
-          :rules="[{ required: true, message: '请填写用户名' }]"
-        />
-        <van-field
-          v-model="password"
-          type="password"
-          name="密码"
-          label="密码"
-          placeholder="密码"
-          :rules="[{ required: true, message: '请填写密码' }]"
-        />
+        <van-field v-model="username" name="用户名" label="用户名" placeholder="用户名"
+          :rules="[{ required: true, message: '请填写用户名' }]" />
+        <van-field v-model="password" type="password" name="密码" label="密码" placeholder="密码"
+          :rules="[{ required: true, message: '请填写密码' }]" />
         <div style="margin: 16px">
-          <van-button round block type="info" native-type="submit"
-            >提交</van-button
-          >
+          <van-button round block type="info" native-type="submit">提交</van-button>
         </div>
       </van-form>
     </van-cell-group>
@@ -58,7 +33,7 @@ export default {
       valueKey: [],
       showPicker: false,
       columns: [],
-      toPlayerPath:'/player',
+      toPlayerPath: '/player',
       players: [
         { id: 1, playername: "玩家1", balance: 0, property: {}, state: 1 },
         { id: 2, playername: "玩家2", balance: 0, property: {}, state: 1 },
@@ -69,6 +44,9 @@ export default {
         { id: 101, playername: "银行", balance: 0, property: {}, state: 1 },
       ],
     };
+  },
+  mounted:async function(){
+    await this.InitPlayerinfo();
   },
   methods: {
     onSubmit(values) {
@@ -83,6 +61,10 @@ export default {
     },
     toPlayer() {
       this.$router.push({ path: 'player' });
+    },
+    InitPlayerinfo: async function () {
+      this.players = await this.$datas.getPlayerInfo();
+      console.log(this.playerinfo);
     },
   },
   computed: {

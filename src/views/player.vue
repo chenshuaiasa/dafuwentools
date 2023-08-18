@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="width: 100%">
+  <div v-if="$route.name === 'player'" class="container" style="width: 100%">
     <div class="header">
       <span>玩家主页</span>
     </div>
@@ -42,7 +42,7 @@
                     <compontProperty :property_name="value.property_name" :mortgage_amount="value.mortgage_amount"
                       :redemption_amount="value.redemption_amount" :bg_color="value.color" :rent="value.rent"
                       :houselevel="value.house_level" :build_house_price="value.build_house_price"
-                      :build_hotel_price="value.build_hotel_price"></compontProperty>
+                      :build_hotel_price="value.build_hotel_price"  v-if="isGetData"></compontProperty>
                   </van-grid-item>
                 </van-grid>
               </div>
@@ -54,11 +54,13 @@
     <!-- </van-pull-refresh> -->
     <div class="container-function">
       <van-tabbar route fixed>
-        <van-tabbar-item replace to="/home" icon="home-o"> </van-tabbar-item>
-        <van-tabbar-item replace to="/search" icon="search"> </van-tabbar-item>
+        <van-tabbar-item  to="/home" icon="home-o">主页</van-tabbar-item>
+        <van-tabbar-item  to="/playerinfo" icon="search">查询玩家信息</van-tabbar-item>
+        <van-tabbar-item  to="/transfer" icon="refund-o">转账</van-tabbar-item>
       </van-tabbar>
     </div>
   </div>
+  <router-view v-else></router-view>
 </template>
 <script>
 import compontProperty from "../components/compontProperty.vue";
@@ -154,10 +156,12 @@ export default {
         }
       ],
       temp: [],
+      isGetData:false
     };
   },
   mounted: async function () {
     await this.InitPlayerinfo();
+
     await this.InitPropertyinfo_from_player();
     this.getHouseLevel();
   },
@@ -209,7 +213,7 @@ export default {
       });
       })
       // console.log("houseid"+typeof(houseid));
-      
+      this.isGetData=true;
       console.log(this.propertyinfo2);
     },
   },

@@ -8,15 +8,14 @@ const supabaseJs2 = createClient(
 );
 
 
-async function getPlayerInfo(column,val) {
+async function getPlayerInfo(column,val,colunms1) {
     if(column == undefined) column = '';
     if(val == undefined) column = '';
     const { data, error } = await supabaseJs2
         .from("playerinfo")
-        .select()
+        .select(colunms1)
         .order('id', { ascending: true })
         .eq(column, val);
-    console.log("data"+data);
     return data;
 }
 
@@ -28,7 +27,6 @@ async function getPropertyInfo_from_player(column,val) {
         .select()
         .order('id', { ascending: true })
         .in(column, val);
-    console.log("data"+data);
     return data;
 }
 

@@ -17,7 +17,7 @@ const routes = [
     //主路由
     {
         path: '/',
-        name: 'login',
+        name: 'player',
         component: Player,
         // redirect:'/login',//重定向
         children: [
