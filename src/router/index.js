@@ -10,6 +10,8 @@ import Transfer from '../views/transfer.vue'
 import TransferBH from '../views/transferbankhis.vue'
 import TransferPH from '../views/transferplayerhis.vue'
 import Home from '../views/home.vue'
+import BanGM from '../views/bank_givemoney.vue'
+import BanGT from '../views/bank_giveproperty.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +26,8 @@ const routes = [
     { path: '/transferbh', component: TransferBH },
     { path: '/transferph', component: TransferPH },
     { path: '/home', component: Home },
+    { path: '/bangm', component: BanGM },
+    {path: '/bangt', component: BanGT }
 
 ]
 

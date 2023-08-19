@@ -14,10 +14,14 @@
         <van-field v-model="password" type="password" name="password" label="密码" placeholder="密码  必填"
           :rules="[{ validator, message: '请输入密码' }]" />
         <div style="margin: 16px">
-          <van-button round block type="info" native-type="submit">提交</van-button>
+          <van-button round block type="info" native-type="submit">登录</van-button>
         </div>
       </van-form>
     </van-cell-group>
+    <div style="margin: 16px; width:90%;height:auto;position: fixed;bottom: 0px;;">
+      <!-- <button calss="login_to_bank">登录银行</button> -->
+      <van-button type="primary" to="bank" size="large" hairline round block>登录银行</van-button>
+    </div>
   </div>
   <router-view v-else></router-view>
 </template>
@@ -47,7 +51,7 @@ export default {
       console.log(this.index);
       this.chooseid = parseInt(values.playid.substring(2));
       this.submitvalue = values;
-      this.updateDataPlayerinfo({ playername: values.pname,password:values.password}, 'id', this.chooseid);
+      this.updateDataPlayerinfo({ playername: values.pname, password: values.password }, 'id', this.chooseid);
       this.toPlayer();
     },
     onConfirm(value, index) {
@@ -84,15 +88,15 @@ export default {
               return true
             else
               return false
-          }else{
+          } else {
             return true
           }
         }
-        else{
+        else {
           return false;
         }
       })
-      
+
     },
   },
   computed: {
@@ -115,5 +119,13 @@ export default {
 .bg {
   background-color: #f7f8fa;
   height: 100%;
+}
+
+.login_to_bank {
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  background-color: #1989fa;
+  border-radius: 5px;
 }
 </style>
