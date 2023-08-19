@@ -15,30 +15,23 @@ Vue.use(VueRouter)
 
 const routes = [
     //主路由
-    {
-        path: '/',
-        name: 'login',
-        component: Login,
-        // redirect:'/login',//重定向
-        children: [
-            //子路由
-            // { path: 'login', component: Login },
-            { path: 'bank', component: Bank },
-            { path: 'ground', component: Ground },
-            { path: 'player', component: Player },
-            { path: 'playerinfo', component: Playerinfo },
-            { path: 'transfer', component: Transfer },
-            { path: 'transferbh', component: TransferBH },
-            { path: 'transferph', component: TransferPH },
-            { path: 'home', component: Home },
-        ]
-    }
+    { path: '/', name: 'login', component: Login },
+    { path: '/bank', component: Bank },
+    { path: '/ground', component: Ground },
+    { path: '/player', component: Player },
+    { path: '/playerinfo', component: Playerinfo },
+    { path: '/transfer', component: Transfer },
+    { path: '/transferbh', component: TransferBH },
+    { path: '/transferph', component: TransferPH },
+    { path: '/home', component: Home },
+
 ]
 
 // 3. 创建 router 实例，然后传 `routes` 配置
 const router = new VueRouter({
-    mode: 'history',
+    mode: 'hash',
     routes // (缩写) 相当于 router: routes
 })
+
 
 export default router;

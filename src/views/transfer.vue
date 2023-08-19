@@ -120,18 +120,23 @@ export default {
             var jsf = '';
             var jsf_balance_now = '';
             var zzf_balance_now = '';
+            var jsfname = '';
+            var zzfname = '';
             for (var i in temp) {
                 console.log(temp[i].playername);
                 console.log(this.submitvalue.playid);
                 if (temp[i].playername == this.submitvalue.playid) {
                     jsf= temp[i].id;
                     jsf_balance_now= parseFloat(temp[i].balance) + parseFloat(this.submitvalue.money);
+                    
                 }
                 if (temp[i].id == this.playerid) {
                     zzf_balance_now= parseFloat(temp[i].balance) - parseFloat(this.submitvalue.money);
+                    zzfname = temp[i].playername;
                 }
             }
-            this.d_h = {id:Date.now(),zzf:this.playerid,jsf:jsf,jsf_balance_now:jsf_balance_now,zzf_balance_now:zzf_balance_now,money:this.submitvalue.money,transfer_time: this.$datas.timeCode()}
+            jsfname = this.submitvalue.playid;
+            this.d_h = {id:Date.now(),zzf:this.playerid,jsf:jsf,jsf_balance_now:jsf_balance_now,zzf_balance_now:zzf_balance_now,money:this.submitvalue.money,transfer_time: this.$datas.timeCode(),jsfname:jsfname,zzfname:zzfname}
             // console.log(this.d);
             console.log({balance:jsf_balance_now});
             this.updateDataPlayerinfo({balance:jsf_balance_now},'id',jsf);

@@ -30,6 +30,17 @@ async function getPropertyInfo_from_player(column, val) {
     return data;
 }
 
+async function getTransferHis(column, val) {
+    if (column == undefined) column = '';
+    if (val == undefined) column = '';
+    const { data, error } = await supabaseJs2
+        .from("transfer_history")
+        .select()
+        .order('id', { ascending: true })
+        .in(column, val);
+    return data;
+}
+
 async function insert_transfer_history(data) {
     const { error } = await supabaseJs2
         .from('transfer_history')
@@ -42,6 +53,8 @@ async function update_playerinfo(data,column,value) {
         .update(data)
         .eq(column,value)
 }
+
+
 
 function timeCode() {
     var nowdate = new Date();
@@ -69,5 +82,6 @@ export {
     getPropertyInfo_from_player,
     insert_transfer_history,
     timeCode,
-    update_playerinfo
+    update_playerinfo,
+    getTransferHis
 }

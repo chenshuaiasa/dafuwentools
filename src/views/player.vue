@@ -9,7 +9,7 @@
         <div class="cell">
           <div class="cell-item playername">
             <div class="name1">
-              <span>{{ playerinfo[0].playername }}</span>
+              <span>{{ player }}</span>
             </div>
             <div class="name2">
               <span>player{{ playerinfo[0].id }}</span>
@@ -56,7 +56,9 @@
       <van-tabbar route fixed>
         <!-- <van-tabbar-item  to="/home" icon="home-o">主页</van-tabbar-item> -->
         <van-tabbar-item to="/playerinfo" icon="search">查询玩家信息</van-tabbar-item>
-        <van-tabbar-item :to="{path: 'transfer',query: {palyerid:playerid}}" icon="refund-o">转账</van-tabbar-item>
+        <van-tabbar-item :to="{ path: 'transfer', query: { palyerid: playerid } }" icon="refund-o">转账</van-tabbar-item>
+        <van-tabbar-item :to="{ path: 'transferph', query: { palyerid: playerid } }" icon="balance-list-o">转账记录</van-tabbar-item>
+        
       </van-tabbar>
     </div>
   </div>
@@ -92,6 +94,7 @@ export default {
   },
   mounted: async function () {
     this.playerid = this.$route.query.palyerid;
+
     await this.InitPlayerinfo();
     if (this.playerinfo[0].property == null) {
       null
@@ -100,8 +103,6 @@ export default {
       await this.InitPropertyinfo_from_player();
       this.getHouseLevel();
     }
-
-
   },
   components: {
     compontProperty,
@@ -166,7 +167,15 @@ export default {
     }
   },
   computed: {
-
+    player:function () {
+      if (this.$route.query.pname == undefined) {
+        this.InitPlayerinfo();
+        return this.playerinfo[0].playername
+      } else {
+        this.playerinfo[0].playername = this.$route.query.pname;
+        return this.playerinfo[0].playername
+      }
+    }
   },
 };
 </script>
