@@ -160,7 +160,7 @@ export default {
         this.housenum = 0;
       }
       else {
-        this.housenum = this.playerinfo.property.length;
+        this.housenum = this.playerinfo[0].property.length;
       }
       return this.housenum
     }
