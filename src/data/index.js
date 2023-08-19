@@ -8,9 +8,9 @@ const supabaseJs2 = createClient(
 );
 
 
-async function getPlayerInfo(column,val,colunms1) {
-    if(column == undefined) column = '';
-    if(val == undefined) column = '';
+async function getPlayerInfo(column, val, colunms1) {
+    if (column == undefined) column = '';
+    if (val == undefined) column = '';
     const { data, error } = await supabaseJs2
         .from("playerinfo")
         .select(colunms1)
@@ -19,9 +19,9 @@ async function getPlayerInfo(column,val,colunms1) {
     return data;
 }
 
-async function getPropertyInfo_from_player(column,val) {
-    if(column == undefined) column = '';
-    if(val == undefined) column = '';
+async function getPropertyInfo_from_player(column, val) {
+    if (column == undefined) column = '';
+    if (val == undefined) column = '';
     const { data, error } = await supabaseJs2
         .from("property_detail")
         .select()
@@ -30,7 +30,44 @@ async function getPropertyInfo_from_player(column,val) {
     return data;
 }
 
-export{
+async function insert_transfer_history(data) {
+    const { error } = await supabaseJs2
+        .from('transfer_history')
+        .insert([data])
+}
+
+async function update_playerinfo(data,column,value) {
+    const { error } = await supabaseJs2
+        .from('playerinfo')
+        .update(data)
+        .eq(column,value)
+}
+
+function timeCode() {
+    var nowdate = new Date();
+    var year = nowdate.getFullYear(),
+        month = nowdate.getMonth() + 1,
+        date = nowdate.getDate(),
+        h = nowdate.getHours(),
+        m = nowdate.getMinutes(),
+        s = nowdate.getSeconds();
+    h = checkTime(h);
+    m = checkTime(m);
+    s = checkTime(s);
+    return year + '-' + month + '-' + date + ' ' + h + ':' + m + ':' + s
+}
+
+function checkTime(i) {
+    if (i < 10) {
+        i = '0' + i;
+    }
+    return i
+}
+
+export {
     getPlayerInfo,
-    getPropertyInfo_from_player
+    getPropertyInfo_from_player,
+    insert_transfer_history,
+    timeCode,
+    update_playerinfo
 }

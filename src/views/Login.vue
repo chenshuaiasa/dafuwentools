@@ -33,25 +33,18 @@ export default {
       valueKey: [],
       showPicker: false,
       columns: [],
-      toPlayerPath: '/player',
-      players: [
-        { id: 1, playername: "玩家1", balance: 0, property: {}, state: 1 },
-        { id: 2, playername: "玩家2", balance: 0, property: {}, state: 1 },
-        { id: 3, playername: "玩家3", balance: 0, property: {}, state: 1 },
-        { id: 4, playername: "玩家4", balance: 0, property: {}, state: 1 },
-        { id: 5, playername: "玩家5", balance: 0, property: {}, state: 1 },
-        { id: 6, playername: "玩家6", balance: 0, property: {}, state: 1 },
-        { id: 101, playername: "银行", balance: 0, property: {}, state: 1 },
-      ],
+      players: [],
+      chooseid:0,
     };
   },
-  mounted:async function(){
+  mounted: async function () {
     await this.InitPlayerinfo();
   },
   methods: {
     onSubmit(values) {
       console.log("submit", values);
       console.log(this.index);
+      this.chooseid = parseInt(values.playid.substring(2));
       this.toPlayer();
     },
     onConfirm(value, index) {
@@ -60,17 +53,24 @@ export default {
       this.index = index;
     },
     toPlayer() {
-      this.$router.push({ path: 'player' });
+      console.log(this.$route.path)
+      this.$router.push({
+        path: 'player',
+        query: {
+          palyerid:this.chooseid
+        }
+      });
     },
     InitPlayerinfo: async function () {
       this.players = await this.$datas.getPlayerInfo();
-      console.log(this.playerinfo);
+      console.log(this.players);
     },
   },
   computed: {
     saveColumns() {
       this.players.forEach((val) => {
-        this.columns.push(val.playername);
+
+        this.columns.push('玩家' + val.id);
       });
       return this.columns;
     },

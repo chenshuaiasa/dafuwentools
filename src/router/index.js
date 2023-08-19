@@ -17,8 +17,8 @@ const routes = [
     //主路由
     {
         path: '/',
-        name: 'player',
-        component: Player,
+        name: 'login',
+        component: Login,
         // redirect:'/login',//重定向
         children: [
             //子路由
@@ -37,6 +37,7 @@ const routes = [
 
 // 3. 创建 router 实例，然后传 `routes` 配置
 const router = new VueRouter({
+    mode: 'history',
     routes // (缩写) 相当于 router: routes
 })
 

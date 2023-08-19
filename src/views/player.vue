@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$route.name === 'player'" class="container" style="width: 100%">
+  <div v-if="$route.path == '/player'" class="container" style="width: 100%">
     <div class="header">
       <span>玩家主页</span>
     </div>
@@ -24,7 +24,7 @@
               </van-col>
               <van-col span="12">
                 <div class="info2" style="float: right; margin: 10px">
-                  <span>拥有土地数：{{ playerinfo[0].property.length }}</span>
+                  <span>拥有土地数：{{ getHouseNum() }}</span>
                 </div>
               </van-col>
             </van-row>
@@ -42,7 +42,7 @@
                     <compontProperty :property_name="value.property_name" :mortgage_amount="value.mortgage_amount"
                       :redemption_amount="value.redemption_amount" :bg_color="value.color" :rent="value.rent"
                       :houselevel="value.house_level" :build_house_price="value.build_house_price"
-                      :build_hotel_price="value.build_hotel_price"  v-if="isGetData"></compontProperty>
+                      :build_hotel_price="value.build_hotel_price" v-if="isGetData"></compontProperty>
                   </van-grid-item>
                 </van-grid>
               </div>
@@ -54,9 +54,9 @@
     <!-- </van-pull-refresh> -->
     <div class="container-function">
       <van-tabbar route fixed>
-        <van-tabbar-item  to="/home" icon="home-o">主页</van-tabbar-item>
-        <van-tabbar-item  to="/playerinfo" icon="search">查询玩家信息</van-tabbar-item>
-        <van-tabbar-item  to="/transfer" icon="refund-o">转账</van-tabbar-item>
+        <!-- <van-tabbar-item  to="/home" icon="home-o">主页</van-tabbar-item> -->
+        <van-tabbar-item to="/playerinfo" icon="search">查询玩家信息</van-tabbar-item>
+        <van-tabbar-item :to="{path: 'transfer',query: {palyerid:playerid}}" icon="refund-o">转账</van-tabbar-item>
       </van-tabbar>
     </div>
   </div>
@@ -68,7 +68,7 @@ import { Toast } from "vant";
 export default {
   data() {
     return {
-      playerid: 3,
+      playerid: '',
       playerinfo: [
         {
           id: "",
@@ -83,87 +83,25 @@ export default {
       count: 0,
       isLoading: false,
       active: 0,
-      propertyInfo: [
-        {
-          id: 1,
-          property_name: "深圳",
-          price: "",
-          color: "",
-          classification: {},
-          build_house_price: 0,
-          build_hotel_price: 0,
-          rent: [
-            {
-              name: "single",
-              level: "P1",
-              price: 0,
-            },
-            {
-              name: "double",
-              level: "P2",
-              price: 0,
-            },
-            {
-              name: "three",
-              level: "P3",
-              price: 0,
-            },
-            {
-              name: "onehouse",
-              level: "H1",
-              price: 0,
-            },
-            {
-              name: "twohouse",
-              level: "H2",
-              price: 0,
-            },
-            {
-              name: "threehouse",
-              level: "H3",
-              price: 0,
-            },
-            {
-              name: "fourhouse",
-              level: "H4",
-              price: 0,
-            },
-            {
-              name: "hotel",
-              level: "H5",
-              price: 0,
-            },
-          ],
-          mortgage_amount: 500,
-          redemption_amount: 550,
-          state: 0,
-        }
-      ],
-      propertyinfo2: [
-        {
-          id: 1,
-          property_name: "深圳",
-          price: "",
-          color: "",
-          classification: {},
-          build_house_price: 0,
-          build_hotel_price: 0,
-          rent: [],
-          house_level:"",
-          mortgage_amount: 500,
-          redemption_amount: 550,
-          state: 0,
-        }
-      ],
+      propertyInfo: [{}],
+      propertyinfo2: [{}],
       temp: [],
-      isGetData:false
+      isGetData: false,
+      housenum: 0,
     };
   },
   mounted: async function () {
+    this.playerid = this.$route.query.palyerid;
     await this.InitPlayerinfo();
+    if (this.playerinfo[0].property == null) {
+      null
+    }
+    else {
+      await this.InitPropertyinfo_from_player();
+      this.getHouseLevel();
+    }
 
-    await this.InitPropertyinfo_from_player();
-    this.getHouseLevel();
+
   },
   components: {
     compontProperty,
@@ -189,6 +127,7 @@ export default {
     },
     InitPropertyinfo_from_player: async function () {
       var houses = [];
+
       this.playerinfo[0].property.forEach((val) => {
         houses.push(val.property_id);
       });
@@ -201,21 +140,30 @@ export default {
       // console.log(this.propertyinfo2);
     },
     getHouseLevel: function () {
-      this.$nextTick(function(){
+      this.$nextTick(function () {
         this.playerinfo[0].property.forEach((val) => {
-        this.propertyinfo2.forEach((v, index) => {
-          if (val.property_id == v.id) {
-            // console.log(val.house_level);
-            this.propertyinfo2[index].house_level = val.house_level;
-          }
-        })
+          this.propertyinfo2.forEach((v, index) => {
+            if (val.property_id == v.id) {
+              // console.log(val.house_level);
+              this.propertyinfo2[index].house_level = val.house_level;
+            }
+          })
 
-      });
+        });
       })
       // console.log("houseid"+typeof(houseid));
-      this.isGetData=true;
+      this.isGetData = true;
       console.log(this.propertyinfo2);
     },
+    getHouseNum: function () {
+      if (this.playerinfo[0].property == null) {
+        this.housenum = 0;
+      }
+      else {
+        this.housenum = this.playerinfo.property.length;
+      }
+      return this.housenum
+    }
   },
   computed: {
 
