@@ -1,12 +1,17 @@
 <template>
   <div class="container-property2">
-    <div class="property-name" v-bind:style="{ backgroundColor: bg_color }">
-      <div class="pname">{{ property_name }}</div>
-      <div class="prentmsg">
-        抵押金额：{{ mortgage_amount }} /
-        {{ redemption_amount }}
-      </div>
-    </div>
+    <van-popover v-model="showPopover" trigger="click" :actions="actions" @select="onSelect" style="width: 100%;">
+      <template #reference>
+        <div class="property-name" v-bind:style="{ backgroundColor: bg_color }">
+          <div class="pname">{{ property_name }}</div>
+          <div class="prentmsg">
+            抵押金额：{{ mortgage_amount }} /
+            {{ redemption_amount }}
+          </div>
+        </div>
+      </template>
+    </van-popover>
+
     <div class="property-rent">
       <div class="rent-money">
         <div style="display: flex; align-items: center; flex-direction: row">
@@ -22,7 +27,7 @@
           houselevel == value.level ? 'rent-price-checked' : 'rent-price',
         ]" v-for="value in rent" :key="value.name">
           {{ getRentUnit(value.price) }}
-          
+
         </div>
       </div>
       <div class="houses">
@@ -59,7 +64,9 @@ export default {
         "H4": 4,
         "H5": 5,
       },
-      house_level2:''
+      house_level2: '',
+      actions: [{ text: '买房子' }, { text: '抵押' }, { text: '卖房子' }],
+      showPopover:false,
     };
   },
   props: ["property_name",
@@ -74,7 +81,7 @@ export default {
     "houselevel",
     "build_house_price",
     "build_hotel_price"]
- ,
+  ,
 
   mounted: function () { },
   methods: {
@@ -83,14 +90,15 @@ export default {
       return data > 1000 ? data / 1000.0 + "M" : data + "K";
     },
     getHousNum: function (hl) {
-      console.log(hl);
+      // console.log(hl);
       return this.housenum[hl]
+    },
+    onSelect(action,index){
+      // console.log(index)0 1 2
+      this.$emit('propertyFunction',index,this.property_name)
     }
   },
-  watch:{
-    houselevel: function(newValue,oldValue){
-    console.log(181,newValue) 
-   },
+  watch: {
   }
 };
 </script>
@@ -135,9 +143,10 @@ export default {
   .property-rent {
     margin-top: 5px;
     display: flex;
-    height:60%;
+    height: 60%;
     flex-direction: column;
     justify-content: space-between;
+
     .rent-money,
     .houses {
       display: flex;

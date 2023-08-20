@@ -2,7 +2,7 @@
     <div>
         <van-dialog v-model="shows" title="输入银行密码" show-cancel-button :overlay="true" lock-scroll
             :before-close="beforeClose">
-                <van-field v-model="password" type="password" name="pass" label="密码" placeholder="请填写密码"
+                <van-field v-model="password" type="digit" name="pass" label="密码" placeholder="请填写密码"
                     :rules="[{ required: true, message: '请填写密码' }]" />
         </van-dialog>
     </div>

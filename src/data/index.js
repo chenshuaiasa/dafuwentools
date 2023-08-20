@@ -10,7 +10,7 @@ const supabaseJs2 = createClient(
 
 async function getPlayerInfo(column, val, colunms1) {
     if (column == undefined) column = '';
-    if (val == undefined) column = '';
+    if (val == undefined) val = '';
     const { data, error } = await supabaseJs2
         .from("playerinfo")
         .select(colunms1)
@@ -20,18 +20,25 @@ async function getPlayerInfo(column, val, colunms1) {
 }
 
 async function getPropertyInfo_from_player(column, val) {
-    if (column == undefined) column = '';
-    if (val == undefined) column = '';
-    const { data, error } = await supabaseJs2
-        .from("property_detail")
-        .select()
-        .order('id', { ascending: true })
-        .in(column, val);
-    return data;
+    if (column == undefined) {
+        const { data, error } = await supabaseJs2
+            .from("property_detail")
+            .select()
+            .order('id', { ascending: true });
+        return data;
+    } else {
+        const { data, error } = await supabaseJs2
+            .from("property_detail")
+            .select()
+            .order('id', { ascending: true })
+            .in(column, val);
+        return data;
+    }
+
 }
 
 async function getTransferHis(column, val) {
-    if (column == undefined) column = '';
+    if (column == undefined) val = '';
     if (val == undefined) column = '';
     const { data, error } = await supabaseJs2
         .from("transfer_history")
@@ -47,13 +54,19 @@ async function insert_transfer_history(data) {
         .insert([data])
 }
 
-async function update_playerinfo(data,column,value) {
+async function update_playerinfo(data, column, value) {
     const { error } = await supabaseJs2
         .from('playerinfo')
         .update(data)
-        .eq(column,value)
+        .eq(column, value)
 }
 
+async function update_PropertyInfo(data, column, value) {
+    const { error } = await supabaseJs2
+        .from('property_detail')
+        .update(data)
+        .eq(column, value)
+}
 
 
 function timeCode() {
@@ -77,11 +90,278 @@ function checkTime(i) {
     return i
 }
 
+function giveProperty(playerinfo, propertyinfo) {
+
+    // console.log('submit' + values);
+    //1 更新property_detail 地产状态-1且拥有者为id
+    // console.log('??')
+    update_PropertyInfo({ state: -1, belong_to: playerinfo.id }, 'id', propertyinfo.property_id)
+
+    //2 更新playerinfo 用户的房屋情况，同时要计算房屋等级-同色块
+    // var house = [{}];
+    var cid = [];
+    var pro = [];
+    if (playerinfo.property == null) {
+        cid.push({ cid: propertyinfo.classification, num: 1 });
+        pro.push(propertyinfo)
+    } else {
+        console.log(playerinfo)
+        playerinfo.property.classification.forEach((val) => {
+            if (propertyinfo.classification == val.cid) {
+                cid.push({ cid: val.cid, num: val.num + 1 })
+            } else {
+                cid.push({ cid: propertyinfo.classification, num: 1 })
+            }
+        });
+        playerinfo.property.propertys.push(propertyinfo);
+
+        playerinfo.property.propertys.forEach((v) => {
+            cid.forEach((val) => {
+                if (val.cid == v.classification) {
+                    if (v.house_level.substring(0, 1) == 'H') {
+                        pro.push(v);
+                    } else {
+                        if (val.num == 1) {
+                            pro.push({ property_id: v.property_id, classification: v.classification, house_level: "P1", house_num: 0 })
+                        } else if (val.num == 2) {
+                            pro.push({ property_id: v.property_id, classification: v.classification, house_level: "P2", house_num: 0 })
+                        } else if (val.num == 3) {
+                            pro.push({ property_id: v.property_id, classification: v.classification, house_level: "P3", house_num: 0 })
+                        }
+                    }
+                }
+            });
+        });
+
+    }
+    console.log(cid);
+    console.log(pro);
+    update_playerinfo({ property: { classification: cid, propertys: pro } }, 'id', playerinfo.id);
+}
+
+function initGame(propertyinfo) {
+    // console.log(this.propertyinfo)
+    for (var i = 1; i <= 6; i++) {
+        update_playerinfo({ balance: 15000, property: null, state: 1, password: null, }, 'id', i)
+    }
+    propertyinfo.forEach(val => {
+        update_PropertyInfo({ state: 1, belong_to: null }, 'id', val.id);
+    });
+}
+
+function initGameplayer(playerinfo) {
+    // console.log(this.propertyinfo)
+    update_playerinfo({ property: null }, 'id', playerinfo.id)
+
+    playerinfo.property.propertys.forEach(val => {
+        update_PropertyInfo({ state: 1, belong_to: null }, 'id', val.property_id);
+    });
+}
+
+async function buyhouse(playerinfo, pid) {
+    var housenum = {
+        "P1": 0, "P2": 0, "P3": 0,
+        "H1": 1,
+        "H2": 2,
+        "H3": 3,
+        "H4": 4,
+        "H5": 5,
+    };
+    //1 判断可不可以买房子
+    var tempcid = '';
+    var tempcids = [];
+    var p = await getPropertyInfo_from_player();
+    p.forEach((val) => {
+        if (val.property_name == pid) {
+            pid = val.id;
+            tempcid = val.classification;
+        }
+    })
+    console.log(pid);
+
+    var count = 0;
+    var pmoney = 0;
+    var num = 0;
+    playerinfo.property.propertys.forEach((val) => {
+        if (val.property_id == pid) {
+            num = val.house_num;
+        } else if (val.classification == tempcid) {
+            tempcids.push({ id: val.property_id, hn: val.house_num })
+        }
+    })
+    p.forEach((val) => {
+        if (val.classification == tempcid) {
+            count++;
+        }
+        if (val.id == pid) {
+            if (num == 5) {
+                pmoney = val.build_hotel_price;
+            } else {
+                pmoney = val.build_house_price;
+            }
+        }
+    })
+    var pnum = 0;//统计土地数量
+    console.log('count' + count)
+    //1.1 同色块地是否集齐
+    var flag1 = false;
+    playerinfo.property.classification.forEach((val) => {
+        if (val.cid == tempcid) {
+            if (val.num == count) {
+                flag1 = true;
+            }
+            pnum = val.num;
+        }
+    })
+    flag1 = false;
+    //1.3 判断同色快其他地产至少有一个同数量或者多一个；
+    var tempflag = 0;
+    tempcids.forEach((val) => {
+        if (pnum == 2) {
+            if (val.hn == num || val.hn == num + 1) {
+                flag1 = true;
+            }
+        } else if (pnum == 3) {
+            if (val.hn == num || val.hn == num + 1) {
+                tempflag++;
+            }
+        }
+    })
+    if (pnum == 3) {
+        flag1 = (tempflag == 2);
+    }
+    // 1.2 房子数量是否超过5个
+    console.log('num' + num)
+    if (num >= 5) {
+        flag1 = flase;
+    }
+    //2 判断钱够不够
+    var flag2 = false;
+    if (pmoney <= playerinfo.balance) {
+        flag2 = true;
+    }
+    //3 买，更新房子等级
+    var pp = []
+    console.log('falg1' + flag1)
+    console.log('falg2' + flag2)
+    var balance = parseFloat(playerinfo.balance) - parseFloat(pmoney);
+    if (flag1 && flag2) {
+        playerinfo.property.propertys.forEach((val) => {
+            if (val.property_id == pid) {
+                pp.push({
+                    "property_id": val.property_id,
+                    "classification": val.classification,
+                    "house_level": 'H' + (housenum[val.house_level] + 1),
+                    "house_num": housenum[val.house_level] + 1
+                })
+            } else {
+                pp.push(val);
+            }
+        })
+        console.log(pp);
+        update_playerinfo({ property: { classification: playerinfo.property.classification, propertys: pp }, balance: balance }, 'id', playerinfo.id);
+        return true
+    }
+    else {
+        return false
+    }
+    return (flag1 && flag2)
+}
+
+async function salehouse(playerinfo, pid) {
+    //1 判断有没有房子
+    var housenum = {
+        "P1": 0, "P2": 0, "P3": 0,
+        "H1": 1,
+        "H2": 2,
+        "H3": 3,
+        "H4": 4,
+        "H5": 5,
+    };
+    var housenum2 = {
+        "P1": 0, "P2": 0,
+        "H1": 1,
+        "H2": 2,
+        "H3": 3,
+        "H4": 4,
+        "H5": 5,
+    };
+    var hun = 0;
+    var hm = [];
+    var p = await getPropertyInfo_from_player();
+    p.forEach((val) => {
+        if (val.property_name == pid) {
+            pid = val.id;
+            hm[0] = val.build_house_price;
+            hm[1] = val.build_hotel_price;
+            // tempcid = val.classification;
+        }
+    })
+
+    var pnum = 0;
+    playerinfo.property.classification.forEach((val) => {
+        pnum = val.num;
+    })
+
+    playerinfo.property.propertys.forEach((val) => {
+        if (val.property_id == pid) {
+            hun = val.house_num;
+        }
+    })
+    var flag1 = false;
+    var pp = [];
+    if (hun >= 1) {
+        flag1 = true;
+    }
+    //2 计算卖房子的价值
+    var saleHousemoney = [parseInt(hm[0] / 2), parseInt(hm[1] / 2)];
+    //3 更新用户的地产数据和余额数据
+
+    if (flag1) {
+        if (hun <= 4) {
+            var balance = parseFloat(playerinfo.balance) + parseFloat(saleHousemoney[0]);
+        } else {
+            var balance = parseFloat(playerinfo.balance) + parseFloat(saleHousemoney[1]);
+        }
+        playerinfo.property.propertys.forEach((val) => {
+            if (val.property_id == pid) {
+                if(pnum == 2){
+                    pp.push({
+                        "property_id": val.property_id,
+                        "classification": val.classification,
+                        "house_level": Object.keys(housenum)[[Object.keys(housenum2).indexOf(val.house_level)] - 1],
+                        "house_num": housenum[val.house_level] - 1
+                    })
+                }else if(pnum == 3){
+                    pp.push({
+                        "property_id": val.property_id,
+                        "classification": val.classification,
+                        "house_level": Object.keys(housenum)[[Object.keys(housenum).indexOf(val.house_level)] - 1],
+                        "house_num": housenum[val.house_level] - 1
+                    })
+                }
+                
+            } else {
+                pp.push(val);
+            }
+        })
+        update_playerinfo({ property: { classification: playerinfo.property.classification, propertys: pp }, balance: balance }, 'id', playerinfo.id);
+    }
+
+    return flag1
+}
+
 export {
     getPlayerInfo,
     getPropertyInfo_from_player,
     insert_transfer_history,
     timeCode,
     update_playerinfo,
-    getTransferHis
+    getTransferHis,
+    update_PropertyInfo,
+    giveProperty,
+    initGame,
+    initGameplayer,
+    buyhouse,
+    salehouse
 }

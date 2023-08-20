@@ -18,7 +18,7 @@
                 <van-picker show-toolbar :columns="columns1" @cancel="showPicker = false" @confirm="onConfirm">
                     <template #option="item">
                         <span>{{ item.text }}</span>
-                        <span> player{{ item.options }}</span>
+                        <span> （player{{ item.options }}）</span>
                     </template>
                 </van-picker>
             </van-popup>

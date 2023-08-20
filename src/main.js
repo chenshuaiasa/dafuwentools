@@ -6,12 +6,15 @@ import {Dialog} from 'vant';
 import 'vant/lib/index.css';
 import Vuex from 'vuex'
 import * as datas from './data/index'
+import { Toast } from "vant";
 Vue.config.productionTip = false
 
 Vue.prototype.$datas = datas;
 Vue.use(Vant);
 Vue.use(Vuex);
 Vue.use(Dialog);
+Vue.use(Toast);
+
 
 new Vue({
   router,
