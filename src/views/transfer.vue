@@ -6,7 +6,7 @@
             <van-field readonly placeholder="请选择转账对象" clickable label="玩家" name="playid" :value="value"
                 :rules="[{ required: true, message: '请选择转账对象' }]" @click="columns1.length <= 0 ? saveColumns() : con()" />
             <van-field v-model="money" type="number" :rules="[{ required: true, message: '请输入金额' }]" label="转账金额"
-                name="money" :value="value" placeholder="输入金额">
+                name="money" :value="valuemoney" placeholder="输入金额">
                 <template #extra>
                     <span>K</span>
                 </template>
@@ -31,6 +31,7 @@ export default {
     data() {
         return {
             value: "",
+            valuemoney:'',
             temp: "",
             players: [
                 { id: 1, playername: "玩家1", balance: 0, property: {}, state: 1 },
@@ -113,7 +114,7 @@ export default {
             console.log('cs')
             this.showPicker = true;
         },
-        onSubmit(values) {
+       async onSubmit(values) {
             var temp = this.players;
             console.log('submit' + values);
             this.submitvalue = values;
@@ -142,6 +143,11 @@ export default {
             this.updateDataPlayerinfo({balance:jsf_balance_now},'id',jsf);
             this.updateDataPlayerinfo({balance:zzf_balance_now},'id',this.playerid);
             this.insertDataTransferHistopry(this.d_h);
+
+            this.$toast.success('转账成功');
+            this.value = '';
+            this.money = '';
+            setInterval(() => { this.$router.go(0); }, 1000);
             // console.log(this.valueKey)
         },
         insertDataTransferHistopry: async function (data) {
