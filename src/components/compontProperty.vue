@@ -1,5 +1,8 @@
 <template>
   <div class="container-property2">
+    <!-- <div><span>已抵押</span></div> -->
+    <div v-show="ifpledge" v-bind:style="{width:'162px',height:'170px',backgroundColor:'#00000040',position:'absolute',borderRadius:'5px'}"> </div>
+    <div v-show="ifpledge" v-bind:style="{position:'absolute',left:'15px',marginTop:'5px', color:'#FFFFFF',}"><span v-bind:style="{backgroundColor:'#00000080'}">已抵押</span></div>
     <van-popover v-model="showPopover" trigger="click" :actions="actions" @select="onSelect" style="width: 100%;">
       <template #reference>
         <div class="property-name" v-bind:style="{ backgroundColor: bg_color }">
@@ -11,7 +14,7 @@
         </div>
       </template>
     </van-popover>
-
+    
     <div class="property-rent">
       <div class="rent-money">
         <div style="display: flex; align-items: center; flex-direction: row">
@@ -80,7 +83,9 @@ export default {
     "bg_color",
     "houselevel",
     "build_house_price",
-    "build_hotel_price"]
+    "build_hotel_price",
+    "ifpledge"
+  ]
   ,
 
   mounted: function () { },

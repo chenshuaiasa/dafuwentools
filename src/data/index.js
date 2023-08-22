@@ -95,22 +95,24 @@ function giveProperty(playerinfo, propertyinfo) {
     // console.log('submit' + values);
     //1 更新property_detail 地产状态-1且拥有者为id
     // console.log('??')
-    update_PropertyInfo({ state: -1, belong_to: playerinfo.id }, 'id', propertyinfo.property_id)
 
+    var P_h = ['P1', 'P2', 'P3', 'P4']
     //2 更新playerinfo 用户的房屋情况，同时要计算房屋等级-同色块
     // var house = [{}];
     var cid = [];
     var pro = [];
     if (playerinfo.property == null) {
         cid.push({ cid: propertyinfo.classification, num: 1 });
-        pro.push(propertyinfo)
+        pro.push(propertyinfo);
+        update_PropertyInfo({ state: -1, belong_to: playerinfo.id }, 'id', propertyinfo.property_id)
     } else {
         console.log(playerinfo)
         playerinfo.property.classification.forEach((val) => {
             if (propertyinfo.classification == val.cid) {
-                cid.push({ cid: val.cid, num: val.num + 1 })
+                cid.push({ cid: val.cid, num: val.num + 1 });
             } else {
-                cid.push({ cid: propertyinfo.classification, num: 1 })
+                cid.push(val);
+                cid.push({ cid: propertyinfo.classification, num: 1 });
             }
         });
         playerinfo.property.propertys.push(propertyinfo);
@@ -121,18 +123,12 @@ function giveProperty(playerinfo, propertyinfo) {
                     if (v.house_level.substring(0, 1) == 'H') {
                         pro.push(v);
                     } else {
-                        if (val.num == 1) {
-                            pro.push({ property_id: v.property_id, classification: v.classification, house_level: "P1", house_num: 0 })
-                        } else if (val.num == 2) {
-                            pro.push({ property_id: v.property_id, classification: v.classification, house_level: "P2", house_num: 0 })
-                        } else if (val.num == 3) {
-                            pro.push({ property_id: v.property_id, classification: v.classification, house_level: "P3", house_num: 0 })
-                        }
+                        pro.push({ property_id: v.property_id, classification: v.classification, house_level: P_h[val.num - 1], house_num: 0 ,state:-1})
                     }
                 }
             });
         });
-
+        update_PropertyInfo({ state: -1, belong_to: playerinfo.id }, 'id', propertyinfo.property_id)
     }
     console.log(cid);
     console.log(pro);
@@ -168,13 +164,13 @@ async function buyhouse(playerinfo, pid) {
         "H5": 5,
     };
     //1 判断可不可以买房子
-    var tempcid = '';
+    var temp_property = '';
     var tempcids = [];
     var p = await getPropertyInfo_from_player();
     p.forEach((val) => {
         if (val.property_name == pid) {
             pid = val.id;
-            tempcid = val.classification;
+            temp_property = val;
         }
     })
     console.log(pid);
@@ -182,16 +178,21 @@ async function buyhouse(playerinfo, pid) {
     var count = 0;
     var pmoney = 0;
     var num = 0;
+    var property_now_from_player = 0;
+    // var temp_property = '';
     playerinfo.property.propertys.forEach((val) => {
         if (val.property_id == pid) {
             num = val.house_num;
-        } else if (val.classification == tempcid) {
+            property_now_from_player = val;
+
+        } else if (val.classification == temp_property.classification) {
             tempcids.push({ id: val.property_id, hn: val.house_num })
         }
     })
     p.forEach((val) => {
-        if (val.classification == tempcid) {
+        if (val.classification == temp_property.classification) {
             count++;
+            //temp_property = val;
         }
         if (val.id == pid) {
             if (num == 5) {
@@ -204,22 +205,22 @@ async function buyhouse(playerinfo, pid) {
     var pnum = 0;//统计土地数量
     console.log('count' + count)
     //1.1 同色块地是否集齐
-    var flag1 = false;
+    var flag1 = [false];
     playerinfo.property.classification.forEach((val) => {
-        if (val.cid == tempcid) {
+        if (val.cid == temp_property.classification) {
             if (val.num == count) {
-                flag1 = true;
+                flag1[0] = true;
             }
             pnum = val.num;
         }
     })
-    flag1 = false;
+    flag1.push(false);
     //1.3 判断同色快其他地产至少有一个同数量或者多一个；
     var tempflag = 0;
     tempcids.forEach((val) => {
         if (pnum == 2) {
             if (val.hn == num || val.hn == num + 1) {
-                flag1 = true;
+                flag1[flag1.length - 1] = true;
             }
         } else if (pnum == 3) {
             if (val.hn == num || val.hn == num + 1) {
@@ -228,12 +229,24 @@ async function buyhouse(playerinfo, pid) {
         }
     })
     if (pnum == 3) {
-        flag1 = (tempflag == 2);
+        flag1[1] = (tempflag == 2);
     }
-    // 1.2 房子数量是否超过5个
+    // 1.4 房子数量是否超过5个
+    flag1.push(false);
     console.log('num' + num)
-    if (num >= 5) {
-        flag1 = flase;
+    if (num < 5) {
+        flag1[flag1.length - 1] = true;
+    }
+
+    //1.5 判断房地产类型可不可以买房子
+    flag1.push(false);
+    if (temp_property.type == 0) {
+        flag1[flag1.length - 1] = true;
+    }
+    //1.6 判断房子状态
+    flag1.push(false);
+    if(property_now_from_player.state != -2){
+        flag1[flag1.length - 1] = true;
     }
     //2 判断钱够不够
     var flag2 = false;
@@ -245,7 +258,8 @@ async function buyhouse(playerinfo, pid) {
     console.log('falg1' + flag1)
     console.log('falg2' + flag2)
     var balance = parseFloat(playerinfo.balance) - parseFloat(pmoney);
-    if (flag1 && flag2) {
+
+    if ((flag1.find(val=>{return val == false})==false?false:true) && flag2) {
         playerinfo.property.propertys.forEach((val) => {
             if (val.property_id == pid) {
                 pp.push({
@@ -265,9 +279,11 @@ async function buyhouse(playerinfo, pid) {
     else {
         return false
     }
-    return (flag1 && flag2)
+    return ((flag1.find(val=>{return val == false})==false?false:true) && flag2)
 }
 
+
+//卖房子
 async function salehouse(playerinfo, pid) {
     //1 判断有没有房子
     var housenum = {
@@ -325,14 +341,14 @@ async function salehouse(playerinfo, pid) {
         }
         playerinfo.property.propertys.forEach((val) => {
             if (val.property_id == pid) {
-                if(pnum == 2){
+                if (pnum == 2) {
                     pp.push({
                         "property_id": val.property_id,
                         "classification": val.classification,
                         "house_level": Object.keys(housenum)[[Object.keys(housenum2).indexOf(val.house_level)] - 1],
                         "house_num": housenum[val.house_level] - 1
                     })
-                }else if(pnum == 3){
+                } else if (pnum == 3) {
                     pp.push({
                         "property_id": val.property_id,
                         "classification": val.classification,
@@ -340,7 +356,7 @@ async function salehouse(playerinfo, pid) {
                         "house_num": housenum[val.house_level] - 1
                     })
                 }
-                
+
             } else {
                 pp.push(val);
             }
@@ -350,6 +366,41 @@ async function salehouse(playerinfo, pid) {
 
     return flag1
 }
+// 抵押房产
+async function pledgehouse(playerinfo, pid){
+    //1 判断当前房产是否可以抵押
+    //1.1 是否还有房子
+    var ps = await getPropertyInfo_from_player();
+    var property_now = ps.find(val=>{
+        return val.property_name == pid;
+    });
+
+    var property_now_from_player = playerinfo.property.find(val=>{
+        return val.property_id == property_now.id
+    })
+    var flag = [false];
+    if(property_now_from_player.house_num == 0){
+        flag[flag.length-1] = true;
+    }
+    //1.2 是否已抵押
+    flag.push(false);
+    if(property_now.state!=-2){
+        flag[flag.length-1] = true;
+    }
+
+    //2 开始抵押过程
+    //2.1 更改房屋状态-2
+    update_PropertyInfo({ state: -2}, 'id', property_now.id);
+    //2.2 更改用户的房屋状态为-2
+    var pro =  playerinfo.property.map((val)=>{
+        if(val.property_id == property_now_from_player)
+            val.state = -2
+        return val
+    })
+    update_playerinfo({ property: { classification: playerinfo.property.classification, propertys: pro}}, 'id', playerinfo.id);
+    return (flag.find(val=>{return val == false})==false?false:true)
+}   
+
 
 export {
     getPlayerInfo,
@@ -363,5 +414,6 @@ export {
     initGame,
     initGameplayer,
     buyhouse,
-    salehouse
+    salehouse,
+    pledgehouse
 }

@@ -103,16 +103,6 @@ export default {
             this.value = value.text
 
         },
-        removeLocal() {
-            // sessionStorage.setItem('test',"ceshi")
-
-            localStorage.removeItem("getplayers");
-            localStorage.removeItem("getpcolumns");
-            if (localStorage.getItem("getplayers") == null) {
-                console.log("已删除")
-            }
-
-        },
         con() {
             // console.log('cs')
             this.showPicker = true;
@@ -127,13 +117,6 @@ export default {
             this.show = true;
             
             // console.log(this.valueKey)
-        },
-        insertDataTransferHistopry: async function (data) {
-            // console.log(data)
-            await this.$datas.insert_transfer_history(data);
-        },
-        updateDataPlayerinfo: async function (data, co, v) {
-            await this.$datas.update_playerinfo(data, co, v);
         },
         checkResult(flag) {
             if(flag){

@@ -43,7 +43,7 @@
                     <compontProperty :property_name="value.property_name" :mortgage_amount="value.mortgage_amount"
                       :redemption_amount="value.redemption_amount" :bg_color="value.color" :rent="value.rent"
                       :houselevel="value.house_level" :build_house_price="value.build_house_price"
-                      :build_hotel_price="value.build_hotel_price" @propertyFunction="propertyFunction" v-if="isGetData">
+                      :build_hotel_price="value.build_hotel_price" @propertyFunction="propertyFunction" :ifpledge="value.state==-2?ture:false" v-if="isGetData" >
                     </compontProperty>
                   </van-grid-item>
                 </van-grid>
@@ -173,16 +173,19 @@ export default {
       return this.housenum
     },
     propertyFunction(index, pname) {
-      //0 买房子
+      //indnex =0 买房子
       if (index == 0) {
         this.com = 1;
         // console.log('csss??');
         this.showc = true;
         this.choosehouse = pname;
-      }//1 抵押
+      }//indnex 1 抵押
       else if (index == 1) {
-
-      }//2 卖房子
+        this.com = 3;
+        // console.log('csss??');
+        this.showc = true;
+        this.choosehouse = pname;
+      }//indnex 2 卖房子
       else {
         this.com = 2;
         // console.log('csss??');
@@ -214,8 +217,14 @@ export default {
             this.$toast.fail('不满足售卖条件');
           }
         }//1 抵押
-        else {
-
+        else if (index == 3){
+          if (this.$datas.pledgehouse(this.playerinfo[0], this.choosehouse)) {
+            this.$toast.success('售卖成功，将刷新页面');
+            //刷新页面
+            setInterval(() => { this.$router.go(0); }, 1000);
+          } else {
+            this.$toast.fail('不满足售卖条件');
+          }
         }
       } else {
         null

@@ -119,16 +119,6 @@ export default {
             this.value2 = value.text
 
         },
-        removeLocal() {
-            // sessionStorage.setItem('test',"ceshi")
-
-            localStorage.removeItem("getplayers");
-            localStorage.removeItem("getpcolumns");
-            if (localStorage.getItem("getplayers") == null) {
-                console.log("已删除")
-            }
-
-        },
         con(f) {
             if (f == 1)
                 // console.log('cs')
@@ -140,10 +130,8 @@ export default {
             var playerinfo = [];
             //1 生成playerinfo
             console.log('sub' + values)
-            this.players.forEach((val) => {
-                if (val.playername == values.playid) {
-                    playerinfo = val;
-                }
+            playerinfo = this.player.find(val=>{
+                return val.playername == values.playid
             });
 
             //2 生成propertyinfo
@@ -160,6 +148,7 @@ export default {
                     prop.classification = val.classification;
                     prop.house_level = "P1";
                     prop.house_num = 0;
+                    prop.state = val.state;
                 }
             })
             //3 调用函数
@@ -168,6 +157,8 @@ export default {
 
             this.removeValue();
             this.$toast.success('发放成功');
+            setInterval(() => { this.$router.go(0); }, 1000);
+
         },
         insertDataTransferHistopry: async function (data) {
             // console.log(data)

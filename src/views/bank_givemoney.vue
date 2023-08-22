@@ -136,6 +136,7 @@ export default {
             this.updateDataPlayerinfo({balance:jsf_balance_now},'id',jsf);
             this.insertDataTransferHistopry(this.d_h);
             this.$toast.success('发放成功');
+            setInterval(() => { this.$router.go(0); }, 1000);
             // console.log(this.valueKey)
         },
         insertDataTransferHistopry: async function (data) {

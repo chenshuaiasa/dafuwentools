@@ -12,7 +12,6 @@ import TransferPH from '../views/transferplayerhis.vue'
 import Home from '../views/home.vue'
 import BanGM from '../views/bank_givemoney.vue'
 import BanGT from '../views/bank_giveproperty.vue'
-import BanGH from '../views/bank_givehouse.vue'
 import BanIG from '../views/bank_initgame.vue'
 import BanRP from '../views/bank_removeproperty.vue'
 
@@ -31,11 +30,8 @@ const routes = [
     { path: '/home', component: Home },
     { path: '/bangm', component: BanGM },
     {path: '/bangt', component: BanGT },
-    {path: '/bangh', component: BanGH },
     {path: '/banig', component: BanIG },
-    {path: '/banrp', component: BanRP },
-
-
+    {path: '/banrp', component: BanRP }
 ]
 
 // 3. 创建 router 实例，然后传 `routes` 配置
