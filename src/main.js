@@ -7,7 +7,7 @@ import 'vant/lib/index.css';
 import * as datas from './data/index'
 import * as data_broadcast from './data/broadcast.js'
 import { Toast } from "vant";
-import store from './store'
+import store from './store/index'
 Vue.config.productionTip = false
 
 Vue.prototype.$datas = datas;

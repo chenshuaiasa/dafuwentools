@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
+import store from '../store/index'
 
 // 初始化memfiredb数据库实例
 
@@ -7,8 +8,8 @@ const supabaseJs2 = createClient(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImV4cCI6MzIyOTI0NDU0NywiaWF0IjoxNjkxMzI0NTQ3LCJpc3MiOiJzdXBhYmFzZSJ9.8_QqAuys0lyhsCCBfqDh919lGpmIpWzzYxausRHgZZQ"
 );
 
-async function initPlayerinfo(){
-    
+function getPlayerinfo(){
+    console.log(store.state)
 }
 
 async function getPlayerInfo(column, val, colunms1) {
@@ -458,5 +459,6 @@ export {
     buyhouse,
     salehouse,
     pledgehouse,
-    redemptionhouse
+    redemptionhouse,
+    getPlayerinfo
 }

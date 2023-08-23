@@ -16,8 +16,10 @@ const store = new Vuex.Store({
         }
     },
     actions:{
-        async asyncgetPlayerinfo({commit}){
-            var temp = await this.$datas.getPlayerInfo('');
+        async asyncgetPlayerinfo({commit},payload){
+            var _this = payload._this
+            var temp = await _this.$datas.getPlayerInfo('');
+            // console.log(temp);
             commit('getPlayerinfo',temp);
         }
     },

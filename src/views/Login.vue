@@ -46,7 +46,9 @@ export default {
     };
   },
   mounted: async function () {
-    await this.InitPlayerinfo();
+   await this.$store.dispatch('asyncgetPlayerinfo',{_this:this});
+    this.InitPlayerinfo();
+    console.log(this.$datasb.channel)
   },
   methods: {
     onSubmit(values) {
@@ -77,9 +79,11 @@ export default {
         }
       });
     },
-    InitPlayerinfo: async function () {
-      this.players = await this.$datas.getPlayerInfo("flag", 1);
-      console.log(this.players);
+    InitPlayerinfo: function () {
+      // console.log(this.$store.state.playerinfo);
+      this.players = this.$store.state.playerinfo;
+      // this.$datas.getPlayerinfo();
+      // console.log(this.players);
     },
     updateDataPlayerinfo: async function (data, co, v) {
       await this.$datas.update_playerinfo(data, co, v);
@@ -117,7 +121,8 @@ export default {
   computed: {
     saveColumns() {
       this.players.forEach((val) => {
-        this.columns.push('玩家' + val.id);
+        if(val.flag == 1)
+          this.columns.push('玩家' + val.id);
       });
       return this.columns;
     },
