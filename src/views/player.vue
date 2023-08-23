@@ -1,6 +1,7 @@
 <template>
   <div v-if="$route.path == '/player'" class="container" style="width: 100%">
-    <compontDialogp v-if="showc" :com="com" :showcc="showc" :check="1" @checkResult="checkResult"></compontDialogp>
+    <compontDialogp v-if="showc" :com="com" :showcc="showc" :check="1" :title="title" @checkResult="checkResult">
+    </compontDialogp>
     <div class="header">
       <span>玩家主页</span>
     </div>
@@ -43,7 +44,8 @@
                     <compontProperty :property_name="value.property_name" :mortgage_amount="value.mortgage_amount"
                       :redemption_amount="value.redemption_amount" :bg_color="value.color" :rent="value.rent"
                       :houselevel="value.house_level" :build_house_price="value.build_house_price"
-                      :build_hotel_price="value.build_hotel_price" @propertyFunction="propertyFunction" :ifpledge="value.state==-2?ture:false" v-if="isGetData" >
+                      :build_hotel_price="value.build_hotel_price" @propertyFunction="propertyFunction"
+                      :ifpledge="value.state == -2 ? true : false" v-if="isGetData">
                     </compontProperty>
                   </van-grid-item>
                 </van-grid>
@@ -97,26 +99,30 @@ export default {
       housenum: 0,
       com: 1,
       showc: false,
-      choosehouse: ''
+      choosehouse: '',
+      title: '',
     }
   },
   mounted: async function () {
-    this.playerid = this.$route.query.palyerid;
-
-    await this.InitPlayerinfo();
-    if (this.playerinfo[0].property == null) {
-      null
-    }
-    else {
-      await this.InitPropertyinfo_from_player();
-      this.getHouseLevel();
-    }
+    await this.init_of_all();
   },
   components: {
     compontProperty,
     compontDialogp
   },
   methods: {
+    async init_of_all() {
+      this.playerid = this.$route.query.palyerid;
+
+      await this.InitPlayerinfo();
+      if (this.playerinfo[0].property == null) {
+        null
+      }
+      else {
+        await this.InitPropertyinfo_from_player();
+        this.getHouseLevel();
+      }
+    },
     onRefresh() {
       setTimeout(() => {
         Toast("刷新成功");
@@ -177,57 +183,76 @@ export default {
       if (index == 0) {
         this.com = 1;
         // console.log('csss??');
+        this.title = "是否购买房子";
         this.showc = true;
         this.choosehouse = pname;
       }//indnex 1 抵押
       else if (index == 1) {
         this.com = 3;
+        this.title = "是否抵押房地产";
         // console.log('csss??');
         this.showc = true;
         this.choosehouse = pname;
       }//indnex 2 卖房子
-      else {
+      else if (index == 2){
         this.com = 2;
         // console.log('csss??');
+        this.title = "是否出售房子";
+        this.showc = true;
+        this.choosehouse = pname;
+      }else if(index == 4){
+        this.com = 4;
+        // console.log('csss??');
+        this.title = "是否赎回房子";
         this.showc = true;
         this.choosehouse = pname;
       }
 
     },
-    async checkResult(flag, index, val) {
+    async checkResult(flag, index_com, val) {
       console.log('css');
       this.showc = false;
       if (flag) {
-        if (index == 1) {
+        if (index_com == 1) {
           // console.log(await this.$datas.buyhouse(this.playerinfo[0], this.choosehouse))
           if (await this.$datas.buyhouse(this.playerinfo[0], this.choosehouse)) {
-            this.$toast.success('购买成功，将刷新页面');
+            this.$toast.success('购买成功');
             //刷新页面
-            setInterval(() => { this.$router.go(0); }, 1000);
+            await this.init_of_all();
+            // setInterval(() => { this.$router.go(0); }, 1000);
           } else {
             this.$toast.fail('不满足购买条件');
           }
         }//2 卖房子
-        else if (index == 2) {
+        else if (index_com == 2) {
           if (this.$datas.salehouse(this.playerinfo[0], this.choosehouse)) {
             this.$toast.success('售卖成功，将刷新页面');
             //刷新页面
-            setInterval(() => { this.$router.go(0); }, 1000);
+            await this.init_of_all();
+            // setInterval(() => { this.$router.go(0); }, 1000);
           } else {
             this.$toast.fail('不满足售卖条件');
           }
-        }//1 抵押
-        else if (index == 3){
+        }//3 抵押
+        else if (index_com == 3) {
           if (this.$datas.pledgehouse(this.playerinfo[0], this.choosehouse)) {
-            this.$toast.success('售卖成功，将刷新页面');
+            this.$toast.success('抵押成功，将刷新页面');
+            await this.init_of_all();
             //刷新页面
-            setInterval(() => { this.$router.go(0); }, 1000);
+            // setInterval(() => { this.$router.go(0); }, 1000);
           } else {
-            this.$toast.fail('不满足售卖条件');
+            this.$toast.fail('不满足抵押条件');
           }
-        }
-      } else {
-        null
+        }//4 赎回
+      } else if (index_com == 4){
+        if (this.$datas.redemptionhouse(this.playerinfo[0], this.choosehouse)) {
+            this.$toast.success('赎回成功');
+            await this.init_of_all();
+            //刷新页面
+            // setInterval(() => { this.$router.go(0); }, 1000);
+          } else {
+            this.$toast.fail('不满足赎回条件');
+          }
       }
     }
   },

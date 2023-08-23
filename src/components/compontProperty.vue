@@ -1,8 +1,16 @@
 <template>
   <div class="container-property2">
     <!-- <div><span>已抵押</span></div> -->
-    <div v-show="ifpledge" v-bind:style="{width:'162px',height:'170px',backgroundColor:'#00000040',position:'absolute',borderRadius:'5px'}"> </div>
-    <div v-show="ifpledge" v-bind:style="{position:'absolute',left:'15px',marginTop:'5px', color:'#FFFFFF',}"><span v-bind:style="{backgroundColor:'#00000080'}">已抵押</span></div>
+    <div class="cover" v-show="ifpledge">
+      <van-popover v-model="showPopover2" trigger="click" :actions="actions2" placement="right-start" :offset="[0,70]" @select="onSelect2">
+        <template #reference>
+          <!-- <van-button type="primary" v-bind:style="{ position: 'absolute', left: '10px', marginTop: '8px', color: '#FFFFFF', }">浅色风格</van-button> -->
+          <div v-show="ifpledge" v-bind:style="{ left: '0px', marginTop: '0px', color: '#FFFFFF', }">
+            <span v-bind:style="{ backgroundColor: '#00000080', padding: '5px', borderRadius: '5px',margin:'5px',position:'absolute'}">已抵押</span>
+          </div>
+        </template>
+      </van-popover>
+    </div>
     <van-popover v-model="showPopover" trigger="click" :actions="actions" @select="onSelect" style="width: 100%;">
       <template #reference>
         <div class="property-name" v-bind:style="{ backgroundColor: bg_color }">
@@ -14,7 +22,7 @@
         </div>
       </template>
     </van-popover>
-    
+
     <div class="property-rent">
       <div class="rent-money">
         <div style="display: flex; align-items: center; flex-direction: row">
@@ -27,8 +35,9 @@
             ">租金：</span>
         </div>
         <div :class="[
-          houselevel == value.level ? 'rent-price-checked' : 'rent-price',
-        ]" v-for="value in rent" :key="value.name">
+            houselevel == value.level ? 'rent-price-checked' : 'rent-price',
+          ]
+          " v-for="     value      in      rent     " :key="value.name">
           {{ getRentUnit(value.price) }}
 
         </div>
@@ -42,9 +51,9 @@
               text-align: left;
               color: rgb(51, 51, 51);
             ">房屋：</span>
-        </div>
-        <div v-for="value in getHousNum(houselevel)" :key="value.name">
-          <img src="../assets/房屋.svg" style="width: 17px" />
+          <div v-for="     value      in      getHousNum(houselevel)     " :key="value.name">
+            <img src="../assets/房屋.svg" style="width: 17px" />
+          </div>
         </div>
         <div class="house_price">
           <span>房屋：{{ build_house_price }}；旅馆：{{ build_hotel_price }}</span>
@@ -69,7 +78,9 @@ export default {
       },
       house_level2: '',
       actions: [{ text: '买房子' }, { text: '抵押' }, { text: '卖房子' }],
-      showPopover:false,
+      actions2: [{ text: '赎回房子' }],
+      showPopover: false,
+      showPopover2: false,
     };
   },
   props: ["property_name",
@@ -98,9 +109,13 @@ export default {
       // console.log(hl);
       return this.housenum[hl]
     },
-    onSelect(action,index){
+    onSelect(action, index) {
       // console.log(index)0 1 2
-      this.$emit('propertyFunction',index,this.property_name)
+      this.$emit('propertyFunction', index, this.property_name)
+    },
+    onSelect2(action, index) {
+      // console.log(index)0 1 2
+      this.$emit('propertyFunction', 4, this.property_name)
     }
   },
   watch: {
@@ -109,6 +124,17 @@ export default {
 </script>
 
 <style scoped>
+.cover {
+  width: 162px;
+  height: 170px;
+  background-color: #00000040;
+  position: absolute;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .container-property2 {
   width: 162px;
   height: 170px;
@@ -150,10 +176,9 @@ export default {
     display: flex;
     height: 60%;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
 
-    .rent-money,
-    .houses {
+    .rent-money {
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -179,6 +204,18 @@ export default {
         color: #ffffff;
         border: 0px dashed #828282;
       }
+
+
+    }
+
+    .houses {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      justify-content: flex-start;
+      margin-left: 5px;
 
       .house_price {
         font-size: 10px;

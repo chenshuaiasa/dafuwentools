@@ -4,9 +4,9 @@
         <h3>发放土地</h3>
         <van-form @submit="onSubmit">
             <van-field readonly placeholder="请选择发放对象" clickable label="玩家" name="playid" :value="value"
-                :rules="[{ required: true, message: '请选择发放对象' }]" @click="columns1.length <= 0 ? saveColumns(1) : con(1)" />
+                :rules="[{ required: true, message: '请选择发放对象' }]" @click="saveColumns(1)" />
             <van-field readonly placeholder="请选择土地" clickable label="土地" name="propertyname" :value="value2"
-                :rules="[{ required: true, message: '请选择土地' }]" @click="columns2.length <= 0 ? saveColumns(2) : con(2)" />
+                :rules="[{ required: true, message: '请选择土地' }]" @click="saveColumns(2)" />
             <div style="margin: 16px;">
                 <van-button round block type="info" native-type="submit">确认</van-button>
             </div>
@@ -87,14 +87,15 @@ export default {
         },
         InitPlayerinfo: async function (c1) {
             this.players = await this.$datas.getPlayerInfo('', '', c1);
+            console.log(this.players);
             this.property_info = await this.$datas.getPropertyInfo_from_player("state", [1]);
+            console.log(this.property_info);
             this.property = this.players[0].property
             // console.log(this.players);
         },
-        async initPropertyInfo() {
-
-        },
         saveColumns(f) {
+            this.columns1 = [];
+            this.columns2 = [];
             this.players.forEach((val) => {
                 // console.log(JSON.stringify({'playername':val.playername,'id':val.id}))
                 if (val.id == 101) {
@@ -126,11 +127,11 @@ export default {
             else
                 this.showPicker2 = true
         },
-        onSubmit(values) {
+        async onSubmit(values) {
             var playerinfo = [];
             //1 生成playerinfo
             console.log('sub' + values)
-            playerinfo = this.player.find(val=>{
+            playerinfo = this.players.find(val=>{
                 return val.playername == values.playid
             });
 
@@ -157,7 +158,9 @@ export default {
 
             this.removeValue();
             this.$toast.success('发放成功');
-            setInterval(() => { this.$router.go(0); }, 1000);
+
+            await this.InitPlayerinfo('');
+            // setInterval(() => { this.$router.go(0); }, 1000);
 
         },
         insertDataTransferHistopry: async function (data) {

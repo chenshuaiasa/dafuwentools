@@ -1,8 +1,13 @@
 <template>
     <div>
-        <van-dialog v-if="showw" v-model="shows" title="选择购买房子数" show-cancel-button :overlay="true" lock-scroll
+        <van-dialog  v-model="shows" :title="title" show-cancel-button :overlay="true" lock-scroll
             :before-close="beforeClose">
-            <van-stepper v-if="com == 1 || com == 2" v-model="valuenum" disabled />
+            <van-field v-if="com == 1 || com == 2" name="stepper" label="数量">
+                <template #input>
+                    <van-stepper v-if="com == 1 || com == 2" v-model="valuenum" disabled />
+                </template>
+            </van-field>
+            
         </van-dialog>
     </div>
 </template>
@@ -23,7 +28,7 @@ export default {
     mounted: function () {
         this.shows = this.showcc;
     },
-    props: ["showcc", "p", "check", "com"],
+    props: ["showcc", "p", "check", "com", "title"],
     methods: {
         beforeClose(action, done) {
             var val = [this.valuenum];
@@ -46,10 +51,6 @@ export default {
         }
     },
     computed: {
-        showw(newVal, oldVal) {
-            this.shows = this.showcc;
-            return this.shows;
-        }
     }
 }
 </script>
