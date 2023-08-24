@@ -140,7 +140,7 @@ export default {
       // console.log(this.propertyInfo);
 
       //获取当前用户的房地产信息
-      await this.$store.dispatch('asyncgetPropertyinfo_of_player',{column:'belong_to',id:[this.playerinfo.id],player:this.playerinfo});
+      await this.$store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id: [this.playerinfo.id], player: this.playerinfo });
       // this.propertyinfo2 = this.$store.state.propertyinfo_of_player;
       this.isGetData = true;
       // console.log(this.propertyinfo2);
@@ -162,8 +162,8 @@ export default {
       this.isGetData = true;
       // console.log(this.propertyinfo2);
     },
-    
-    
+
+
 
     propertyFunction(index, pname) {
       //indnex =0 买房子
@@ -197,15 +197,16 @@ export default {
 
     },
     async checkResult(flag, index_com, val) {
-      console.log('css');
+      // console.log(index_com);
       this.showc = false;
       if (flag) {
+        console.log(index_com);
         if (index_com == 1) {
           // console.log(await this.$datas.buyhouse(this.playerinfo[0], this.choosehouse))
           if (await this.$datas.buyhouse(this.playerinfo, this.choosehouse)) {
             this.$toast.success('购买成功');
             //刷新页面
-            await this.init_of_all();
+            // await this.init_of_all();
             // setInterval(() => { this.$router.go(0); }, 1000);
           } else {
             this.$toast.fail('不满足购买条件');
@@ -215,7 +216,7 @@ export default {
           if (this.$datas.salehouse(this.playerinfo, this.choosehouse)) {
             this.$toast.success('售卖成功，将刷新页面');
             //刷新页面
-            await this.init_of_all();
+            // await this.init_of_all();
             // setInterval(() => { this.$router.go(0); }, 1000);
           } else {
             this.$toast.fail('不满足售卖条件');
@@ -224,44 +225,47 @@ export default {
         else if (index_com == 3) {
           if (this.$datas.pledgehouse(this.playerinfo, this.choosehouse)) {
             this.$toast.success('抵押成功，将刷新页面');
-            await this.init_of_all();
+            // await this.init_of_all();
             //刷新页面
             // setInterval(() => { this.$router.go(0); }, 1000);
           } else {
             this.$toast.fail('不满足抵押条件');
           }
         }//4 赎回
-      } else if (index_com == 4) {
-        if (this.$datas.redemptionhouse(this.playerinfo, this.choosehouse)) {
-          this.$toast.success('赎回成功');
-          await this.init_of_all();
-          //刷新页面
-          // setInterval(() => { this.$router.go(0); }, 1000);
-        } else {
-          this.$toast.fail('不满足赎回条件');
+        else if (index_com == 4) {
+          console.log('cssss')
+          if (this.$datas.redemptionhouse(this.playerinfo, this.choosehouse)) {
+            this.$toast.success('赎回成功');
+            // await this.init_of_all();
+            //刷新页面
+            // setInterval(() => { this.$router.go(0); }, 1000);
+          } else {
+            this.$toast.fail('不满足赎回条件');
+          }
         }
       }
-    }
+    },
+    
   },
   computed: {
-    player: function () {
-      //this.$store.dispatch();
-      return this.$store.state.playerinfo_now
+      player: function () {
+        //this.$store.dispatch();
+        return this.$store.state.playerinfo_now
+      },
+      getplayerid: function () {
+        return this.$store.state.playerid
+      },
+      //房地产数计算
+      getHouseNum: function () {
+        // console.log(this.playerinfo);
+        return this.$store.state.propertyinfo_of_player.length
+      },
+      getpropertyinfo2: function () {
+        // getHouseLevel();
+        return this.$store.state.propertyinfo_of_player
+      }
     },
-    getplayerid:function(){
-      return this.$store.state.playerid
-    },
-    //房地产数计算
-    getHouseNum: function () {
-      // console.log(this.playerinfo);
-      return this.$store.state.propertyinfo_of_player.length
-    },
-    getpropertyinfo2:function(){
-      // getHouseLevel();
-      return this.$store.state.propertyinfo_of_player
-    }
-  },
-};
+}
 </script>
 
 <style scoped>

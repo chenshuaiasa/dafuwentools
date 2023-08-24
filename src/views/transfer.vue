@@ -31,6 +31,7 @@ export default {
     data() {
         return {
             value: "",
+            valueid:'',
             valuemoney:'',
             temp: "",
             players: [
@@ -49,10 +50,6 @@ export default {
             }],
             columns1: [],
             choseeId: "",
-            columns2: [
-                { values: ["选项1", "选项2", "选项3"], defaultIndex: 0, options: [] },
-                { values: ["选项A", "选项B", "选项C"], defaultIndex: 1, options: [] }
-            ],
             playerid: '',
             money: '',
             submitvalue: '',
@@ -63,9 +60,9 @@ export default {
         };
     },
     mounted: async function () {
-        this.playerid = this.$route.query.palyerid;
-        await this.InitPlayerinfo('');
-        console.log(this.columns1)
+        // this.playerid = this.$route.query.palyerid;
+        // await this.InitPlayerinfo('');
+        // console.log(this.columns1)
     },
     methods: {
         onClickLeft: function () {
@@ -77,28 +74,23 @@ export default {
             console.log(this.players);
         },
         saveColumns() {
-            this.players.forEach((val) => {
+            this.$store.state.playerinfo.forEach((val) => {
                 // console.log(JSON.stringify({'playername':val.playername,'id':val.id}))
-                if (val.id == this.playerid) {
+                if (val.id == this.$store.state.playerid) {
                     null
                 } else {
                     this.columns1.push({ "text": val.playername, "options": val.id });
                 }
 
             });
-            this.SaveValuekey();
-            console.log(this.columns1);
-        },
-        SaveValuekey() {
-            this.players.forEach((val) => {
-                this.valueKey.push(val.id + '');
-            });
             this.showPicker = true;
+            // this.SaveValuekey();
+            console.log(this.columns1);
         },
         onConfirm(value, index) {
             this.showPicker = false;
             this.value = value.text
-
+            this.valueid = value.options;
         },
         removeLocal() {
             // sessionStorage.setItem('test',"ceshi")
@@ -111,12 +103,13 @@ export default {
 
         },
         con() {
-            console.log('cs')
+            // console.log('cs')
             this.showPicker = true;
         },
        async onSubmit(values) {
-            var temp = this.players;
-            console.log('submit' + values);
+            var temp = this.$store.state.playerinfo;
+            var playerid = this.$store.state.playerid;
+            // console.log('submit' + values);
             this.submitvalue = values;
             var jsf = '';
             var jsf_balance_now = '';
@@ -126,28 +119,28 @@ export default {
             for (var i in temp) {
                 console.log(temp[i].playername);
                 console.log(this.submitvalue.playid);
-                if (temp[i].playername == this.submitvalue.playid) {
+                if (temp[i].id == this.valueid) {
                     jsf= temp[i].id;
                     jsf_balance_now= parseFloat(temp[i].balance) + parseFloat(this.submitvalue.money);
                     
                 }
-                if (temp[i].id == this.playerid) {
+                if (temp[i].id == playerid) {
                     zzf_balance_now= parseFloat(temp[i].balance) - parseFloat(this.submitvalue.money);
                     zzfname = temp[i].playername;
                 }
             }
             jsfname = this.submitvalue.playid;
-            this.d_h = {id:Date.now(),zzf:this.playerid,jsf:jsf,jsf_balance_now:jsf_balance_now,zzf_balance_now:zzf_balance_now,money:this.submitvalue.money,transfer_time: this.$datas.timeCode(),jsfname:jsfname,zzfname:zzfname}
+            this.d_h = {id:Date.now(),zzf:playerid,jsf:jsf,jsf_balance_now:jsf_balance_now,zzf_balance_now:zzf_balance_now,money:this.submitvalue.money,transfer_time: this.$datas.timeCode(),jsfname:jsfname,zzfname:zzfname}
             // console.log(this.d);
             console.log({balance:jsf_balance_now});
             this.updateDataPlayerinfo({balance:jsf_balance_now},'id',jsf);
-            this.updateDataPlayerinfo({balance:zzf_balance_now},'id',this.playerid);
+            this.updateDataPlayerinfo({balance:zzf_balance_now},'id',playerid);
             this.insertDataTransferHistopry(this.d_h);
 
             this.$toast.success('转账成功');
             this.value = '';
             this.money = '';
-            setInterval(() => { this.$router.go(0); }, 1000);
+            // setInterval(() => { this.$router.go(0); }, 1000);
             // console.log(this.valueKey)
         },
         insertDataTransferHistopry: async function (data) {

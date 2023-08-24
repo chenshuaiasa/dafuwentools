@@ -422,7 +422,7 @@ async function pledgehouse(playerinfo, pid) {
 //赎回房产
 async function redemptionhouse(playerinfo, pid) {
     //1 判断用户是否满足赎回条件
-
+    console.log('shuhui');
     //1.1 用户余额是否充足
     var flag = [false];//定义判断标识
     //获取地产的赎回金额
@@ -451,16 +451,85 @@ async function redemptionhouse(playerinfo, pid) {
 }
 
 async function assetTransfer(p1, p2) {
+    console.log('调用');
     var pid1 = p1.playerid;
     var property1 = p1.propertyid;
     var pid2 = p2.playerid;
-
-    //1 从p1的数据中删除房子
-    //1.1 将property_detail里的数据归为p2
-    //1.2 将playerinfo中的property数据删除该房产，并更新房子等级
+    var housenum = {
+        "P1": 0, "P2": 0, "P3": 0, "P4": 0,
+        "H1": 1,
+        "H2": 2,
+        "H3": 3,
+        "H4": 4,
+        "H5": 5,
+    };
+    //1 从p1的数据中删除房子\
     //判断可不可不转让房地产：没有建筑物
-    //2 从p2的数据中增加房子
-    
+    var flag = [false];
+    var playerinfo1 = store.state.playerinfo.find(val => { return val.id == pid1 });
+    console.log(playerinfo1);
+    var propertyinfo = playerinfo1.property.propertys.find(val => {
+        return val.property_id == property1;
+    })
+    if (propertyinfo.house_num == 0) {
+        flag[flag.length - 1] = true;
+    }
+    var temp = [];
+    var cid = [];
+    var property_to_info ={};
+    console.log(flag)
+    if (flag[0] == true) {
+        //1.1 将property_detail里的数据归为p2\
+        update_PropertyInfo({ belong_to:pid2}, 'id', property1);
+        //1.2 将playerinfo中的property数据删除该房产，并更新房子等级
+        playerinfo1.property.propertys.forEach(val => {
+            if (val.property_id != property1) {
+                temp.push(val);
+            }
+            if(val.property_id == property1){
+                property_to_info = val;
+            }
+
+        })
+        playerinfo1.property.classification.forEach(val => {
+            if (val.cid == propertyinfo.classification) {
+                if (val.num == 1)
+                    null
+                else{
+                    cid.push({cid:val.cid,num:val.num-1})
+                }
+            }else{
+                cid.push(val);
+            }
+        })
+        var tempcs = [];
+        
+        temp.forEach(val => {
+            if (val.classification == propertyinfo.classification) {
+                if (val.house_level.substring(0, 1) != 'H') {
+                    var cs = Object.keys(housenum)[[Object.keys(housenum).indexOf(val.house_level)] - 1];
+                    
+                    tempcs.push({
+                        "property_id": val.property_id,
+                        "classification": val.classification,
+                        "house_level": cs,
+                        "house_num": 0,
+                        "state": val.state
+                    });
+                } else {
+                    tempcs.push(val)
+                }
+            } else {
+                tempcs.push(val)
+            }
+        })
+        console.log(tempcs);
+        update_playerinfo({ property: { classification: cid, propertys: tempcs }}, 'id', pid1);
+        //2 从p2的数据中增加房子
+        var playerindo2 = store.state.playerinfo.find(val => { return val.id == pid2 });
+        giveProperty(playerindo2, property_to_info);
+    }
+    return flag[0]
 }
 
 export {

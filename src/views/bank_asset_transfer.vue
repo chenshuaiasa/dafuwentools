@@ -40,7 +40,11 @@ export default {
             console.log(selectedOptions)
             this.fieldValue = selectedOptions.map((option) => option.text).join(' / ');
             this.chooseid.playerid = selectedOptions[0].value;
-            this.chooseid.propertyid = selectedOptions[1].value;
+            if(selectedOptions.length == 1){
+                this.chooseid.propertyid = null;
+            }else{
+                this.chooseid.propertyid = selectedOptions[1].value;
+            }
         },
         onFinish2({ selectedOptions }) {
             this.show2 = false;
@@ -53,7 +57,13 @@ export default {
         },
         onSubmit:function(){
             //调用转让函数
-            
+            if(this.chooseid.propertyid == null){
+                this.$toast.fail('没有选择资产');
+            }else{
+                this.$datas.assetTransfer(this.chooseid,this.chooseid2);
+                this.$toast.success('转移成功');
+                
+            }
         }
     },
     computed: {
@@ -74,7 +84,7 @@ export default {
                     }
                 }
             })
-            console.log(temp)
+            // console.log(temp)
             return temp
         },
         getoptions2: function () {
@@ -84,7 +94,7 @@ export default {
                     temp.push({ text: val.playername + '  player' + val.id, value: val.id });
                 }
             })
-            console.log(temp)
+            // console.log(temp)
             return temp
         }
     }
