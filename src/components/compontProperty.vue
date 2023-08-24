@@ -2,11 +2,13 @@
   <div class="container-property2">
     <!-- <div><span>已抵押</span></div> -->
     <div class="cover" v-show="ifpledge">
-      <van-popover v-model="showPopover2" trigger="click" :actions="actions2" placement="right-start" :offset="[0,70]" @select="onSelect2">
+      <van-popover v-model="showPopover2" trigger="click" :actions="actions2" placement="right-start" :offset="[0, 70]"
+        @select="onSelect2">
         <template #reference>
           <!-- <van-button type="primary" v-bind:style="{ position: 'absolute', left: '10px', marginTop: '8px', color: '#FFFFFF', }">浅色风格</van-button> -->
           <div v-show="ifpledge" v-bind:style="{ left: '0px', marginTop: '0px', color: '#FFFFFF', }">
-            <span v-bind:style="{ backgroundColor: '#00000080', padding: '5px', borderRadius: '5px',margin:'5px',position:'absolute'}">已抵押</span>
+            <span
+              v-bind:style="{ backgroundColor: '#00000080', padding: '5px', borderRadius: '5px', margin: '5px', position: 'absolute' }">已抵押</span>
           </div>
         </template>
       </van-popover>
@@ -34,10 +36,8 @@
               color: rgb(51, 51, 51);
             ">租金：</span>
         </div>
-        <div :class="[
-            houselevel == value.level ? 'rent-price-checked' : 'rent-price',
-          ]
-          " v-for="     value      in      rent     " :key="value.name">
+        <div :class="[houselevel == value.level ? 'rent-price-checked' : 'rent-price',]" v-for="value in rent"
+          :key="value.name">
           {{ getRentUnit(value.price) }}
 
         </div>
@@ -51,7 +51,7 @@
               text-align: left;
               color: rgb(51, 51, 51);
             ">房屋：</span>
-          <div v-for="     value      in      getHousNum(houselevel)     " :key="value.name">
+          <div v-for="value in getHousNum(houselevel)" :key="value.name">
             <img src="../assets/房屋.svg" style="width: 17px" />
           </div>
         </div>
@@ -70,6 +70,7 @@ export default {
         "P1": 0,
         "P2": 0,
         "P3": 0,
+        "P4": 0,
         "H1": 1,
         "H2": 2,
         "H3": 3,

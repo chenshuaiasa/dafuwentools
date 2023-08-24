@@ -46,9 +46,9 @@ export default {
     };
   },
   mounted: async function () {
-   await this.$store.dispatch('asyncgetPlayerinfo',{_this:this});
+   await this.$store.dispatch('asyncgetPlayerinfo');
     this.InitPlayerinfo();
-    console.log(this.$datasb.channel)
+    // console.log(this.$datasb.channel)
   },
   methods: {
     onSubmit(values) {
@@ -59,6 +59,7 @@ export default {
         this.chooseid = parseInt(values.playid.substring(2));
         this.submitvalue = values;
         this.updateDataPlayerinfo({ playername: values.pname, password: values.password,state:2}, 'id', this.chooseid);
+        this.$store.commit('getPlayerid',this.chooseid);
         this.toPlayer();
       } else {
         Toast('密码不正确，请重新输入密码')
@@ -70,13 +71,9 @@ export default {
       this.index = index;
     },
     toPlayer() {
-      console.log(this.$route.path)
+      // console.log(this.$route.path)
       this.$router.push({
         path: 'player',
-        query: {
-          palyerid: this.chooseid,
-          pname: this.submitvalue.pname
-        }
       });
     },
     InitPlayerinfo: function () {

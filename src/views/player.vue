@@ -11,22 +11,22 @@
         <div class="cell">
           <div class="cell-item playername">
             <div class="name1">
-              <span>{{ player }}</span>
+              <span>{{ player.playername }}</span>
             </div>
             <div class="name2">
-              <span>player{{ playerinfo[0].id }}</span>
+              <span>player{{ getplayerid }}</span>
             </div>
           </div>
           <div class="cell-item info" style="width: 100%">
             <van-row type="flex" gutter="20" justify="space-between">
               <van-col span="12">
                 <div class="info1" style="float: left; margin: 10px">
-                  <span>账户余额：{{ playerinfo[0].balance }}</span>
+                  <span>账户余额：{{ playerinfo.balance }}</span>
                 </div>
               </van-col>
               <van-col span="12">
                 <div class="info2" style="float: right; margin: 10px">
-                  <span>拥有土地数：{{ getHouseNum() }}</span>
+                  <span>拥有土地数：{{ getHouseNum }}</span>
                 </div>
               </van-col>
             </van-row>
@@ -104,6 +104,8 @@ export default {
     }
   },
   mounted: async function () {
+    await this.$store.dispatch('asyncgetPlayerinfo');
+    this.palyerid = this.$store.state.palyerid;
     await this.init_of_all();
   },
   components: {
@@ -112,10 +114,12 @@ export default {
   },
   methods: {
     async init_of_all() {
-      this.playerid = this.$route.query.palyerid;
+      this.playerid = this.$store.state.playerid;
 
-      await this.InitPlayerinfo();
-      if (this.playerinfo[0].property == null) {
+      this.$store.commit('getPlayerinfo_now', { playerid: this.playerid });
+      this.playerinfo = this.$store.state.playerinfo_now;
+      // console.log(this.playerinfo);
+      if (this.playerinfo.property == null) {
         null
       }
       else {
@@ -123,40 +127,28 @@ export default {
         this.getHouseLevel();
       }
     },
-    onRefresh() {
-      setTimeout(() => {
-        Toast("刷新成功");
-        this.isLoading = false;
-        console.log("2222");
-      }, 1000);
-    },
-    getRentLevel: function (houseid) {
-      this.playerinfo.forEach((val) => {
-        if (val.property.property_id == houseid.id) {
-          return;
-        }
-      });
-    },
     InitPlayerinfo: async function () {
-      this.playerinfo = await this.$datas.getPlayerInfo("id", this.playerid);
-      console.log(this.playerinfo);
+      // this.playerinfo = await this.$datas.getPlayerInfo("id", this.playerid);
+      this.$store.commit('getPlayerinfo_now', { playerid: this.playerid });
+      this.playerinfo = this.$store.state.playerinfo_now;
+      // console.log(this.playerinfo);
     },
     InitPropertyinfo_from_player: async function () {
-      var houses = [];
-      this.playerinfo[0].property.propertys.forEach((val) => {
-        houses.push(val.property_id);
-      });
-      console.log(houses);
-      this.propertyInfo = await this.$datas.getPropertyInfo_from_player(
-        "id",
-        houses
-      );
-      this.propertyinfo2 = this.propertyInfo;
+      //获取所有房地产信息
+      await this.$store.dispatch('asyncgetPropertyinfo');
+      this.propertyInfo = this.$store.state.propertyinfo;
+      // console.log(this.propertyInfo);
+
+      //获取当前用户的房地产信息
+      await this.$store.dispatch('asyncgetPropertyinfo_of_player',{column:'belong_to',id:[this.playerinfo.id]});
+      this.propertyinfo2 = this.$store.state.propertyinfo_of_player;
       // console.log(this.propertyinfo2);
     },
+    //将用户信息里的房屋等级信息合并到地产信息；里，
+    //以便渲染组件
     getHouseLevel: function () {
       this.$nextTick(function () {
-        this.playerinfo[0].property.propertys.forEach((val) => {
+        this.playerinfo.property.propertys.forEach((val) => {
           this.propertyinfo2.forEach((v, index) => {
             if (val.property_id == v.id) {
               // console.log(val.house_level);
@@ -167,17 +159,11 @@ export default {
       })
       // console.log("houseid"+typeof(houseid));
       this.isGetData = true;
-      console.log(this.propertyinfo2);
+      // console.log(this.propertyinfo2);
     },
-    getHouseNum: function () {
-      if (this.playerinfo[0].property == null) {
-        this.housenum = 0;
-      }
-      else {
-        this.housenum = this.playerinfo[0].property.length;
-      }
-      return this.housenum
-    },
+    
+    
+
     propertyFunction(index, pname) {
       //indnex =0 买房子
       if (index == 0) {
@@ -194,13 +180,13 @@ export default {
         this.showc = true;
         this.choosehouse = pname;
       }//indnex 2 卖房子
-      else if (index == 2){
+      else if (index == 2) {
         this.com = 2;
         // console.log('csss??');
         this.title = "是否出售房子";
         this.showc = true;
         this.choosehouse = pname;
-      }else if(index == 4){
+      } else if (index == 4) {
         this.com = 4;
         // console.log('csss??');
         this.title = "是否赎回房子";
@@ -215,7 +201,7 @@ export default {
       if (flag) {
         if (index_com == 1) {
           // console.log(await this.$datas.buyhouse(this.playerinfo[0], this.choosehouse))
-          if (await this.$datas.buyhouse(this.playerinfo[0], this.choosehouse)) {
+          if (await this.$datas.buyhouse(this.playerinfo, this.choosehouse)) {
             this.$toast.success('购买成功');
             //刷新页面
             await this.init_of_all();
@@ -225,7 +211,7 @@ export default {
           }
         }//2 卖房子
         else if (index_com == 2) {
-          if (this.$datas.salehouse(this.playerinfo[0], this.choosehouse)) {
+          if (this.$datas.salehouse(this.playerinfo, this.choosehouse)) {
             this.$toast.success('售卖成功，将刷新页面');
             //刷新页面
             await this.init_of_all();
@@ -235,7 +221,7 @@ export default {
           }
         }//3 抵押
         else if (index_com == 3) {
-          if (this.$datas.pledgehouse(this.playerinfo[0], this.choosehouse)) {
+          if (this.$datas.pledgehouse(this.playerinfo, this.choosehouse)) {
             this.$toast.success('抵押成功，将刷新页面');
             await this.init_of_all();
             //刷新页面
@@ -244,28 +230,31 @@ export default {
             this.$toast.fail('不满足抵押条件');
           }
         }//4 赎回
-      } else if (index_com == 4){
-        if (this.$datas.redemptionhouse(this.playerinfo[0], this.choosehouse)) {
-            this.$toast.success('赎回成功');
-            await this.init_of_all();
-            //刷新页面
-            // setInterval(() => { this.$router.go(0); }, 1000);
-          } else {
-            this.$toast.fail('不满足赎回条件');
-          }
+      } else if (index_com == 4) {
+        if (this.$datas.redemptionhouse(this.playerinfo, this.choosehouse)) {
+          this.$toast.success('赎回成功');
+          await this.init_of_all();
+          //刷新页面
+          // setInterval(() => { this.$router.go(0); }, 1000);
+        } else {
+          this.$toast.fail('不满足赎回条件');
+        }
       }
     }
   },
   computed: {
     player: function () {
-      if (this.$route.query.pname == undefined) {
-        this.InitPlayerinfo();
-        return this.playerinfo[0].playername
-      } else {
-        this.playerinfo[0].playername = this.$route.query.pname;
-        return this.playerinfo[0].playername
-      }
-    }
+      //this.$store.dispatch();
+      return this.$store.state.playerinfo_now
+    },
+    getplayerid:function(){
+      return this.$store.state.playerid
+    },
+    //房地产数计算
+    getHouseNum: function () {
+      // console.log(this.playerinfo);
+      return this.$store.state.propertyinfo_of_player.length
+    },
   },
 };
 </script>
