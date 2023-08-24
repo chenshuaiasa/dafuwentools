@@ -45,12 +45,12 @@ export default {
             password: '',
             functionItem: [
                 { id: 1, name: "发放资金", path: 'bangm', icon: 'gold-coin' },
-                { id: 2, name: "发放房地产", path: 'bangt',icon: 'gift-card' },
+                { id: 2, name: "发放房地产", path: 'bangt', icon: 'gift-card' },
                 // { id: 3, name: "发放房子", path: 'bangh',icon:'wap-home'},
-                { id: 3, name: "恶魔卡，清空用户地产",path:'banrp'},
+                { id: 3, name: "恶魔卡，清空用户地产", path: 'banrp' },
                 { id: 4, name: "初始化游戏", path: 'banig' },
                 { id: 5, name: "查看转账记录" },
-                { id: 6, name: "资产转移（类抢夺卡和抢购卡）",path:'banat'},
+                { id: 6, name: "资产转移（类抢夺卡和抢购卡）", path: 'banat' },
             ]
         }
     },
@@ -58,7 +58,12 @@ export default {
         CompontDialog
     },
     mounted: async function () {
-        this.bankinfo = this.$store.state.playerinfo.find(val=>{
+        await this.$store.dispatch('asyncgetPlayerinfo');
+        await this.$store.dispatch('asyncgetPropertyinfo');
+        // await store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id: [id], player: playerinfo });
+        // store.commit('getPlayerinfo_now',{playerid:id});
+        // store.commit('getPlayerInfo_now2', payload.new);
+        this.bankinfo = this.$store.state.playerinfo.find(val => {
             return (val.flag == -1)
         });
 
