@@ -15,6 +15,7 @@ const channel = supabase
                 store.dispatch('asyncgetPlayerinfo');
                 store.dispatch('asyncgetPropertyinfo');
                 store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id:[id]});
+                console.log('更新成功')
                 // asyncgetPropertyinfo_of_player
                 // asyncgetPropertyinfo
             }
