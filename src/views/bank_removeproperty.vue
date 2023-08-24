@@ -4,7 +4,7 @@
         <h3>恶魔卡</h3>
         <van-form @submit="onSubmit">
             <van-field readonly placeholder="请选择恶魔卡对象" clickable label="玩家" name="playid" :value="value"
-                :rules="[{ required: true, message: '请选择恶魔卡对象' }]" @click="columns1.length <= 0 ? saveColumns() : con()" />
+                :rules="[{ required: true, message: '请选择恶魔卡对象' }]" @click="saveColumns()" />
             <div style="margin: 16px;">
                 <van-button round block type="info" native-type="submit">确认使用恶魔卡</van-button>
             </div>
@@ -28,6 +28,7 @@ export default {
     data() {
         return {
             value: "",
+            valueid:'',
             temp: "",
             players: [
                 { id: 1, playername: "玩家1", balance: 0, property: {}, state: 1 },
@@ -35,20 +36,8 @@ export default {
             isLocalData: false,
             valueKey: [],
             showPicker: false,
-            columns: [{
-                text: '男',
-                value: 1
-            },
-            {
-                text: '女',
-                value: 2
-            }],
             columns1: [],
             choseeId: "",
-            columns2: [
-                { values: ["选项1", "选项2", "选项3"], defaultIndex: 0, options: [] },
-                { values: ["选项A", "选项B", "选项C"], defaultIndex: 1, options: [] }
-            ],
             // playerid: '',
             money: '',
             submitvalue: '',
@@ -80,7 +69,7 @@ export default {
             // console.log(this.players);
         },
         saveColumns() {
-            this.players.forEach((val) => {
+            this.$store.state.playerinfo.forEach((val) => {
                 // console.log(JSON.stringify({'playername':val.playername,'id':val.id}))
                 if (val.id == 101) {
                     null
@@ -89,18 +78,14 @@ export default {
                 }
 
             });
-            this.SaveValuekey();
-            // console.log(this.columns1);
-        },
-        SaveValuekey() {
-            this.players.forEach((val) => {
-                this.valueKey.push(val.id + '');
-            });
             this.showPicker = true;
+            // this.SaveValuekey();
+            // console.log(this.columns1);
         },
         onConfirm(value, index) {
             this.showPicker = false;
             this.value = value.text
+            this.valueid = value.options;
 
         },
         con() {
@@ -111,7 +96,7 @@ export default {
             console.log(values);
             // this.choseeId = values.playid;
             this.players.forEach((val)=>{
-                if(val.playername == values.playid)
+                if(val.id == this.valueid)
                 this.choseeId = val
             })
             this.show = true;

@@ -8,13 +8,15 @@ const channel = supabase
     .channel('schema-db-changes')
     .on('postgres_changes',
         { event: 'UPDATE', schema: 'public', table: 'playerinfo' },
-        payload => {
+        async function(payload) {
             if (payload.new.id == store.state.playerid) {
-                var id = store.state.playerid
+                var id = store.state.playerid;
+                var playerinfo = store.state.playerinfo_now;
                 // store.dispatch('asyncgetPlayerinfo',{_this:this})
-                store.dispatch('asyncgetPlayerinfo');
-                store.dispatch('asyncgetPropertyinfo');
-                store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id:[id]});
+                await store.dispatch('asyncgetPlayerinfo');
+                await store.dispatch('asyncgetPropertyinfo');
+                await store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id:[id],player:playerinfo});
+                store.commit('getPlayerinfo_now',{playerid:id});
                 console.log('更新成功')
                 // asyncgetPropertyinfo_of_player
                 // asyncgetPropertyinfo

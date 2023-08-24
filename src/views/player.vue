@@ -21,7 +21,7 @@
             <van-row type="flex" gutter="20" justify="space-between">
               <van-col span="12">
                 <div class="info1" style="float: left; margin: 10px">
-                  <span>账户余额：{{ playerinfo.balance }}</span>
+                  <span>账户余额：{{ player.balance }}</span>
                 </div>
               </van-col>
               <van-col span="12">
@@ -40,7 +40,7 @@
             <van-tab title="拥有的房地产">
               <div class="tiner">
                 <van-grid :border="false" :column-num="3">
-                  <van-grid-item v-for="value in propertyinfo2" :key="value.id">
+                  <van-grid-item v-for="value in getpropertyinfo2" :key="value.id">
                     <compontProperty :property_name="value.property_name" :mortgage_amount="value.mortgage_amount"
                       :redemption_amount="value.redemption_amount" :bg_color="value.color" :rent="value.rent"
                       :houselevel="value.house_level" :build_house_price="value.build_house_price"
@@ -140,8 +140,9 @@ export default {
       // console.log(this.propertyInfo);
 
       //获取当前用户的房地产信息
-      await this.$store.dispatch('asyncgetPropertyinfo_of_player',{column:'belong_to',id:[this.playerinfo.id]});
-      this.propertyinfo2 = this.$store.state.propertyinfo_of_player;
+      await this.$store.dispatch('asyncgetPropertyinfo_of_player',{column:'belong_to',id:[this.playerinfo.id],player:this.playerinfo});
+      // this.propertyinfo2 = this.$store.state.propertyinfo_of_player;
+      this.isGetData = true;
       // console.log(this.propertyinfo2);
     },
     //将用户信息里的房屋等级信息合并到地产信息；里，
@@ -255,6 +256,10 @@ export default {
       // console.log(this.playerinfo);
       return this.$store.state.propertyinfo_of_player.length
     },
+    getpropertyinfo2:function(){
+      // getHouseLevel();
+      return this.$store.state.propertyinfo_of_player
+    }
   },
 };
 </script>
@@ -360,7 +365,7 @@ body {
     position: -webkit-sticky;
     /* Safari */
     position: sticky;
-    top: 0px;
+    top: 10px;
 
     /* margin-top: 15px; */
   }

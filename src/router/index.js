@@ -14,6 +14,7 @@ import BanGM from '../views/bank_givemoney.vue'
 import BanGT from '../views/bank_giveproperty.vue'
 import BanIG from '../views/bank_initgame.vue'
 import BanRP from '../views/bank_removeproperty.vue'
+import BanAT from '../views/bank_asset_transfer.vue'
 
 Vue.use(VueRouter)
 
@@ -31,7 +32,8 @@ const routes = [
     { path: '/bangm', component: BanGM },
     {path: '/bangt', component: BanGT },
     {path: '/banig', component: BanIG },
-    {path: '/banrp', component: BanRP }
+    {path: '/banrp', component: BanRP },
+    {path: '/banat', component: BanAT }
 ]
 
 // 3. 创建 router 实例，然后传 `routes` 配置

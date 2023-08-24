@@ -50,6 +50,19 @@ const store = new Vuex.Store({
         async asyncgetPropertyinfo_of_player({ commit }, payload) {
             var temp = await datas.getPropertyInfo_from_player(payload.column, payload.id);
             // console.log(temp);
+            if (payload.player.property == null) {
+                null
+            } else {
+                payload.player.property.propertys.forEach((val) => {
+                    temp.forEach((v, index) => {
+                        if (val.property_id == v.id) {
+                            // console.log(val.house_level);
+                            temp[index].house_level = val.house_level;
+                        }
+                    })
+                });
+            }
+
             commit('getPropertyinfo_of_player', temp);
         }
     },

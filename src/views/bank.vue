@@ -49,7 +49,8 @@ export default {
                 // { id: 3, name: "发放房子", path: 'bangh',icon:'wap-home'},
                 { id: 3, name: "恶魔卡，清空用户地产",path:'banrp'},
                 { id: 4, name: "初始化游戏", path: 'banig' },
-                { id: 5, name: "查看转账记录" }
+                { id: 5, name: "查看转账记录" },
+                { id: 6, name: "资产转移（类抢夺卡和抢购卡）",path:'banat'},
             ]
         }
     },
@@ -57,12 +58,14 @@ export default {
         CompontDialog
     },
     mounted: async function () {
-        this.bankinfo = await this.$datas.getPlayerInfo("flag", -1);
+        this.bankinfo = this.$store.state.playerinfo.find(val=>{
+            return (val.flag == -1)
+        });
 
-        if (this.bankinfo[0].login_time != null) {
+        if (this.bankinfo.login_time != null) {
             var d1 = new Date();
             // console.log(d1);
-            var d2 = new Date(this.bankinfo[0].login_time);
+            var d2 = new Date(this.bankinfo.login_time);
             // console.log(d2);
             // console.log(d1-d2);
             if (d1 - d2 < 86400000) {
@@ -77,7 +80,7 @@ export default {
     methods: {
         onClickLeft() {
             this.$router.go(-1);
-            console.log("cs");
+            // console.log("cs");
         },
         onSubmit: function (values) {
             // console.log(values)
