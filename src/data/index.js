@@ -17,9 +17,10 @@ async function getPlayerInfo(column, val, colunms1) {
     if (val == undefined) val = '';
     const { data, error } = await supabaseJs2
         .from("playerinfo")
-        .select(colunms1)
-        .order('id', { ascending: true })
-        .eq(column, val);
+        .select(colunms1);
+        // .eq(column, val);
+        // .order('id', { ascending: true });
+        console.log(data);
     return data;
 }
 
@@ -28,13 +29,13 @@ async function getPropertyInfo_from_player(column, val) {
         const { data, error } = await supabaseJs2
             .from("property_detail")
             .select()
-            .order('id', { ascending: true });
+            // .order('id', { ascending: true });
         return data;
     } else {
         const { data, error } = await supabaseJs2
             .from("property_detail")
             .select()
-            .order('id', { ascending: true })
+            // .order('id', { ascending: true })
             .in(column, val);
         return data;
     }
@@ -47,7 +48,7 @@ async function getTransferHis(column, val) {
     const { data, error } = await supabaseJs2
         .from("transfer_history")
         .select()
-        .order('id', { ascending: true })
+        // .order('id', { ascending: true })
         .in(column, val);
     return data;
 }
@@ -59,10 +60,12 @@ async function insert_transfer_history(data) {
 }
 
 async function update_playerinfo(data, column, value) {
+    console.log(column+value);
     const { error } = await supabaseJs2
         .from('playerinfo')
         .update(data)
         .eq(column, value)
+        return true
 }
 
 async function update_PropertyInfo(data, column, value) {
@@ -85,6 +88,16 @@ function timeCode() {
     m = checkTime(m);
     s = checkTime(s);
     return year + '-' + month + '-' + date + ' ' + h + ':' + m + ':' + s
+}
+
+function conmpare(a,b){
+    var comparison = 0;
+    if(a.id > b.id){
+        comparison = 1;
+    }else{
+        comparison  = -1
+    }
+    return comparison
 }
 
 function checkTime(i) {
@@ -548,5 +561,6 @@ export {
     pledgehouse,
     redemptionhouse,
     getPlayerinfo,
-    assetTransfer
+    assetTransfer,
+    conmpare
 }

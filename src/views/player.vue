@@ -104,8 +104,11 @@ export default {
     }
   },
   mounted: async function () {
-    await this.$store.dispatch('asyncgetPlayerinfo');
+    // await this.$store.dispatch('asyncgetPlayerinfo');
     this.palyerid = this.$store.state.palyerid;
+    // this.$store.commit('getPlayerinfo_now', { playerid:this.$store.state.playerid});
+    // await this.$store.dispatch('asyncgetPropertyinfo');
+    // await this.$store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id: [this.$store.state.palyerid], player: this.$store.state.playerinfo_now});
     await this.init_of_all();
   },
   components: {
@@ -116,10 +119,10 @@ export default {
     async init_of_all() {
       this.playerid = this.$store.state.playerid;
 
-      this.$store.commit('getPlayerinfo_now', { playerid: this.playerid });
-      this.playerinfo = this.$store.state.playerinfo_now;
+      // this.$store.commit('getPlayerinfo_now', { playerid: this.playerid });
+      // this.playerinfo = this.$store.state.playerinfo_now;
       // console.log(this.playerinfo);
-      if (this.playerinfo.property == null) {
+      if (this.$store.state.playerinfo_now.property == null) {
         null
       }
       else {
@@ -129,19 +132,19 @@ export default {
     },
     InitPlayerinfo: async function () {
       // this.playerinfo = await this.$datas.getPlayerInfo("id", this.playerid);
-      this.$store.commit('getPlayerinfo_now', { playerid: this.playerid });
+      // this.$store.commit('getPlayerinfo_now', { playerid: this.playerid });
       this.playerinfo = this.$store.state.playerinfo_now;
       // console.log(this.playerinfo);
     },
     InitPropertyinfo_from_player: async function () {
       //获取所有房地产信息
-      await this.$store.dispatch('asyncgetPropertyinfo');
+      // await this.$store.dispatch('asyncgetPropertyinfo');
       this.propertyInfo = this.$store.state.propertyinfo;
       // console.log(this.propertyInfo);
 
       //获取当前用户的房地产信息
-      await this.$store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id: [this.playerinfo.id], player: this.playerinfo });
-      // this.propertyinfo2 = this.$store.state.propertyinfo_of_player;
+      console.log(this.$store.state.playerid);
+      // await this.$store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id: [this.$store.state.playerid], player: this.$store.state.playerinfo_now});
       this.isGetData = true;
       // console.log(this.propertyinfo2);
     },
@@ -149,8 +152,8 @@ export default {
     //以便渲染组件
     getHouseLevel: function () {
       this.$nextTick(function () {
-        this.playerinfo.property.propertys.forEach((val) => {
-          this.propertyinfo2.forEach((v, index) => {
+        this.$store.state.playerinfo_now.property.propertys.forEach((val) => {
+          this.$store.state.propertyinfo_of_player.forEach((v, index) => {
             if (val.property_id == v.id) {
               // console.log(val.house_level);
               this.propertyinfo2[index].house_level = val.house_level;
@@ -206,8 +209,6 @@ export default {
           if (await this.$datas.buyhouse(this.playerinfo, this.choosehouse)) {
             this.$toast.success('购买成功');
             //刷新页面
-            // await this.init_of_all();
-            // setInterval(() => { this.$router.go(0); }, 1000);
           } else {
             this.$toast.fail('不满足购买条件');
           }
@@ -216,8 +217,6 @@ export default {
           if (this.$datas.salehouse(this.playerinfo, this.choosehouse)) {
             this.$toast.success('售卖成功，将刷新页面');
             //刷新页面
-            // await this.init_of_all();
-            // setInterval(() => { this.$router.go(0); }, 1000);
           } else {
             this.$toast.fail('不满足售卖条件');
           }
@@ -250,6 +249,7 @@ export default {
   computed: {
       player: function () {
         //this.$store.dispatch();
+        // this.$store.commit('getPlayerinfo_now', { playerid:this.$store.state.playerid});
         return this.$store.state.playerinfo_now
       },
       getplayerid: function () {
@@ -258,7 +258,11 @@ export default {
       //房地产数计算
       getHouseNum: function () {
         // console.log(this.playerinfo);
-        return this.$store.state.propertyinfo_of_player.length
+        if(this.$store.state.propertyinfo_of_player==null){
+          return 0
+        }else{
+          return this.$store.state.propertyinfo_of_player.length
+        }
       },
       getpropertyinfo2: function () {
         // getHouseLevel();

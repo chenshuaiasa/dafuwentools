@@ -46,21 +46,24 @@ export default {
     };
   },
   mounted: async function () {
-   await this.$store.dispatch('asyncgetPlayerinfo');
+    await this.$store.dispatch('asyncgetPlayerinfo');
+
     this.InitPlayerinfo();
     // console.log(this.$datasb.channel)
   },
   methods: {
-    onSubmit(values) {
+    async onSubmit(values) {
       console.log("submit", values);
       // console.log(this.index);
       console.log(this.checkPass(values.password));
       if (this.checkPass(values.password)) {
         this.chooseid = parseInt(values.playid.substring(2));
         this.submitvalue = values;
-        this.updateDataPlayerinfo({ playername: values.pname, password: values.password,state:2}, 'id', this.chooseid);
-        this.$store.commit('getPlayerid',this.chooseid);
-        this.toPlayer();
+        if (await this.updateDataPlayerinfo({ playername: values.pname, password: values.password, state: 2 }, 'id', this.chooseid)) {
+          this.$store.commit('getPlayerid', this.chooseid);
+          this.toPlayer();
+        }
+
       } else {
         Toast('密码不正确，请重新输入密码')
       }
@@ -83,21 +86,25 @@ export default {
       // console.log(this.players);
     },
     updateDataPlayerinfo: async function (data, co, v) {
-      await this.$datas.update_playerinfo(data, co, v);
+      if (await this.$datas.update_playerinfo(data, co, v)) {
+        return true
+      } else {
+        return false
+      }
     },
     checkPass(val) {
       var cs = parseInt(this.playerchoose.substring(2));
       var flag = '';
       try {
-        this.players.forEach(v => {
+        this.$store.state.playerinfo.forEach(v => {
           if (v.id == cs) {
-            console.log(v.id)
+            // console.log(v.id)
             if (v.state == 2) {
               if (v.password == val) {
                 flag = true
                 throw Error();
               }
-              else{
+              else {
                 flag = false
                 throw Error();
               }
@@ -118,7 +125,7 @@ export default {
   computed: {
     saveColumns() {
       this.players.forEach((val) => {
-        if(val.flag == 1)
+        if (val.flag == 1)
           this.columns.push('玩家' + val.id);
       });
       return this.columns;

@@ -16,13 +16,17 @@ const store = new Vuex.Store({
     },
     mutations: {
         getPlayerinfo(state, data) {
-            state.playerinfo = data;
+            state.playerinfo = data.sort(datas.conmpare);
+            // .sort(datas.conmpare)
         },
         getPlayerinfo_now(state, payload) {
             // console.log(state.playerinfo);
             state.playerinfo_now = state.playerinfo.find(val => {
                 return val.id = payload.playerid
             })
+        },
+        getPlayerInfo_now2(state,data){
+            state.playerinfo_now = data;
         },
         getPropertyinfo(state, data) {
             state.propertyinfo = data;
@@ -38,7 +42,7 @@ const store = new Vuex.Store({
         async asyncgetPlayerinfo({ commit }, payload) {
             // var _this = payload._this
             // console.log(datas);
-            var temp = await datas.getPlayerInfo('');
+            var temp = await datas.getPlayerInfo();
             // console.log(temp);
             commit('getPlayerinfo', temp);
         },
@@ -48,8 +52,9 @@ const store = new Vuex.Store({
             commit('getPropertyinfo', temp);
         },
         async asyncgetPropertyinfo_of_player({ commit }, payload) {
+            console.log(payload);
             var temp = await datas.getPropertyInfo_from_player(payload.column, payload.id);
-            // console.log(temp);
+            console.log(temp);
             if (payload.player.property == null) {
                 null
             } else {
@@ -70,7 +75,7 @@ const store = new Vuex.Store({
     modules: {},
     plugins: [
         createPersistedstate({
-            key: 'user',// 存数据的key名   自定义的  要有语义化
+            key: 'cs',// 存数据的key名   自定义的  要有语义化
             // paths: ['loginModule'] // 要把那些模块加入缓存
         })
     ]

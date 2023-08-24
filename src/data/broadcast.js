@@ -16,12 +16,13 @@ const channel = supabase
                 await store.dispatch('asyncgetPlayerinfo');
                 await store.dispatch('asyncgetPropertyinfo');
                 await store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id:[id],player:playerinfo});
-                store.commit('getPlayerinfo_now',{playerid:id});
+                // store.commit('getPlayerinfo_now',{playerid:id});
+                store.commit('getPlayerInfo_now2',payload.new);
                 console.log('更新成功')
                 // asyncgetPropertyinfo_of_player
                 // asyncgetPropertyinfo
             }
-
+            console.log(payload)
         })
     .subscribe()
 
