@@ -1,5 +1,4 @@
 <template>
-  
   <div v-if="$route.path == '/player'" class="container" style="width: 100%">
     <compontDialogp v-if="showc" :com="com" :showcc="showc" :check="1" :title="title" @checkResult="checkResult">
     </compontDialogp>
@@ -39,25 +38,28 @@
         <div class="cell">
           <van-tabs v-model="active">
             <van-tab title="拥有的房地产">
-              <compontScroll class="scroll">
-                <div class="tiner">
-                  <van-grid :border="false" :column-num="3">
-                    <van-grid-item v-for="value in getpropertyinfo2" :key="value.id">
-                      <compontProperty :property_name="value.property_name" :mortgage_amount="value.mortgage_amount"
-                        :redemption_amount="value.redemption_amount" :bg_color="value.color" :rent="value.rent"
-                        :houselevel="value.house_level" :build_house_price="value.build_house_price"
-                        :build_hotel_price="value.build_hotel_price" @propertyFunction="propertyFunction"
-                        :ifpledge="value.state == -2 ? true : false" v-if="isGetData">
-                      </compontProperty>
-                    </van-grid-item>
-                  </van-grid>
-                </div>
-              </compontScroll>
+              <!-- <compontScroll class="scroll"> -->
+              <div class="tiner">
+                <van-grid :border="false" :column-num="2">
+                  <van-grid-item v-for="value in getpropertyinfo2" :key="value.id">
+                    <compontProperty :property_name="value.property_name" :mortgage_amount="value.mortgage_amount"
+                      :redemption_amount="value.redemption_amount" :bg_color="value.color" :rent="value.rent"
+                      :houselevel="value.house_level" :build_house_price="value.build_house_price"
+                      :build_hotel_price="value.build_hotel_price" @propertyFunction="propertyFunction"
+                      :ifpledge="value.state == -2 ? true : false" v-if="isGetData">
+                    </compontProperty>
+                  </van-grid-item>
+                </van-grid>
+              </div>
+              <!-- </compontScroll> -->
             </van-tab>
           </van-tabs>
         </div>
+        <div v-bind:style="{ height: '40px', width: '100%', backgroundColor: '#FFFFFF' }">
+          <!-- <span>''</span> -->
+        </div>
       </div>
-      <div v-bind:style="{ height: '100px', width: '100%' }"></div>
+
     </div>
     <!-- </van-pull-refresh> -->
     <div class="container-function">
@@ -67,11 +69,9 @@
         <van-tabbar-item :to="{ path: 'transfer', query: { palyerid: playerid } }" icon="refund-o">转账</van-tabbar-item>
         <van-tabbar-item :to="{ path: 'transferph', query: { palyerid: playerid } }"
           icon="balance-list-o">转账记录</van-tabbar-item>
-
       </van-tabbar>
-
     </div>
-  </compontScroll>
+    </compontScroll>
   </div>
 </template>
 <script>
@@ -345,7 +345,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   height: 800px;
-  overflow: auto;
+  /* overflow: auto; */
 
   .container-property {
     display: flex;
@@ -355,6 +355,8 @@ body {
     width: 100%;
     margin: 20px 0;
     height: auto;
+    position: absolute;
+    top: 157px;
   }
 
   .cell {
@@ -376,9 +378,10 @@ body {
 
     position: -webkit-sticky;
     /* Safari */
-    position: sticky;
+    position: fixed;
     z-index: 101;
-    top: 10px;
+    top: 70px;
+
 
     /* margin-top: 15px; */
   }
@@ -387,7 +390,7 @@ body {
     overflow: hidden;
     /* position: absolute; */
     /* bottom: 20px; */
-    height:600px;
+    height: 50%;
   }
 }
 </style>
