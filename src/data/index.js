@@ -441,8 +441,9 @@ async function redemptionhouse(playerinfo, pid) {
     //获取地产的赎回金额
     var ps = await getPropertyInfo_from_player();
     var property_now = ps.find(val => {
-        return val.property_name == pid;
+        return val.property_name==pid;
     });
+    console.log(property_now)
     if (playerinfo.balance >= property_now.redemption_amount) {
         flag[flag.length - 1] = true;
     }
@@ -450,6 +451,7 @@ async function redemptionhouse(playerinfo, pid) {
     //2 开始赎回过程
     if (flag.find(val => { return val == false }) == false ? false : true) {
         //2.1 更新房地产状态-1
+        console.log('zai');
         update_PropertyInfo({ state: -1 }, 'id', property_now.id);
         //2.2 更新用户地产状态-1及减少余额
         var pro = playerinfo.property.propertys.map((val) => {
@@ -460,6 +462,7 @@ async function redemptionhouse(playerinfo, pid) {
         var b = parseFloat(playerinfo.balance) - parseFloat(property_now.redemption_amount)
         update_playerinfo({ property: { classification: playerinfo.property.classification, propertys: pro }, balance: b }, 'id', playerinfo.id);
     }
+    // console.log(flag.find(val => { return val == false }) == false ? false : true)
     return (flag.find(val => { return val == false }) == false ? false : true)
 }
 

@@ -213,7 +213,7 @@ export default {
           }
         }//2 卖房子
         else if (index_com == 2) {
-          if (this.$datas.salehouse(this.$store.state.playerinfo_now, this.choosehouse)) {
+          if (await this.$datas.salehouse(this.$store.state.playerinfo_now, this.choosehouse)) {
             this.$toast.success('售卖成功，将刷新页面');
             //刷新页面
           } else {
@@ -221,7 +221,7 @@ export default {
           }
         }//3 抵押
         else if (index_com == 3) {
-          if (this.$datas.pledgehouse(this.$store.state.playerinfo_now, this.choosehouse)) {
+          if (await this.$datas.pledgehouse(this.$store.state.playerinfo_now, this.choosehouse)) {
             this.$toast.success('抵押成功，将刷新页面');
             // await this.init_of_all();
             //刷新页面
@@ -232,7 +232,8 @@ export default {
         }//4 赎回
         else if (index_com == 4) {
           console.log('cssss')
-          if (this.$datas.redemptionhouse(this.$store.state.playerinfo_now, this.choosehouse)) {
+          if (await this.$datas.redemptionhouse(this.$store.state.playerinfo_now, this.choosehouse)) {
+            // console.log(this.$datas.redemptionhouse(this.$store.state.playerinfo_now, this.choosehouse))
             this.$toast.success('赎回成功');
             // await this.init_of_all();
             //刷新页面

@@ -99,6 +99,9 @@ export default {
             localStorage.removeItem("getpcolumns");
             if (localStorage.getItem("getplayers") == null) {
                 console.log("已删除")
+
+
+                
             }
 
         },
