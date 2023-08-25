@@ -539,6 +539,7 @@ async function assetTransfer(p1, p2) {
         console.log(tempcs);
         update_playerinfo({ property: { classification: cid, propertys: tempcs }}, 'id', pid1);
         //2 从p2的数据中增加房子
+        property_to_info.house_level = "P1";
         var playerindo2 = store.state.playerinfo.find(val => { return val.id == pid2 });
         giveProperty(playerindo2, property_to_info);
     }
