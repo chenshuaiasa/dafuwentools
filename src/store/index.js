@@ -29,10 +29,10 @@ const store = new Vuex.Store({
             state.playerinfo_now = data;
         },
         getPropertyinfo(state, data) {
-            state.propertyinfo = data;
+            state.propertyinfo = data.sort(datas.conmpare);
         },
         getPropertyinfo_of_player(state, data) {
-            state.propertyinfo_of_player = data;
+            state.propertyinfo_of_player = data.sort(datas.conmpare);
         },
         getPlayerid(state, pid) {
             state.playerid = pid;
@@ -67,8 +67,10 @@ const store = new Vuex.Store({
                     })
                 });
             }
-
             commit('getPropertyinfo_of_player', temp);
+        },
+        async asyncgetp_i_o_now({commit},payload){
+            commit('getPlayerInfo_now2',payload)
         }
     },
     getters: {},

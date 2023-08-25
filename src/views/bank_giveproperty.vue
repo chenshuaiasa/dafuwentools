@@ -37,7 +37,7 @@ export default {
     data() {
         return {
             valuename: "",
-            valueid:'',
+            valueid: '',
             value2name: "",
             temp: "",
             players: [
@@ -98,7 +98,7 @@ export default {
         async onSubmit(values) {
             var playerinfo = [];
             //1 生成playerinfo
-            console.log( values)
+            console.log(values)
             playerinfo = this.$store.state.playerinfo.find(val => {
                 return val.id == this.valueid
             });
@@ -138,7 +138,7 @@ export default {
         }
     },
     computed: {
-        getcolumn1:function(){
+        getcolumn1: function () {
             var temp = [];
             this.$store.state.playerinfo.forEach((val) => {
                 // console.log(JSON.stringify({'playername':val.playername,'id':val.id}))
@@ -150,11 +150,11 @@ export default {
             });
             return temp
         },
-        getcolumn2:function(){
+        getcolumn2: function () {
             var temp = [];
             this.$store.state.propertyinfo.forEach((val) => {
                 if (val.state == 1)
-                temp.push({ "text": val.property_name, "color": val.color });
+                    temp.push({ "text": val.property_name, "color": val.color });
             })
             return temp
         }

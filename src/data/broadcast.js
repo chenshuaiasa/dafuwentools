@@ -8,24 +8,24 @@ const channel = supabase
     .channel('schema-db-changes')
     .on('postgres_changes',
         { event: 'UPDATE', schema: 'public', table: 'playerinfo' },
-        async function(payload) {
+        async function (payload) {
             if (payload.new.id == store.state.playerid) {
                 var id = store.state.playerid;
-                var playerinfo = store.state.playerinfo_now;
+                var playerinfo = payload.new;
                 // store.dispatch('asyncgetPlayerinfo',{_this:this})
                 await store.dispatch('asyncgetPlayerinfo');
                 await store.dispatch('asyncgetPropertyinfo');
-                await store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id:[id],player:playerinfo});
                 // store.commit('getPlayerinfo_now',{playerid:id});
-                store.commit('getPlayerInfo_now2',payload.new);
+                // store.commit('getPlayerInfo_now2', payload.new);
+                await store.dispatch('asyncgetp_i_o_now', payload.new)
+                await store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id: [id], player: playerinfo });
                 console.log('更新成功')
                 // asyncgetPropertyinfo_of_player
                 // asyncgetPropertyinfo
+                // console.log(payload)
             }
-            console.log(payload)
         })
     .subscribe()
-
 export {
     channel
 }

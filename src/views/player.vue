@@ -1,4 +1,5 @@
 <template>
+  
   <div v-if="$route.path == '/player'" class="container" style="width: 100%">
     <compontDialogp v-if="showc" :com="com" :showcc="showc" :check="1" :title="title" @checkResult="checkResult">
     </compontDialogp>
@@ -38,22 +39,25 @@
         <div class="cell">
           <van-tabs v-model="active">
             <van-tab title="拥有的房地产">
-              <div class="tiner">
-                <van-grid :border="false" :column-num="3">
-                  <van-grid-item v-for="value in getpropertyinfo2" :key="value.id">
-                    <compontProperty :property_name="value.property_name" :mortgage_amount="value.mortgage_amount"
-                      :redemption_amount="value.redemption_amount" :bg_color="value.color" :rent="value.rent"
-                      :houselevel="value.house_level" :build_house_price="value.build_house_price"
-                      :build_hotel_price="value.build_hotel_price" @propertyFunction="propertyFunction"
-                      :ifpledge="value.state == -2 ? true : false" v-if="isGetData">
-                    </compontProperty>
-                  </van-grid-item>
-                </van-grid>
-              </div>
+              <compontScroll class="scroll">
+                <div class="tiner">
+                  <van-grid :border="false" :column-num="3">
+                    <van-grid-item v-for="value in getpropertyinfo2" :key="value.id">
+                      <compontProperty :property_name="value.property_name" :mortgage_amount="value.mortgage_amount"
+                        :redemption_amount="value.redemption_amount" :bg_color="value.color" :rent="value.rent"
+                        :houselevel="value.house_level" :build_house_price="value.build_house_price"
+                        :build_hotel_price="value.build_hotel_price" @propertyFunction="propertyFunction"
+                        :ifpledge="value.state == -2 ? true : false" v-if="isGetData">
+                      </compontProperty>
+                    </van-grid-item>
+                  </van-grid>
+                </div>
+              </compontScroll>
             </van-tab>
           </van-tabs>
         </div>
       </div>
+      <div v-bind:style="{ height: '100px', width: '100%' }"></div>
     </div>
     <!-- </van-pull-refresh> -->
     <div class="container-function">
@@ -67,13 +71,14 @@
       </van-tabbar>
 
     </div>
-
+  </compontScroll>
   </div>
 </template>
 <script>
 import compontProperty from "../components/compontProperty.vue";
 import compontDialogp from "@/components/compontDialogp.vue";
 import { Toast } from "vant";
+import compontScroll from '../components/compontScroll.vue'
 export default {
   data() {
     return {
@@ -113,7 +118,8 @@ export default {
   },
   components: {
     compontProperty,
-    compontDialogp
+    compontDialogp,
+    compontScroll
   },
   methods: {
     async init_of_all() {
@@ -152,14 +158,7 @@ export default {
     //以便渲染组件
     getHouseLevel: function () {
       this.$nextTick(function () {
-        this.$store.state.playerinfo_now.property.propertys.forEach((val) => {
-          this.$store.state.propertyinfo_of_player.forEach((v, index) => {
-            if (val.property_id == v.id) {
-              // console.log(val.house_level);
-              this.propertyinfo2[index].house_level = val.house_level;
-            }
-          })
-        });
+
       })
       // console.log("houseid"+typeof(houseid));
       this.isGetData = true;
@@ -206,7 +205,7 @@ export default {
         console.log(index_com);
         if (index_com == 1) {
           // console.log(await this.$datas.buyhouse(this.playerinfo[0], this.choosehouse))
-          if (await this.$datas.buyhouse(this.playerinfo, this.choosehouse)) {
+          if (await this.$datas.buyhouse(this.$store.state.playerinfo_now, this.choosehouse)) {
             this.$toast.success('购买成功');
             //刷新页面
           } else {
@@ -214,7 +213,7 @@ export default {
           }
         }//2 卖房子
         else if (index_com == 2) {
-          if (this.$datas.salehouse(this.playerinfo, this.choosehouse)) {
+          if (this.$datas.salehouse(this.$store.state.playerinfo_now, this.choosehouse)) {
             this.$toast.success('售卖成功，将刷新页面');
             //刷新页面
           } else {
@@ -222,7 +221,7 @@ export default {
           }
         }//3 抵押
         else if (index_com == 3) {
-          if (this.$datas.pledgehouse(this.playerinfo, this.choosehouse)) {
+          if (this.$datas.pledgehouse(this.$store.state.playerinfo_now, this.choosehouse)) {
             this.$toast.success('抵押成功，将刷新页面');
             // await this.init_of_all();
             //刷新页面
@@ -233,7 +232,7 @@ export default {
         }//4 赎回
         else if (index_com == 4) {
           console.log('cssss')
-          if (this.$datas.redemptionhouse(this.playerinfo, this.choosehouse)) {
+          if (this.$datas.redemptionhouse(this.$store.state.playerinfo_now, this.choosehouse)) {
             this.$toast.success('赎回成功');
             // await this.init_of_all();
             //刷新页面
@@ -244,37 +243,40 @@ export default {
         }
       }
     },
-    
+
   },
   computed: {
-      player: function () {
-        //this.$store.dispatch();
-        // this.$store.commit('getPlayerinfo_now', { playerid:this.$store.state.playerid});
-        return this.$store.state.playerinfo_now
-      },
-      getplayerid: function () {
-        return this.$store.state.playerid
-      },
-      //房地产数计算
-      getHouseNum: function () {
-        // console.log(this.playerinfo);
-        if(this.$store.state.propertyinfo_of_player==null){
-          return 0
-        }else{
-          return this.$store.state.propertyinfo_of_player.length
-        }
-      },
-      getpropertyinfo2: function () {
-        // getHouseLevel();
-        return this.$store.state.propertyinfo_of_player
+    player: function () {
+      //this.$store.dispatch();
+      // this.$store.commit('getPlayerinfo_now', { playerid:this.$store.state.playerid});
+      var id = this.$store.state.playerid;
+      var playerinfo = this.$store.state.playerinfo_now;
+      this.$store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id: [id], player: playerinfo });
+      return this.$store.state.playerinfo_now
+    },
+    getplayerid: function () {
+      return this.$store.state.playerid
+    },
+    //房地产数计算
+    getHouseNum: function () {
+      // console.log(this.playerinfo);
+      if (this.$store.state.propertyinfo_of_player == null) {
+        return 0
+      } else {
+        return this.$store.state.propertyinfo_of_player.length
       }
     },
+    getpropertyinfo2: function () {
+      // getHouseLevel();
+      return this.$store.state.propertyinfo_of_player
+    }
+  },
 }
 </script>
 
 <style scoped>
 body {
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 .header {
@@ -325,8 +327,8 @@ body {
 }
 
 .tiner {
-  height: 600px;
-  overflow: auto;
+  height: auto;
+  /* overflow: auto; */
 }
 
 .container-function {
@@ -343,6 +345,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   height: 800px;
+  overflow: auto;
 
   .container-property {
     display: flex;
@@ -350,7 +353,8 @@ body {
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    margin: 10px 0;
+    margin: 20px 0;
+    height: auto;
   }
 
   .cell {
@@ -373,9 +377,17 @@ body {
     position: -webkit-sticky;
     /* Safari */
     position: sticky;
+    z-index: 101;
     top: 10px;
 
     /* margin-top: 15px; */
+  }
+
+  .scroll {
+    overflow: hidden;
+    /* position: absolute; */
+    /* bottom: 20px; */
+    height:600px;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="container" style="width: 100%">
-        <CompontDialog :show="show" :p="bankinfo[0].password" :check="0" @checkResult="checkResult" v-if="show">
+        <CompontDialog :show="show" :p="bankinfo.password" :check="0" @checkResult="checkResult" v-if="show">
         </CompontDialog>
 
     </div>
@@ -20,7 +20,9 @@ export default {
         CompontDialog
     },
     mounted: async function () {
-        this.bankinfo = await this.$datas.getPlayerInfo("flag", -1);
+        this.bankinfo = this.$store.state.playerinfo.find(val=>{
+            return val.flag ==-1
+        });
         this.propertyinfo = await this.$datas.getPropertyInfo_from_player();
     },
     methods: {
