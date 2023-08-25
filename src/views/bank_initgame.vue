@@ -23,7 +23,7 @@ export default {
         this.bankinfo = this.$store.state.playerinfo.find(val=>{
             return val.flag ==-1
         });
-        this.propertyinfo = await this.$datas.getPropertyInfo_from_player();
+        this.propertyinfo = this.$store.state.propertyinfo;
     },
     methods: {
         checkResult(flag) {

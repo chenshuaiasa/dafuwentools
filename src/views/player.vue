@@ -71,14 +71,14 @@
           icon="balance-list-o">转账记录</van-tabbar-item>
       </van-tabbar>
     </div>
-    </compontScroll>
+    <!-- </compontScroll> -->
   </div>
 </template>
 <script>
 import compontProperty from "../components/compontProperty.vue";
 import compontDialogp from "@/components/compontDialogp.vue";
 import { Toast } from "vant";
-import compontScroll from '../components/compontScroll.vue'
+// import compontScroll from '../components/compontScroll.vue'
 export default {
   data() {
     return {
@@ -119,7 +119,7 @@ export default {
   components: {
     compontProperty,
     compontDialogp,
-    compontScroll
+    // compontScroll
   },
   methods: {
     async init_of_all() {

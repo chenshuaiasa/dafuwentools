@@ -17,7 +17,7 @@
                 </van-picker>
             </van-popup>
         </van-form>
-        <compontDialog :show="show" :p="bankinfo[0].password" :check="1" @checkResult="checkResult" v-if="show">
+        <compontDialog :show="show" :p="getbankinfo" :check="1" @checkResult="checkResult" v-if="show">
         </compontDialog>
         <!-- <van-button @click="removeLocal()">清除本地缓存</van-button> -->
     </div>
@@ -28,7 +28,7 @@ export default {
     data() {
         return {
             value: "",
-            valueid:'',
+            valueid: '',
             temp: "",
             players: [
                 { id: 1, playername: "玩家1", balance: 0, property: {}, state: 1 },
@@ -51,8 +51,11 @@ export default {
     },
     mounted: async function () {
         // this.playerid = this.$route.query.palyerid;
-        await this.InitPlayerinfo('');
-        this.bankinfo = await this.$datas.getPlayerInfo("flag", -1);
+        // await this.InitPlayerinfo('');
+        
+        this.bankinfo = this.$store.state.playerinfo.find(val=>{
+            return val.flag ==-1
+        });
         // console.log(this.columns1)
     },
     components: {
@@ -95,26 +98,32 @@ export default {
         onSubmit(values) {
             console.log(values);
             // this.choseeId = values.playid;
-            this.players.forEach((val)=>{
-                if(val.id == this.valueid)
-                this.choseeId = val
+            this.$store.state.playerinfo.forEach((val) => {
+                if (val.id == this.valueid)
+                    this.choseeId = val
             })
             this.show = true;
-            
+
             // console.log(this.valueKey)
         },
         checkResult(flag) {
-            if(flag){
+            if (flag) {
                 this.$datas.initGameplayer(this.choseeId);
                 this.$toast.success('恶魔卡使用成功');
-            }else{
+            } else {
                 this.$toast.fail('密码错误');
             }
-            
+
         },
     },
     computed: {
-
+        getbankinfo: function () {
+            var temp = this.$store.state.playerinfo.find(val=>{
+            return val.flag ==-1
+        });
+            console.log(temp)
+            return temp.password
+        }
 
     },
 };
