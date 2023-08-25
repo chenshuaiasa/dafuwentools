@@ -75,11 +75,13 @@ export default {
                     if (val.property == null) {
                         temp[temp.length - 1].children = []
                     } else {
+                        temp[temp.length - 1].children = []
                         val.property.propertys.forEach(v => {
                             var name = this.$store.state.propertyinfo.find(vs => {
-                                return vs.id == v.property_id
+                                return (vs.id==v.property_id)
                             })
-                            temp[temp.length - 1].children = [{ text: name.property_name, value: v.property_id }]
+                            // console.log(name)
+                            temp[temp.length -1].children.push({ text: name.property_name, value: v.property_id })
                         })
                     }
                 }
