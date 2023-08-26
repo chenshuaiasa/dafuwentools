@@ -267,7 +267,7 @@ async function buyhouse(playerinfo, pid) {
         }
     })
     flag1.push(false);
-    //1.3 判断同色快其他地产至少有一个同数量或者多一个；
+    //1.2 判断同色快其他地产至少有一个同数量或者多一个；
     var tempflag = 0;
     tempcids.forEach((val) => {
         if (pnum == 2) {
@@ -283,19 +283,19 @@ async function buyhouse(playerinfo, pid) {
     if (pnum == 3) {
         flag1[1] = (tempflag == 2);
     }
-    // 1.4 房子数量是否超过5个
+    // 1.2 房子数量是否超过5个
     flag1.push(false);
     console.log('num' + num)
     if (num < 5) {
         flag1[flag1.length - 1] = true;
     }
 
-    //1.5 判断房地产类型可不可以买房子
+    //1.4 判断房地产类型可不可以买房子
     flag1.push(false);
     if (temp_property.type == 0) {
         flag1[flag1.length - 1] = true;
     }
-    //1.6 判断房子状态
+    //1.5 判断房子状态
     flag1.push(false);
     if (property_now_from_player.state != -2) {
         flag1[flag1.length - 1] = true;
