@@ -75,7 +75,7 @@ export default {
             ],
             functionItem2: [
                 { id: 2, name: "发放房地产", path: 'bangt', icon: 'gift-card' },
-                { id: 2, name: "收回房地产", path: 'bangt', icon: 'gift-card' }
+                // { id: 7, name: "收回房地产", path: 'bangt', icon: 'gift-card' }
                 // { id: 3, name: "发放房子", path: 'bangh',icon:'wap-home'},
             ],
             functionItem3: [

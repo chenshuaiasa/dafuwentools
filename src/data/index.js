@@ -61,9 +61,9 @@ async function getTransferHis(column, val) {
 }
 
 async function insert_transfer_history(data) {
-    
+
     var temp = store.state.playerinfo.find(val => {
-        return (val.id==101)
+        return (val.id == 101)
     })
     // Object.defineProperty(data, 'game_code',{value:temp.game_code})
     data['game_code'] = temp.game_code;
@@ -359,22 +359,18 @@ async function salehouse(playerinfo, pid) {
     var hun = 0;
     var hm = [];
     var p = await getPropertyInfo_from_player();
-    p.forEach((val) => {
-        if (val.property_name == pid) {
-            pid = val.id;
-            hm[0] = val.build_house_price;
-            hm[1] = val.build_hotel_price;
-            // tempcid = val.classification;
-        }
+    var property = p.find(val => {
+        return (val.property_name == pid)
+    });
+    // pid = property.id;
+    hm[0] = property.build_house_price;
+    hm[1] = property.build_hotel_price;
+    // console.log(p);
+    var pnum = p.filter(val=>{
+        return (val.classification == property.classification)
     })
-
-    var pnum = 0;
-    playerinfo.property.classification.forEach((val) => {
-        pnum = val.num;
-    })
-
     playerinfo.property.propertys.forEach((val) => {
-        if (val.property_id == pid) {
+        if (val.property_id == property.id) {
             hun = val.house_num;
         }
     })
@@ -393,18 +389,18 @@ async function salehouse(playerinfo, pid) {
             money = parseFloat(saleHousemoney[0]);
         } else {
             var balance = parseFloat(playerinfo.balance) + parseFloat(saleHousemoney[1]);
-            money = parseFloat(saleHousemoney[0]);
+            money = parseFloat(saleHousemoney[1]);
         }
         playerinfo.property.propertys.forEach((val) => {
-            if (val.property_id == pid) {
-                if (pnum == 2) {
+            if (val.property_id == property.id) {
+                if (pnum.length == 2) {
                     pp.push({
                         "property_id": val.property_id,
                         "classification": val.classification,
-                        "house_level": Object.keys(housenum)[[Object.keys(housenum2).indexOf(val.house_level)] - 1],
-                        "house_num": housenum[val.house_level] - 1
+                        "house_level": Object.keys(housenum2)[[Object.keys(housenum2).indexOf(val.house_level)] - 1],
+                        "house_num": housenum2[val.house_level] - 1
                     })
-                } else if (pnum == 3) {
+                } else if (pnum.length == 3) {
                     pp.push({
                         "property_id": val.property_id,
                         "classification": val.classification,
@@ -412,7 +408,6 @@ async function salehouse(playerinfo, pid) {
                         "house_num": housenum[val.house_level] - 1
                     })
                 }
-
             } else {
                 pp.push(val);
             }
@@ -580,14 +575,14 @@ async function assetTransfer(p1, p2) {
                 }
             })
             console.log(tempcs);
-            update_playerinfo({ property: { classification: cid, propertys: tempcs } }, 'id', pid1);
+            await update_playerinfo({ property: { classification: cid, propertys: tempcs } }, 'id', pid1);
             //2 从p2的数据中增加房子
             property_to_info.house_level = "P1";
             var playerindo2 = store.state.playerinfo.find(val => { return val.id == pid2 });
-            giveProperty(playerindo2, property_to_info);
+            await giveProperty(playerindo2, property_to_info);
         } else {
             //1.1 将property_detail里的数据归为1
-            update_PropertyInfo({ belong_to: null, state: 1 }, 'id', property1);
+            await update_PropertyInfo({ belong_to: null, state: 1 }, 'id', property1);
             //1.2 将playerinfo中的property数据删除该房产，并更新房子等级
             playerinfo1.property.propertys.forEach(val => {
                 if (val.property_id != property1) {
@@ -631,7 +626,7 @@ async function assetTransfer(p1, p2) {
                 }
             })
             console.log(tempcs);
-            update_playerinfo({ property: { classification: cid, propertys: tempcs } }, 'id', pid1);
+            await update_playerinfo({ property: { classification: cid, propertys: tempcs } }, 'id', pid1);
         }
 
     }
