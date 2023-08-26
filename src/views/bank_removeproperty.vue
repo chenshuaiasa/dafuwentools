@@ -1,22 +1,24 @@
 <template>
     <div class="container" style="width: 100%">
-        <van-nav-bar title="恶魔卡" left-text="返回" left-arrow @click-left="onClickLeft" />
-        <h3>恶魔卡</h3>
-        <van-form @submit="onSubmit">
-            <van-field readonly placeholder="请选择恶魔卡对象" clickable label="玩家" name="playid" :value="value"
-                :rules="[{ required: true, message: '请选择恶魔卡对象' }]" @click="saveColumns()" />
-            <div style="margin: 16px;">
-                <van-button round block type="info" native-type="submit">确认使用恶魔卡</van-button>
-            </div>
-            <van-popup v-model="showPicker" round position="bottom">
-                <van-picker show-toolbar :columns="columns1" @cancel="showPicker = false" @confirm="onConfirm">
-                    <template #option="item">
-                        <span>{{ item.text }}</span>
-                        <span> （player{{ item.options }}）</span>
-                    </template>
-                </van-picker>
-            </van-popup>
-        </van-form>
+        <van-nav-bar title="恶魔卡" left-text="返回" left-arrow @click-left="onClickLeft" fixed />
+        <!-- <h3>恶魔卡</h3> -->
+        <van-cell-group inset title="恶魔卡">
+            <van-form @submit="onSubmit">
+                <van-field readonly placeholder="请选择恶魔卡对象" clickable label="玩家" name="playid" :value="value"
+                    :rules="[{ required: true, message: '请选择恶魔卡对象' }]" @click="saveColumns()" />
+                <div style="margin: 16px;">
+                    <van-button round block type="info" native-type="submit">确认使用恶魔卡</van-button>
+                </div>
+                <van-popup v-model="showPicker" round position="bottom">
+                    <van-picker show-toolbar :columns="columns1" @cancel="showPicker = false" @confirm="onConfirm">
+                        <template #option="item">
+                            <span>{{ item.text }}</span>
+                            <span> （player{{ item.options }}）</span>
+                        </template>
+                    </van-picker>
+                </van-popup>
+            </van-form>
+        </van-cell-group>
         <compontDialog :show="show" :p="getbankinfo" :check="1" @checkResult="checkResult" v-if="show">
         </compontDialog>
         <!-- <van-button @click="removeLocal()">清除本地缓存</van-button> -->
@@ -52,9 +54,9 @@ export default {
     mounted: async function () {
         // this.playerid = this.$route.query.palyerid;
         // await this.InitPlayerinfo('');
-        
-        this.bankinfo = this.$store.state.playerinfo.find(val=>{
-            return val.flag ==-1
+
+        this.bankinfo = this.$store.state.playerinfo.find(val => {
+            return val.flag == -1
         });
         // console.log(this.columns1)
     },
@@ -118,9 +120,9 @@ export default {
     },
     computed: {
         getbankinfo: function () {
-            var temp = this.$store.state.playerinfo.find(val=>{
-            return val.flag ==-1
-        });
+            var temp = this.$store.state.playerinfo.find(val => {
+                return val.flag == -1
+            });
             console.log(temp)
             return temp.password
         }

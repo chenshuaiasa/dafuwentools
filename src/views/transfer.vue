@@ -1,6 +1,6 @@
 <template>
     <div>
-        <van-nav-bar title="转账" left-text="返回" left-arrow @click-left="onClickLeft" />
+        <van-nav-bar title="转账" left-text="返回" left-arrow @click-left="onClickLeft" fixed/>
         <h3>转账</h3>
         <van-form @submit="onSubmit">
             <van-field readonly placeholder="请选择转账对象" clickable label="玩家" name="playid" :value="value"
@@ -101,7 +101,7 @@ export default {
                 console.log("已删除")
 
 
-                
+
             }
 
         },
@@ -133,7 +133,7 @@ export default {
                 }
             }
             jsfname = this.submitvalue.playid;
-            this.d_h = {id:Date.now(),zzf:playerid,jsf:jsf,jsf_balance_now:jsf_balance_now,zzf_balance_now:zzf_balance_now,money:this.submitvalue.money,transfer_time: this.$datas.timeCode(),jsfname:jsfname,zzfname:zzfname}
+            this.d_h = {id:Date.now(),zzf:playerid,jsf:jsf,jsf_balance_now:jsf_balance_now,zzf_balance_now:zzf_balance_now,money:this.submitvalue.money,transfer_time: this.$datas.timeCode(),jsfname:jsfname,zzfname:zzfname,type:0}
             // console.log(this.d);
             console.log({balance:jsf_balance_now});
             this.updateDataPlayerinfo({balance:jsf_balance_now},'id',jsf);

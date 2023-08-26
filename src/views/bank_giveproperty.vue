@@ -1,7 +1,8 @@
 <template>
     <div class="container" style="width: 100%">
-        <van-nav-bar title="发放土地" left-text="返回" left-arrow @click-left="onClickLeft" />
-        <h3>发放土地</h3>
+        <van-nav-bar title="发放土地" left-text="返回" left-arrow @click-left="onClickLeft" fixed/>
+        <!-- <h3>发放土地</h3> -->
+        <van-cell-group inset title="发放土地">
         <van-form @submit="onSubmit">
             <van-field readonly placeholder="请选择发放对象" clickable label="玩家" name="playid" :value="valuename"
                 :rules="[{ required: true, message: '请选择发放对象' }]" @click="showPicker = true" />
@@ -21,13 +22,14 @@
             <van-popup v-model="showPicker2" round position="bottom">
                 <van-picker show-toolbar :columns="getcolumn2" @cancel="showPicker2 = false" @confirm="onConfirm2">
                     <template #option="item">
-                        <span
-                            v-bind:style="{ backgroundColor: item.color, color: '#FFFFFF', padding: '5px 10px', width: '80%', borderRadius: '5px' }">{{
+                        <span class="content"
+                            v-bind:style="{ backgroundColor: item.color, color: '#FFFFFF', padding: '5px 10px', width: '80%', borderRadius: '5px'}">{{
                                 item.text }} </span>
                     </template>
                 </van-picker>
             </van-popup>
         </van-form>
+    </van-cell-group>
         <!-- <van-button @click="removeLocal()">清除本地缓存</van-button> -->
     </div>
 </template>
@@ -161,3 +163,9 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.content{
+    text-align: center;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <van-nav-bar title="银行管理" left-text="返回" left-arrow @click-left="onClickLeft" />
+        <van-nav-bar title="银行管理" left-text="返回" left-arrow @click-left="onClickLeft" fixed />
         <!-- <van-overlay :show="show" @click="show = false" /> -->
         <!-- <van-dialog v-model="show" title="输入银行密码" show-cancel-button :overlay="show" lock-scroll
             :before-close="beforeClose">
@@ -12,12 +12,38 @@
         <CompontDialog :show="show" :p="bankinfo[0].password" :check="0" @checkResult="checkResult" v-if="show">
         </CompontDialog>
         <div v-if="showbank">
-            <van-grid :gutter="10" :column-num="3" :square="false">
-                <van-grid-item v-for="value in  functionItem " :key="value.id" @click="function_to(value.path)">
-                    <van-icon :name="value.icon" size="30" />
-                    <span v-bind:style="{ fontSize: '14px' }">{{ value.name }}</span>
-                </van-grid-item>
-            </van-grid>
+            <van-cell-group inset title="资金相关">
+                <van-cell is-link v-for="value in  functionItem " :key="value.id" @click="function_to(value.path)"
+                    :title="value.name" center>
+                    <template #icon>
+                        <van-icon :name="value.icon"></van-icon>
+                    </template>
+                </van-cell>
+            </van-cell-group>
+            <van-cell-group inset title="房地产相关">
+                <van-cell is-link v-for="value in  functionItem2 " :key="value.id" @click="function_to(value.path)"
+                    :title="value.name" center>
+                    <template #icon>
+                        <van-icon :name="value.icon"></van-icon>
+                    </template>
+                </van-cell>
+            </van-cell-group>
+            <van-cell-group inset title="功能卡相关">
+                <van-cell is-link v-for="value in  functionItem3 " :key="value.id" @click="function_to(value.path)"
+                    :title="value.name" center>
+                    <template #icon>
+                        <van-icon :name="value.icon"></van-icon>
+                    </template>
+                </van-cell>
+            </van-cell-group>
+            <van-cell-group inset title="功能区">
+                <van-cell is-link v-for="value in  functionItem4 " :key="value.id" @click="function_to(value.path)"
+                    :title="value.name" center>
+                    <template #icon>
+                        <van-icon :name="value.icon"></van-icon>
+                    </template>
+                </van-cell>
+            </van-cell-group>
         </div>
     </div>
 </template>
@@ -45,13 +71,23 @@ export default {
             password: '',
             functionItem: [
                 { id: 1, name: "发放资金", path: 'bangm', icon: 'gold-coin' },
+                { id: 5, name: "查看转账记录", path: 'transferbh', icon: "balance-list" },
+            ],
+            functionItem2: [
                 { id: 2, name: "发放房地产", path: 'bangt', icon: 'gift-card' },
+                { id: 2, name: "收回房地产", path: 'bangt', icon: 'gift-card' }
                 // { id: 3, name: "发放房子", path: 'bangh',icon:'wap-home'},
-                { id: 3, name: "恶魔卡，清空用户地产", path: 'banrp' },
-                { id: 4, name: "初始化游戏", path: 'banig' },
-                { id: 5, name: "查看转账记录" },
-                { id: 6, name: "资产转移（类抢夺卡和抢购卡）", path: 'banat' },
-            ]
+            ],
+            functionItem3: [
+                // { id: 3, name: "发放房子", path: 'bangh',icon:'wap-home'},
+                { id: 3, name: "恶魔卡，清空用户地产", path: 'banrp', icon: "delete" },
+
+                { id: 6, name: "资产转移（类抢夺卡和抢购卡）", path: 'banat', icon: "exchange" }
+            ],
+            functionItem4: [
+                // { id: 3, name: "发放房子", path: 'bangh',icon:'wap-home'},
+                { id: 4, name: "初始化游戏", path: 'banig', icon: "replay" }
+            ],
         }
     },
     components: {
@@ -60,6 +96,7 @@ export default {
     mounted: async function () {
         await this.$store.dispatch('asyncgetPlayerinfo');
         await this.$store.dispatch('asyncgetPropertyinfo');
+        await this.$store.dispatch('asyncgetTransferHistory');
         // await store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id: [id], player: playerinfo });
         // store.commit('getPlayerinfo_now',{playerid:id});
         // store.commit('getPlayerInfo_now2', payload.new);

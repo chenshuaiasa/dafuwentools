@@ -78,7 +78,7 @@ export default {
         "H5": 5,
       },
       house_level2: '',
-      actions: [{ text: '买房子' }, { text: '抵押' }, { text: '卖房子' }],
+      actions: [{ text: '买房子' }, { text: '卖房子'},{ text: '抵押' }],
       actions2: [{ text: '赎回房子' }],
       showPopover: false,
       showPopover2: false,

@@ -12,11 +12,12 @@ const store = new Vuex.Store({
         playerinfo_now: '',
         propertyinfo: {},
         propertyinfo_of_player: [],
-        playerid: ''
+        playerid: '',
+        transferhis:[]
     },
     mutations: {
         getPlayerinfo(state, data) {
-            state.playerinfo = data.sort(datas.conmpare);
+            state.playerinfo = data.sort(datas.compare);
             // .sort(datas.conmpare)
         },
         getPlayerinfo_now(state, payload) {
@@ -29,13 +30,16 @@ const store = new Vuex.Store({
             state.playerinfo_now = data;
         },
         getPropertyinfo(state, data) {
-            state.propertyinfo = data.sort(datas.conmpare);
+            state.propertyinfo = data.sort(datas.compare);
         },
         getPropertyinfo_of_player(state, data) {
-            state.propertyinfo_of_player = data.sort(datas.conmpare);
+            state.propertyinfo_of_player = data.sort(datas.compare);
         },
         getPlayerid(state, pid) {
             state.playerid = pid;
+        },
+        getTransferHistory(state,data){
+            state.transferhis = data.sort(datas.comparedec);
         }
     },
     actions: {
@@ -71,6 +75,10 @@ const store = new Vuex.Store({
         },
         async asyncgetp_i_o_now({commit},payload){
             commit('getPlayerInfo_now2',payload)
+        },
+        async asyncgetTransferHistory({commit},payload){
+            var temp = await datas.getTransferHis();
+            commit('getTransferHistory',temp)
         }
     },
     getters: {},

@@ -66,9 +66,9 @@
       <van-tabbar route fixed>
         <!-- <van-tabbar-item  to="/home" icon="home-o">主页</van-tabbar-item> -->
         <van-tabbar-item to="/playerinfo" icon="search">查询玩家信息</van-tabbar-item>
-        <van-tabbar-item :to="{ path: 'transfer', query: { palyerid: playerid } }" icon="refund-o">转账</van-tabbar-item>
-        <van-tabbar-item :to="{ path: 'transferph', query: { palyerid: playerid } }"
-          icon="balance-list-o">转账记录</van-tabbar-item>
+        <van-tabbar-item :to="{ path: 'transfer'}" icon="refund-o">转账</van-tabbar-item>
+        <van-tabbar-item :to="{ path: 'transferph'}"
+          icon="balance-list-o">账单信息</van-tabbar-item>
       </van-tabbar>
     </div>
     <!-- </compontScroll> -->
@@ -175,15 +175,15 @@ export default {
         this.title = "是否购买房子";
         this.showc = true;
         this.choosehouse = pname;
-      }//indnex 1 抵押
-      else if (index == 1) {
+      }//indnex 2 抵押
+      else if (index == 2) {
         this.com = 3;
         this.title = "是否抵押房地产";
         // console.log('csss??');
         this.showc = true;
         this.choosehouse = pname;
-      }//indnex 2 卖房子
-      else if (index == 2) {
+      }//indnex 1 卖房子
+      else if (index == 1) {
         this.com = 2;
         // console.log('csss??');
         this.title = "是否出售房子";
@@ -206,6 +206,7 @@ export default {
         if (index_com == 1) {
           // console.log(await this.$datas.buyhouse(this.playerinfo[0], this.choosehouse))
           if (await this.$datas.buyhouse(this.$store.state.playerinfo_now, this.choosehouse)) {
+
             this.$toast.success('购买成功');
             //刷新页面
           } else {
