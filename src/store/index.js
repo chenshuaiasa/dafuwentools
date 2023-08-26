@@ -52,7 +52,7 @@ const store = new Vuex.Store({
             commit('getPropertyinfo', temp);
         },
         async asyncgetPropertyinfo_of_player({ commit }, payload) {
-            console.log(payload);
+            // console.log(payload);
             var temp = await datas.getPropertyInfo_from_player(payload.column, payload.id);
             console.log(temp);
             if (payload.player.property == null) {

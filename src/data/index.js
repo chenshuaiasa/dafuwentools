@@ -60,7 +60,7 @@ async function insert_transfer_history(data) {
 }
 
 async function update_playerinfo(data, column, value) {
-    console.log(column+value);
+    // console.log(column+value);
     const { error } = await supabaseJs2
         .from('playerinfo')
         .update(data)
@@ -108,8 +108,6 @@ function checkTime(i) {
 }
 
 function giveProperty(playerinfo, propertyinfo) {
-
-
     var P_h = ['P1', 'P2', 'P3', 'P4']
     //2 更新playerinfo 用户的房屋情况，同时要计算房屋等级-同色块
     // var house = [{}];
@@ -158,6 +156,7 @@ function giveProperty(playerinfo, propertyinfo) {
     }
     console.log(cid);
     console.log(pro);
+    
     update_playerinfo({ property: { classification: cid, propertys: pro } }, 'id', playerinfo.id);
 }
 
