@@ -61,10 +61,13 @@ async function getTransferHis(column, val) {
 }
 
 async function insert_transfer_history(data) {
-    var temp = store.state.playerinfo.forEach(val => {
-        return (val.id == 101)
+    
+    var temp = store.state.playerinfo.find(val => {
+        return (val.id==101)
     })
-    data.game_code = temp.game_code;
+    // Object.defineProperty(data, 'game_code',{value:temp.game_code})
+    data['game_code'] = temp.game_code;
+    console.log(data);
     const { error } = await supabaseJs2
         .from('transfer_history')
         .insert([data])
@@ -414,7 +417,7 @@ async function salehouse(playerinfo, pid) {
                 pp.push(val);
             }
         })
-        update_playerinfo({ property: { classification: playerinfo.property.classification, propertys: pp }, balance: balance }, 'id', playerinfo.id);
+        await update_playerinfo({ property: { classification: playerinfo.property.classification, propertys: pp }, balance: balance }, 'id', playerinfo.id);
         var d_h = { id: Date.now(), zzf: 101, jsf: playerinfo.id, money: money, zzf_balance_now: null, jsf_balance_now: balance, transfer_time: timeCode(), jsfname: "银行", zzfname: playerinfo.playername, type: 3 }
         await insert_transfer_history(d_h);
     }

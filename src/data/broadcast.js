@@ -15,13 +15,13 @@ const channel1 = supabase
                 var id = store.state.playerid;
                 var playerinfo = payload.new;
                 // store.dispatch('asyncgetPlayerinfo',{_this:this})
-                
+
                 // await store.dispatch('asyncgetPropertyinfo');
                 // store.commit('getPlayerinfo_now',{playerid:id});
                 // store.commit('getPlayerInfo_now2', payload.new);\
                 console.log(payload.new);
                 await store.dispatch('asyncgetp_i_o_now', payload.new);
-                
+
                 await store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id: [id], player: playerinfo });
                 console.log('更新成功playerinfo')
                 // asyncgetPropertyinfo_of_player
@@ -52,7 +52,28 @@ const channel2 = supabase
         })
     .subscribe();
 
+const channel3 = supabase
+    .channel('transferhis-changes')
+    .on('postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'transfer_history' },
+        async function (payload) {
+            // var id = store.state.playerid;
+            // var playerinfo = payload.new;
+            // store.dispatch('asyncgetPlayerinfo',{_this:this})
+            // await store.dispatch('asyncgetPlayerinfo');
+            await store.dispatch('asyncgetTransferHistory');
+            // store.commit('getPlayerinfo_now',{playerid:id});
+            // store.commit('getPlayerInfo_now2', payload.new);
+            // await store.dispatch('asyncgetp_i_o_now', payload.new);
+            // await store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id: [id], player: playerinfo });
+            console.log('更新成功transferhis')
+            // asyncgetPropertyinfo_of_player
+            // asyncgetPropertyinfo
+            // console.log(payload)
+        })
+    .subscribe();
 export {
     channel1,
-    channel2
+    channel2,
+    channel3
 }
