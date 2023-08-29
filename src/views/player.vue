@@ -21,12 +21,12 @@
             <van-row type="flex" gutter="20" justify="space-between">
               <van-col span="12">
                 <div class="info1" style="float: left; margin: 10px">
-                  <span>账户余额：{{ player.balance }}</span>
+                  <span style="background-color: rgb(226, 226, 226);color: rgb(0, 0, 0);padding: 5px;border-radius: 5px;">账户余额：{{ player.balance }}</span>
                 </div>
               </van-col>
               <van-col span="12">
                 <div class="info2" style="float: right; margin: 10px">
-                  <span>拥有土地数：{{ getHouseNum }}</span>
+                  <span style="background-color: rgb(226, 226, 226);color: rgb(0, 0, 0);padding: 5px;border-radius: 5px;">拥有土地数：{{ getHouseNum }}</span>
                 </div>
               </van-col>
             </van-row>
@@ -215,7 +215,7 @@ export default {
         }//2 卖房子
         else if (index_com == 2) {
           if (await this.$datas.salehouse(this.$store.state.playerinfo_now, this.choosehouse)) {
-            this.$toast.success('售卖成功，将刷新页面');
+            this.$toast.success('售卖成功');
             //刷新页面
           } else {
             this.$toast.fail('不满足售卖条件');
@@ -223,7 +223,7 @@ export default {
         }//3 抵押
         else if (index_com == 3) {
           if (await this.$datas.pledgehouse(this.$store.state.playerinfo_now, this.choosehouse)) {
-            this.$toast.success('抵押成功，将刷新页面');
+            this.$toast.success('抵押成功');
             // await this.init_of_all();
             //刷新页面
             // setInterval(() => { this.$router.go(0); }, 1000);

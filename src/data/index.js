@@ -188,7 +188,7 @@ function giveProperty(playerinfo, propertyinfo) {
 function initGame(propertyinfo) {
     // console.log(this.propertyinfo)
     for (var i = 1; i <= 6; i++) {
-        update_playerinfo({ balance: 15000, property: null, state: 1, password: null, }, 'id', i)
+        update_playerinfo({ balance: 15000, property: null, state: 1, password: null, playername:"player"+i}, 'id', i)
     }
     propertyinfo.forEach(val => {
         update_PropertyInfo({ state: 1, belong_to: null }, 'id', val.id);

@@ -10,7 +10,7 @@ const channel1 = supabase
         { event: 'UPDATE', schema: 'public', table: 'playerinfo' },
         async function (payload) {
             await store.dispatch('asyncgetPlayerinfo');
-            console.log(payload.new);
+            // console.log(payload.new);
             if (payload.new.id == store.state.playerid) {
                 var id = store.state.playerid;
                 var playerinfo = payload.new;
@@ -19,7 +19,7 @@ const channel1 = supabase
                 // await store.dispatch('asyncgetPropertyinfo');
                 // store.commit('getPlayerinfo_now',{playerid:id});
                 // store.commit('getPlayerInfo_now2', payload.new);\
-                console.log(payload.new);
+                // console.log(payload.new);
                 await store.dispatch('asyncgetp_i_o_now', payload.new);
 
                 await store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id: [id], player: playerinfo });
@@ -45,7 +45,7 @@ const channel2 = supabase
             // store.commit('getPlayerInfo_now2', payload.new);
             // await store.dispatch('asyncgetp_i_o_now', payload.new);
             // await store.dispatch('asyncgetPropertyinfo_of_player', { column: 'belong_to', id: [id], player: playerinfo });
-            console.log('更新成功propertyinfo')
+            console.log('更新成功propertyinfo');
             // asyncgetPropertyinfo_of_player
             // asyncgetPropertyinfo
             // console.log(payload)

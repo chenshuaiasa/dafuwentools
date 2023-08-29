@@ -5,7 +5,7 @@
             <van-form @submit="onSubmit">
                 <van-cell>
                     <van-field v-model="fieldValue" is-link readonly label="被转让的玩家和资产" placeholder="请选择玩家及资产"
-                        :value="fieldValue" @click="show = true" />
+                        :value="fieldValue" @click="show = true" :rules="[{ required: true, message: '请选择玩家及资产' }]"/>
                 </van-cell>
                 <van-popup v-model="show" round position="bottom">
                     <van-cascader v-model="cascaderValue" title="请选择玩家及资产" :options="geto1" @close="show = false"
@@ -13,7 +13,7 @@
                 </van-popup>
                 <van-cell>
                     <van-field v-model="fieldValue2" is-link readonly label="接收资产的玩家" placeholder="请选择玩家"
-                        :value="fieldValue2" @click="show2 = true" />
+                        :value="fieldValue2" @click="show2 = true" :rules="[{ required: true, message: '请选择玩家' }]"/>
                 </van-cell>
                 <van-popup v-model="show2" round position="bottom">
                     <van-cascader v-model="cascaderValue2" title="请选择玩家及资产" :options="geto2" @close="show = false"
@@ -75,6 +75,7 @@ export default {
         },
         onSubmit: async function () {
             //调用转让函数
+            // if()
             if (this.chooseid.propertyid == null) {
                 this.$toast.fail('没有选择资产');
             } else if (await this.$datas.assetTransfer(this.chooseid, this.chooseid2)) {
