@@ -78,7 +78,7 @@ export default {
         "H5": 5,
       },
       house_level2: '',
-      actions: [{ text: '买房子' }, { text: '卖房子'},{ text: '抵押' }],
+      actions: [{ text: '买房子' }, { text: '卖房子' }, { text: '抵押' }],
       actions2: [{ text: '赎回房子' }],
       showPopover: false,
       showPopover2: false,
@@ -142,89 +142,86 @@ export default {
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
   box-shadow: rgba(137, 137, 137, 0.35) 0px 0px 5px;
-
-  .property-name {
-    background-color: #a8a8a8;
-    border-radius: 5px 5px 0 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .pname {
-      height: 18px;
-      font-size: 18x;
-      font-weight: 600;
-      text-align: center;
-      color: #FFFFFF;
-      margin-top: 5px;
-    }
-
-    .prentmsg {
-      width: auto;
-      height: auto;
-      font-size: 10px;
-      font-weight: 400;
-      text-align: center;
-      color: rgb(245, 245, 245);
-      margin-top: 3px;
-      margin-bottom: 3px;
-      padding: 3px;
-    }
-  }
-
-  .property-rent {
-    margin-top: 5px;
-    display: flex;
-    height: 60%;
-    flex-direction: column;
-    justify-content: space-around;
-
-    .rent-money {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      justify-content: flex-start;
-      margin-left: 5px;
-
-      .rent-price,
-      .rent-price-checked {
-        width: auto;
-        font-size: 10px;
-        font-weight: 400;
-        text-align: center;
-        color: rgb(51, 51, 51);
-        margin: 2px;
-        padding: 3px 4px;
-        border: 1px dashed #828282;
-      }
-
-      .rent-price-checked {
-        background-color: #0088ff;
-        color: #ffffff;
-        border: 0px dashed #828282;
-      }
-
-
-    }
-
-    .houses {
-      display: flex;
-      flex-direction: column;
-      align-items: start;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      justify-content: flex-start;
-      margin-left: 5px;
-
-      .house_price {
-        font-size: 10px;
-        font-weight: 400;
-        text-align: center;
-        color: rgb(153, 153, 153);
-      }
-    }
-  }
 }
-</style>
+
+.property-name {
+  background-color: #a8a8a8;
+  border-radius: 5px 5px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pname {
+  height: 18px;
+  font-size: 18x;
+  font-weight: 600;
+  text-align: center;
+  color: #FFFFFF;
+  margin-top: 5px;
+}
+
+.prentmsg {
+  width: auto;
+  height: auto;
+  font-size: 10px;
+  font-weight: 400;
+  text-align: center;
+  color: rgb(245, 245, 245);
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 3px;
+}
+
+.property-rent {
+  margin-top: 5px;
+  display: flex;
+  height: 60%;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.houses {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  justify-content: flex-start;
+  margin-left: 5px;
+}
+
+.house_price {
+  font-size: 10px;
+  font-weight: 400;
+  text-align: center;
+  color: rgb(153, 153, 153);
+}
+
+.rent-money {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  justify-content: flex-start;
+  margin-left: 5px;
+}
+
+.rent-price,
+.rent-price-checked {
+  width: auto;
+  font-size: 10px;
+  font-weight: 400;
+  text-align: center;
+  color: rgb(51, 51, 51);
+  margin: 2px;
+  padding: 3px 4px;
+  border: 1px dashed #828282;
+}
+
+.rent-price-checked {
+  background-color: #0088ff;
+  color: #ffffff;
+  border: 0px dashed #828282;
+}</style>
