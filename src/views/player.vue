@@ -21,12 +21,16 @@
             <van-row type="flex" gutter="20" justify="space-between">
               <van-col span="12">
                 <div class="info1" style="float: left; margin: 10px">
-                  <span style="background-color: rgb(226, 226, 226);color: rgb(0, 0, 0);padding: 5px;border-radius: 5px;">账户余额：{{ player.balance }}</span>
+                  <span
+                    style="background-color: rgb(226, 226, 226);color: rgb(0, 0, 0);padding: 5px;border-radius: 5px;">账户余额：{{
+                      player.balance }}</span>
                 </div>
               </van-col>
               <van-col span="12">
                 <div class="info2" style="float: right; margin: 10px">
-                  <span style="background-color: rgb(226, 226, 226);color: rgb(0, 0, 0);padding: 5px;border-radius: 5px;">拥有土地数：{{ getHouseNum }}</span>
+                  <span
+                    style="background-color: rgb(226, 226, 226);color: rgb(0, 0, 0);padding: 5px;border-radius: 5px;">拥有土地数：{{
+                      getHouseNum }}</span>
                 </div>
               </van-col>
             </van-row>
@@ -66,9 +70,8 @@
       <van-tabbar route fixed>
         <!-- <van-tabbar-item  to="/home" icon="home-o">主页</van-tabbar-item> -->
         <van-tabbar-item to="/playerinfo" icon="search">查询玩家信息</van-tabbar-item>
-        <van-tabbar-item :to="{ path: 'transfer'}" icon="refund-o">转账</van-tabbar-item>
-        <van-tabbar-item :to="{ path: 'transferph'}"
-          icon="balance-list-o">账单信息</van-tabbar-item>
+        <van-tabbar-item :to="{ path: 'transfer' }" icon="refund-o">转账</van-tabbar-item>
+        <van-tabbar-item :to="{ path: 'transferph' }" icon="balance-list-o">账单信息</van-tabbar-item>
       </van-tabbar>
     </div>
     <!-- </compontScroll> -->
@@ -312,29 +315,29 @@ body {
   padding-right: const(safe-area-inset-right);
 }
 
-.cell-item.playername {
-  .name1 {
-    float: left;
-    margin: 10px;
-    width: 72px;
-    height: 24px;
-    font-size: 18px;
-    font-weight: 700;
-    text-align: left;
-    color: rgb(51, 51, 51);
-  }
+.cell-item.playername {}
 
-  .name2 {
-    float: right;
-    width: 63px;
-    height: 25px;
-    background-image: linear-gradient(#ffd074, #ce7c00);
-    border-radius: 0px 10px;
-    font-size: 14px;
-    font-weight: 400;
-    text-align: center;
-    color: #ffffff;
-  }
+.name2 {
+  float: right;
+  width: 63px;
+  height: 25px;
+  background-image: linear-gradient(#ffd074, #ce7c00);
+  border-radius: 0px 10px;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  color: #ffffff;
+}
+
+.name1 {
+  float: left;
+  margin: 10px;
+  width: 72px;
+  height: 24px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: left;
+  color: rgb(51, 51, 51);
 }
 
 .tiner {
@@ -357,51 +360,47 @@ body {
   justify-content: flex-start;
   height: 800px;
   /* overflow: auto; */
-
-  .container-property {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
-    margin: 20px 0;
-    height: auto;
-    position: absolute;
-    top: 157px;
-  }
-
-  .cell {
-    float: left;
-    background-color: #ffffff;
-    width: 95%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-star;
-    justify-content: space-evenly;
-    border-radius: 10px;
-  }
-
-  .container-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-
-    position: -webkit-sticky;
-    /* Safari */
-    position: fixed;
-    z-index: 101;
-    top: 70px;
-
-
-    /* margin-top: 15px; */
-  }
-
-  .scroll {
-    overflow: hidden;
-    /* position: absolute; */
-    /* bottom: 20px; */
-    height: 50%;
-  }
 }
-</style>
+
+.container-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  position: -webkit-sticky;
+  /* Safari */
+  position: fixed;
+  z-index: 101;
+  top: 70px;
+  /* margin-top: 15px; */
+}
+
+.cell {
+  float: left;
+  background-color: #ffffff;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-star;
+  justify-content: space-evenly;
+  border-radius: 10px;
+}
+
+.container-property {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: 20px 0;
+  height: auto;
+  position: absolute;
+  top: 157px;
+}
+
+.scroll {
+  overflow: hidden;
+  /* position: absolute; */
+  /* bottom: 20px; */
+  height: 50%;
+}</style>
