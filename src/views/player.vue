@@ -74,6 +74,8 @@
     <!-- </compontScroll> -->
   </div>
 </template>
+<script src="node_modules/eruda/eruda.js"></script>
+<script>eruda.init();</script>
 <script>
 import compontProperty from "../components/compontProperty.vue";
 import compontDialogp from "@/components/compontDialogp.vue";
