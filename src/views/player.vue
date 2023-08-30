@@ -74,12 +74,19 @@
     <!-- </compontScroll> -->
   </div>
 </template>
-<script src="node_modules/eruda/eruda.js"></script>
-<script>eruda.init();</script>
+
 <script>
 import compontProperty from "../components/compontProperty.vue";
 import compontDialogp from "@/components/compontDialogp.vue";
 import { Toast } from "vant";
+import eruda from 'eruda'
+const userAgent = window.navigator.userAgent
+if (process.env.NODE_ENV === 'development') {
+  if (userAgent.indexOf('Android') !== -1 || userAgent.indexOf('iPhone') !== -1) {
+    eruda.init()
+  }
+}
+
 // import compontScroll from '../components/compontScroll.vue'
 export default {
   data() {
