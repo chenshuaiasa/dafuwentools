@@ -2,12 +2,14 @@
   <div v-if="$route.path == '/player'" class="container" style="width: 100%">
     <compontDialogp v-if="showc" :com="com" :showcc="showc" :check="1" :title="title" @checkResult="checkResult">
     </compontDialogp>
+    <compontPlayerPanel :pname="player.playername" :pid="getplayerid" :pbanlance="player.balance" :ppnum="getHouseNum"></compontPlayerPanel>
     <div class="header">
       <span>玩家主页</span>
     </div>
     <!-- <van-pull-refresh v-model="isLoading" @refresh="onRefresh()"> -->
     <div class="container-scroll">
-      <div class="container-info" style="width: 100%">
+      <!-- <div class="container-info" style="width: 100%">
+        
         <div class="cell">
           <div class="cell-item playername">
             <div class="name1">
@@ -36,7 +38,7 @@
             </van-row>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="container-property">
         <div class="cell">
@@ -82,14 +84,8 @@
 import compontProperty from "../components/compontProperty.vue";
 import compontDialogp from "@/components/compontDialogp.vue";
 import { Toast } from "vant";
-import eruda from 'eruda'
-const userAgent = window.navigator.userAgent
-if (process.env.NODE_ENV === 'development') {
-  if (userAgent.indexOf('Android') !== -1 || userAgent.indexOf('iPhone') !== -1) {
-    eruda.init()
-  }
-}
-
+// import eruda from 'eruda'
+import compontPlayerPanel from "@/components/compontPlayerPanel.vue";
 // import compontScroll from '../components/compontScroll.vue'
 export default {
   data() {
@@ -131,6 +127,7 @@ export default {
   components: {
     compontProperty,
     compontDialogp,
+    compontPlayerPanel
     // compontScroll
   },
   methods: {
@@ -395,7 +392,7 @@ body {
   margin: 20px 0;
   height: auto;
   position: absolute;
-  top: 157px;
+  top: 180px;
 }
 
 .scroll {
@@ -403,4 +400,6 @@ body {
   /* position: absolute; */
   /* bottom: 20px; */
   height: 50%;
-}</style>
+}
+
+</style>

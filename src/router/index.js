@@ -15,11 +15,13 @@ import BanGT from '../views/bank_giveproperty.vue'
 import BanIG from '../views/bank_initgame.vue'
 import BanRP from '../views/bank_removeproperty.vue'
 import BanAT from '../views/bank_asset_transfer.vue'
+import temp from '../views/temp.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
     //主路由
+    // { path: '/', name: 'login', component: Login },
     { path: '/', name: 'login', component: Login },
     { path: '/bank', component: Bank },
     { path: '/ground', component: Ground },

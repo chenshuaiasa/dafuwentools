@@ -8,8 +8,8 @@ import * as datas from './data/index'
 import * as data_broadcast from './data/broadcast.js'
 import { Toast } from "vant";
 import store from './store/index'
-import eruda from 'eruda'
-eruda.init()
+// import eruda from 'eruda'
+// eruda.init()
 
 Vue.config.productionTip = false
 
@@ -25,3 +25,4 @@ new Vue({
   store,
   render: h => h(App),
 }).$mount('#app')
+
