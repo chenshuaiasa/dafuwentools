@@ -2,16 +2,21 @@
     <div>
         <div class="divc">
             <div class="container">
-                <img src="../assets/Elf.png">
+                <img class="playericon" :src="lujin">
                 <!-- <span>wqdr </span> -->
                 <div class="cell">
                     <div class="cell-item playername">
                         <div class="name1">
                             <span>{{ pname }}</span>
                         </div>
-                        <div class="name2">
-                            <span>玩家{{ pid }}</span>
+                        <div style="display:flex;padding:4px 0">
+                            <van-tag plain round type="primary" size="medium" color="#858585">
+                                <span style="padding:0 10px;font-size: 14px;">玩家{{ pid }}</span>
+                            </van-tag>
                         </div>
+                        <!-- <div class="name2">
+                            <span>玩家{{ pid }}</span>
+                        </div> -->
                     </div>
                     <div class="cell-item info">
                         <div class="info1">
@@ -38,7 +43,7 @@ export default {
 
         }
     },
-    props: ["pname", "pid", "pbanlance", "ppnum"],
+    props: ["pname", "pid", "pbanlance", "ppnum", "lujin"],
 }
 </script>
 
@@ -51,12 +56,14 @@ export default {
     position: fixed;
     z-index: 101;
     top: 70px;
+
 }
 
-img {
+.playericon {
     float: left;
     /* height: 100px; */
-    width: 20%;
+    width: 16%;
+    margin: 2%;
 }
 
 .container {
@@ -66,6 +73,7 @@ img {
     width: 95%;
     border-radius: 10px;
     margin-top: 10px;
+    box-shadow: rgba(137, 137, 137, 0.35) 0px 5px 10px;
 }
 
 .cell {
@@ -75,6 +83,7 @@ img {
     align-items: flex-star;
     justify-content: space-evenly;
     width: 80%;
+    height: 100%;
 }
 
 
@@ -86,7 +95,7 @@ img {
     padding: 2px 5px;
     background-image: linear-gradient(#c49c4c, #ce7c00);
     border-radius: 0px 10px;
-    font-size: 18px;
+    font-size: px;
     font-weight: 400;
     text-align: center;
     color: #ffffff;
@@ -94,11 +103,11 @@ img {
 
 .name1 {
     /* float: left; */
-    padding-right: 10px;
+    padding: 0 10px;
     margin: 5px;
-    width: 72px;
+    /* width: 72px; */
     height: 24px;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 700;
     text-align: left;
     color: rgb(51, 51, 51);
@@ -109,7 +118,8 @@ img {
     /* float: left; */
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
+    height: auto;
 }
 
 .info {
@@ -118,19 +128,19 @@ img {
 
 .playername {
     /* flex-direction: column;; */
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 
 .info1,
 .info2 {
     /* float: left; */
-    margin: 5px;
+    margin: 0px;
     display: flex;
     /* background-color: #5280d1; */
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 700;
-    padding: 5px;
+    padding: 0 5px;
     border-radius: 100px;
     align-items: center;
     /* border: 5px solid #7ea8e2 */

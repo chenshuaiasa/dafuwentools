@@ -1,6 +1,6 @@
 <template>
     <div>
-        <van-dialog  v-model="shows" :title="title" show-cancel-button :overlay="true" lock-scroll
+        <van-dialog  v-model="show" :title="title" show-cancel-button :overlay="true" lock-scroll
             :before-close="beforeClose">
             <van-field v-if="com == 1 || com == 2" name="stepper" label="数量">
                 <template #input>
@@ -18,15 +18,17 @@ export default {
         return {
             temp: '',
             password: '',
-            shows: this.showcc,
+            show: this.showcc,
             valuenum: 0,
         }
     },
     beforeMount: function () {
-        this.shows = this.showcc;
+        // this.shows = this.showcc;
     },
     mounted: function () {
-        this.shows = this.showcc;
+        // this.shows = this.showcc;
+        console.log(this.shows);
+        console.log(this.showcc);
     },
     props: ["showcc", "p", "check", "com", "title"],
     methods: {

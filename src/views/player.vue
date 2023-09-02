@@ -1,11 +1,16 @@
 <template>
   <div v-if="$route.path == '/player'" class="container" style="width: 100%">
-    <compontDialogp v-if="showc" :com="com" :showcc="showc" :check="1" :title="title" @checkResult="checkResult">
-    </compontDialogp>
-    <compontPlayerPanel :pname="player.playername" :pid="getplayerid" :pbanlance="player.balance" :ppnum="getHouseNum"></compontPlayerPanel>
     <div class="header">
       <span>玩家主页</span>
     </div>
+    <compontDialogp v-if="showc" :com="com" :showcc="showc" :check="1" :title="title" @checkResult="checkResult">
+    </compontDialogp>
+    <div class="p1">
+      <compontPlayerPanel :pname="player.playername" :pid="getplayerid" :pbanlance="player.balance" :ppnum="getHouseNum"
+        :lujin="geticon">
+      </compontPlayerPanel>
+    </div>
+
     <!-- <van-pull-refresh v-model="isLoading" @refresh="onRefresh()"> -->
     <div class="container-scroll">
       <!-- <div class="container-info" style="width: 100%">
@@ -48,12 +53,12 @@
               <div class="tiner">
                 <van-grid :border="false" :column-num="2">
                   <van-grid-item v-for="value in getpropertyinfo2" :key="value.id">
-                    <compontProperty :property_name="value.property_name" :mortgage_amount="value.mortgage_amount"
+                    <compontPropertycopyVue :property_name="value.property_name" :mortgage_amount="value.mortgage_amount"
                       :redemption_amount="value.redemption_amount" :bg_color="value.color" :rent="value.rent"
                       :houselevel="value.house_level" :build_house_price="value.build_house_price"
                       :build_hotel_price="value.build_hotel_price" @propertyFunction="propertyFunction"
                       :ifpledge="value.state == -2 ? true : false" v-if="isGetData">
-                    </compontProperty>
+                    </compontPropertycopyVue>
                   </van-grid-item>
                 </van-grid>
               </div>
@@ -61,8 +66,8 @@
             </van-tab>
           </van-tabs>
         </div>
-        <div v-bind:style="{ height: '40px', width: '100%', backgroundColor: '#FFFFFF' }">
-          <!-- <span>''</span> -->
+        <div v-bind:style="{ height: '40px', width: '95%', backgroundColor: '#FFFFFF' }">
+          <span></span>
         </div>
       </div>
 
@@ -87,6 +92,7 @@ import { Toast } from "vant";
 // import eruda from 'eruda'
 import compontPlayerPanel from "@/components/compontPlayerPanel.vue";
 // import compontScroll from '../components/compontScroll.vue'
+import compontPropertycopyVue from '@/components/compontPropertycopy.vue';
 export default {
   data() {
     return {
@@ -114,6 +120,15 @@ export default {
       showc: false,
       choosehouse: '',
       title: '',
+      srci: [
+        { p: 1, lujin: require('@/assets/Elf.png')},
+        { p: 2, lujin: require('@/assets/图层 12.png')},
+        { p: 3, lujin: require('@/assets/Richsecondgeneration.png' )},
+        { p: 4, lujin: require('@/assets/businessman.png')},
+        { p: 5, lujin: require('@/assets/dancinggirl.png')},
+        { p: 6, lujin: require('@/assets/grandpa.png')},
+        // { p: 1, lujin: '../assets/Elf.png' },
+      ]
     }
   },
   mounted: async function () {
@@ -127,7 +142,8 @@ export default {
   components: {
     compontProperty,
     compontDialogp,
-    compontPlayerPanel
+    compontPlayerPanel,
+    compontPropertycopyVue
     // compontScroll
   },
   methods: {
@@ -180,7 +196,7 @@ export default {
       //indnex =0 买房子
       if (index == 0) {
         this.com = 1;
-        // console.log('csss??');
+        console.log('csss??');
         this.title = "是否购买房子";
         this.showc = true;
         this.choosehouse = pname;
@@ -280,6 +296,14 @@ export default {
     getpropertyinfo2: function () {
       // getHouseLevel();
       return this.$store.state.propertyinfo_of_player
+    },
+    geticon() {
+      var temp = this.srci.find(val => {
+        console.log(val);
+        return val.p == this.$store.state.playerid
+      });
+      console.log(temp);
+      return temp.lujin;
     }
   },
 }
@@ -356,6 +380,8 @@ body {
   align-items: center;
   justify-content: flex-start;
   height: 800px;
+  float: left;
+  border-radius: 5px;
   /* overflow: auto; */
 }
 
@@ -376,11 +402,13 @@ body {
   float: left;
   background-color: #ffffff;
   width: 95%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   align-items: flex-star;
   justify-content: space-evenly;
   border-radius: 10px;
+
 }
 
 .container-property {
@@ -391,8 +419,13 @@ body {
   width: 100%;
   margin: 20px 0;
   height: auto;
+  border-radius: 5px;
   position: absolute;
-  top: 180px;
+  top: 165px;
+}
+
+.p1 {
+  /* float: left; */
 }
 
 .scroll {
@@ -401,5 +434,4 @@ body {
   /* bottom: 20px; */
   height: 50%;
 }
-
 </style>

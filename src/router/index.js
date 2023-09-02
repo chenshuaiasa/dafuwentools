@@ -21,8 +21,8 @@ Vue.use(VueRouter)
 
 const routes = [
     //主路由
-    // { path: '/', name: 'login', component: Login },
     { path: '/', name: 'login', component: Login },
+    // { path: '/', name: 'login', component: temp },
     { path: '/bank', component: Bank },
     { path: '/ground', component: Ground },
     { path: '/player', component: Player },

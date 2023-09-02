@@ -1,14 +1,21 @@
 <template>
     <div>
-        <compontPlayerPanel></compontPlayerPanel>
+        <compontPlayerchoose>
+            
+        </compontPlayerchoose>
     </div>
 </template>
 
 <script>
-import compontPlayerPanel from '@/components/compontPlayerPanel.vue';
-export default {
+import compontPlayerchoose from '@/components/compontPlayerchoose.vue';
+export default{
+    data(){
+        return{
+
+        }
+    },
     components:{
-        compontPlayerPanel,
+        compontPlayerchoose
     }
 }
 </script>

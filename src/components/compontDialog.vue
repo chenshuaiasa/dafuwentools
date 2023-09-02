@@ -14,10 +14,10 @@ export default {
         return {
             temp: '',
             password: '',
-            shows:this.show
+            shows:this.showcc
         }
     },
-    props: ["show", "p", "check"],
+    props: ["showcc", "p", "check"],
     methods: {
         beforeClose(action, done) {
             if (action === 'confirm') {

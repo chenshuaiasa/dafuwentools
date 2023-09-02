@@ -9,7 +9,7 @@
                     :rules="[{ required: true, message: '请填写密码' }]" />
             </van-form>
         </van-dialog> -->
-        <CompontDialog :show="show" :p="bankinfo[0].password" :check="0" @checkResult="checkResult" v-if="show">
+        <CompontDialog :showcc="show" :p="bankinfo.password" :check="0" @checkResult="checkResult" v-if="show">
         </CompontDialog>
         <div v-if="showbank">
             <van-cell-group inset title="资金相关">
@@ -58,7 +58,7 @@ export default {
             show: false,
             showbank: true,
             value: '',
-            bankinfo: [{
+            bankinfo: {
                 balance: '',
                 flag: '',
                 id: '',
@@ -67,7 +67,7 @@ export default {
                 playername: '',
                 property: '',
                 state: '',
-            }],
+            },
             password: '',
             functionItem: [
                 { id: 1, name: "发放资金", path: 'bangm', icon: 'gold-coin' },
@@ -105,15 +105,17 @@ export default {
         });
 
         if (this.bankinfo.login_time != null) {
-            var d1 = new Date();
+            var d1 = new Date().getTime();
             // console.log(d1);
-            var d2 = new Date(this.bankinfo.login_time);
+            var d2 = Date.parse(new Date(this.bankinfo.login_time));
             // console.log(d2);
-            // console.log(d1-d2);
+            console.log(d1-d2);
+            735393342
             if (d1 - d2 < 86400000) {
                 this.show = false
             } else {
                 this.show = true
+                console.log('cs');
             }
         } else {
             this.show = true
