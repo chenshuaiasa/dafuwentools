@@ -12,7 +12,7 @@
                 </van-form>
             </van-cell>
         </van-cell-group>
-        <CompontDialog :show="show" :p="bankinfo.password" :check="0" @checkResult="checkResult" v-if="show">
+        <CompontDialog :showcc="show" :p="bankinfo.password" :check="0" @checkResult="checkResult" v-if="show">
         </CompontDialog>
 
     </div>

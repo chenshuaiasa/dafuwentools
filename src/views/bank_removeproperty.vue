@@ -19,7 +19,7 @@
                 </van-popup>
             </van-form>
         </van-cell-group>
-        <compontDialog :show="show" :p="getbankinfo" :check="1" @checkResult="checkResult" v-if="show">
+        <compontDialog :showcc="show" :p="getbankinfo" :check="1" @checkResult="checkResult" v-if="show">
         </compontDialog>
         <!-- <van-button @click="removeLocal()">清除本地缓存</van-button> -->
     </div>
